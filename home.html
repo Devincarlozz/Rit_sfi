@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SFI | College Unit RIT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --sfi-red: #d32f2f;
+            --glass-white: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Background Styling */
+        .site-wrapper {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('75026.jpg'); /* Ensure this filename matches exactly */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 2%;
+            border-bottom: 5px solid var(--sfi-red);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            color: #000;
+        }
+
+        .logo-area img { height: 45px; margin-right: 10px; }
+        .logo-text { font-weight: 900; line-height: 1; }
+        .logo-text span { font-size: 0.7rem; display: block; color: var(--sfi-red); font-weight: 500; font-family: 'Noto Sans Malayalam', sans-serif; }
+
+        .nav-links { display: flex; list-style: none; gap: 20px; align-items: center; }
+        .nav-links a { text-decoration: none; color: #000; font-weight: 700; font-size: 0.85rem; transition: 0.3s; }
+        .nav-links a:hover { color: var(--sfi-red); }
+
+        .keam-btn {
+            background: var(--sfi-red);
+            color: #fff !important;
+            padding: 8px 15px;
+            border-radius: 4px;
+        }
+
+        /* Bento Grid */
+        .container {
+            flex: 1;
+            padding: 40px 2%;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: auto auto;
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--glass-white);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover { transform: translateY(-5px); border-color: #fff; }
+
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+        .card i { font-size: 2rem; color: #fff; }
+        .card h2 { font-size: 1.5rem; text-transform: uppercase; margin-bottom: 10px; }
+
+        /* Custom Tile Sizes */
+        .tile-updates { grid-column: span 2; }
+        .tile-support { grid-column: span 1; }
+
+        /* Lists and Text */
+        ul { list-style: none; }
+        li { margin-bottom: 10px; font-size: 1rem; position: relative; padding-left: 20px; }
+        li::before { content: '•'; position: absolute; left: 0; color: #fff; }
+
+        .btn-card {
+            display: inline-block;
+            background: var(--sfi-red);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 700;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        .btn-card:hover { background: #b71c1c; }
+
+        /* Form Styling */
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        .signup-btn {
+            width: 100%;
+            background: var(--sfi-red);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            background: red;
+            text-align: center;
+            padding: 15px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; }
+            .tile-updates { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="site-wrapper">
+    <nav class="navbar">
+        <div class="logo-area">
+            <div class="logo-text">
+                SFI ★ RIT
+                <span>സ്വാതന്ത്ര്യം ജനാധിപത്യം സോഷ്യലിസം</span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">ABOUT</a></li>
+            <li><a href="#">PAGES</a></li>
+            <li><a href="#" class="keam-btn">KEAM HELPDESK</a></li>
+            <li><a href="#">CONTACT US</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <div class="card tile-updates">
+            <div class="card-header">
+                <h2>Latest Updates</h2>
+                <i class="fas fa-search"></i>
+            </div>
+            <ul>
+                <li>Upcoming Campus Protest [Date]</li>
+                <li>Unit Meeting Details [Date]</li>
+            </ul>
+        </div>
+
+        <div class="card tile-support">
+            <div class="card-header">
+                <h2>KEAM Support</h2>
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <p>Technical Wing Helpdesk for Aspirants</p>
+            <a href="#" class="btn-card">GET SUPPORT</a>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Resources</h2>
+                <i class="fas fa-file-alt"></i>
+            </div>
+            <a href="#" style="color:#fff; display:block; margin-bottom:10px;">Digital Library (QP, NOTES)</a>
+            <a href="#" style="color:#fff;">Previous Resolutions</a>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>About the Unit</h2>
+                <i class="fas fa-university"></i>
+            </div>
+            <p style="font-size: 0.8rem;">Short description about the Students' Federation of India college unit.</p>
+        </div>
+
+        <div class="card">
+            <h2>Contact Us</h2>
+            <p style="font-size: 0.9rem; margin-bottom: 10px;">Get in touch with the SFI Unit</p>
+            <p><strong>Email:</strong> sfi.unit@college.edu</p>
+            <p><strong>Phone:</strong> +91 12345 67890</p>
+            <p><strong>Address:</strong> College Campus, City, State</p>
+        </div>
+    </main>
+
+    <footer>
+        © 2026 SFI UNIT | DESIGNED FOR THE STUDENT COMMUNITY
+    </footer>
+</div>
+
+</body>
+</html>
