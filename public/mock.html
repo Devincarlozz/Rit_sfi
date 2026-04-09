@@ -280,26 +280,41 @@
             <!-- Mobile Overlay for Sidebar -->
             <div id="mobile-overlay" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md z-[60] lg:hidden"></div>
 
+            <aside id="test-sidebar"
+                class="hidden lg:flex fixed lg:relative right-0 top-0 h-full lg:h-auto w-72 md:w-80 glass-panel border-y-0 border-r-0 lg:border-l flex-col shrink-0 z-[70] transition-transform duration-300 translate-x-full lg:translate-x-0">
+                <div class="p-3 md:p-4 flex gap-2 border-b border-white/5">
+                    <button class="tab-btn active uppercase text-[9px] md:text-[10px] flex-1 py-2 font-sans"
+                        data-subject="Physics">PHY</button>
+                    <button class="tab-btn uppercase text-[9px] md:text-[10px] flex-1 py-2 font-sans"
+                        data-subject="Chemistry">CHE</button>
+                    <button class="tab-btn uppercase text-[9px] md:text-[10px] flex-1 py-2 font-sans"
+                        data-subject="Mathematics">MAT</button>
+                </div>
+
+                <div id="palette-grid"
+                    class="flex-1 p-3 md:p-4 grid grid-cols-5 gap-2 overflow-y-auto custom-scrollbar content-start">
+                    <!-- Palette rendered by JS -->
+                </div>
             </aside>
             
             <!-- Floating Stats (Bottom Right) -->
             <div class="fixed bottom-24 right-4 md:right-8 z-[50] flex flex-col gap-2 pointer-events-none lg:pointer-events-auto">
                 <div class="glass-panel p-3 md:p-4 rounded-xl border-white/10 bg-black/40 backdrop-blur-md shadow-2xl flex flex-col gap-2 font-sans pointer-events-auto">
                     <div class="flex items-center justify-between gap-4 min-w-[120px]">
-                        <div class="flex items-center gap-2 text-[8px] md:text-[9px] font-black tracking-widest text-[#22C55E]">
-                            <span class="w-2 h-2 rounded-full bg-[#22C55E]"></span> ANSWERED
+                        <div class="flex items-center gap-2 text-[8px] md:text-[9px] font-black tracking-widest text-[#10B981]">
+                            <span class="w-2 h-2 rounded-full bg-[#10B981]"></span> ANSWERED
                         </div>
                         <span id="count-answered" class="text-[10px] md:text-sm font-black text-white">0</span>
                     </div>
                     <div class="flex items-center justify-between gap-4">
-                        <div class="flex items-center gap-2 text-[8px] md:text-[9px] font-black tracking-widest text-[#EF4444]">
-                            <span class="w-1.5 h-1.5 rounded-full bg-[#EF4444]"></span> NOT ANSWERED
+                        <div class="flex items-center gap-2 text-[8px] md:text-[9px] font-black tracking-widest text-[#F43F5E]">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#F43F5E]"></span> NOT ANSWERED
                         </div>
                         <span id="count-viewed" class="text-[10px] md:text-sm font-black text-white">0</span>
                     </div>
                     <div class="flex items-center justify-between gap-4">
-                        <div class="flex items-center gap-2 text-[8px] md:text-[9px] font-black tracking-widest text-[#2563EB]">
-                            <span class="w-1.5 h-1.5 rounded-full bg-[#2563EB]"></span> MARKED
+                        <div class="flex items-center gap-2 text-[8px] md:text-[9px] font-black tracking-widest text-[#3B82F6]">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#3B82F6]"></span> MARKED
                         </div>
                         <span id="count-marked" class="text-[10px] md:text-sm font-black text-white">0</span>
                     </div>

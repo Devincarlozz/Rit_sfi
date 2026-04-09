@@ -5,9 +5,9 @@
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-blur: blur(30px);
   
-  --answered: #22C55E;
-  --viewed: #EF4444;
-  --marked: #2563EB;
+  --answered: #10B981;
+  --viewed: #F43F5E;
+  --marked: #3B82F6;
   --unvisited: rgba(255, 255, 255, 0.05);
 }
 
