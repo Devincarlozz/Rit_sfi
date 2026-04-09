@@ -121,27 +121,28 @@ function init() {
         };
     });
 
-    // Mobile Palette Toggle
     const mobileToggle = document.getElementById('mobile-palette-toggle');
     const sidebar = document.getElementById('test-sidebar');
     const overlay = document.getElementById('mobile-overlay');
 
     if (mobileToggle && sidebar && overlay) {
-        mobileToggle.onclick = () => {
-            sidebar.classList.toggle('hidden');
-            setTimeout(() => sidebar.classList.toggle('translate-x-full'), 10);
-            overlay.classList.toggle('hidden');
+        const openPalette = () => {
+            sidebar.classList.remove('hidden', 'translate-x-full');
+            overlay.classList.remove('hidden');
         };
 
-        overlay.onclick = () => {
+        const closePalette = () => {
             sidebar.classList.add('translate-x-full');
-            setTimeout(() => {
-                sidebar.classList.add('hidden');
-                overlay.classList.add('hidden');
-            }, 300);
+            overlay.classList.add('hidden');
+            setTimeout(() => sidebar.classList.add('hidden'), 300);
         };
-    } catch (e) {
-        console.warn("Mobile Toggle Error:", e);
+
+        mobileToggle.onclick = () => {
+            const isClosed = sidebar.classList.contains('translate-x-full') || sidebar.classList.contains('hidden');
+            if (isClosed) openPalette(); else closePalette();
+        };
+
+        overlay.onclick = closePalette;
     }
 
     try {
