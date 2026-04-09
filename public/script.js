@@ -217,6 +217,28 @@ function render() {
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.subject.toLowerCase() === state.activeSubject.toLowerCase()));
     if (state.responses[state.currentIdx].status === 'unvisited') state.responses[state.currentIdx].status = 'viewed';
     
+    // Render Math
+    try {
+        if (typeof renderMathInElement === 'function') {
+            renderMathInElement(document.getElementById('question-text'), {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ],
+                throwOnError: false
+            });
+            renderMathInElement(document.getElementById('options-container'), {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ],
+                throwOnError: false
+            });
+        }
+    } catch (e) {
+        console.warn("KaTeX rendering error:", e);
+    }
+
     updateSummary();
 }
 
