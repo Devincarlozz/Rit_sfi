@@ -305,46 +305,45 @@
     <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl">
         <div class="glass-panel rounded-2xl px-6 py-4">
             <div class="flex items-center justify-between">
-                <div class="flex items-center gap-4">
-                    <button id="menu-toggle" class="lg:hidden p-2 text-white/70 hover:text-white transition-colors">
+                <a href="index.html" class="flex items-center gap-4 group">
+                    <div class="relative flex flex-col items-center">
+                        <div
+                            class="absolute -top-1.5 left-[34px] text-sfi-red filter drop-shadow-[0_0_12px_rgba(255,49,49,1)]">
+                            <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                        </div>
+                        <span
+                            class="text-4xl font-display font-black text-sfi-red tracking-tighter leading-none filter drop-shadow-[0_0_25px_rgba(255,49,49,0.9)] brightness-125">SFI</span>
+                    </div>
+                    <div class="hidden sm:flex flex-col border-l border-white/50 pl-4 py-1">
+                        <span
+                            class="text-[10px] font-bold tracking-widest leading-none uppercase text-white filter drop-shadow-[0_0_10px_rgba(255,255,255,0.6)] brightness-150">Student's
+                            Federation of India</span>
+                        <span class="text-[8px] font-black text-white leading-tight mt-1 uppercase brightness-110">RAJIV
+                            GANDHI INSTITUTE OF TECHNOLOGY<br><span
+                                class="text-sfi-red brightness-150 drop-shadow-[0_0_5px_rgba(255,49,49,0.5)]">KOTTAYAM</span></span>
+                    </div>
+                </a>
+                <div class="flex items-center gap-6">
+                    <div class="hidden lg:flex items-center gap-8">
+                        <a href="#"
+                            class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">HOME</a>
+                        <a href="#notifications"
+                            class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">KEAM NOTIFICATIONS</a>
+                        <a href="pages.html"
+                            class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">OUR PAGES</a>
+                    <a href="helpdesk.html"
+                        class="bg-sfi-red text-white px-6 py-2.5 rounded-lg text-[10px] font-black tracking-widest flex items-center gap-2 hover:scale-105 transition-all"><i 
+                            data-lucide="phone" class="w-4 h-4"></i> HELPDESK</a>
+                    </div>
+                    <button id="menu-toggle" class="lg:hidden p-2 text-white/70 hover:text-white transition-colors relative z-50">
                         <i data-lucide="menu" class="w-6 h-6"></i>
                     </button>
-                    <a href="index.html" class="flex items-center gap-4 group">
-                        <div class="relative flex flex-col items-center">
-                            <div
-                                class="absolute -top-1.5 left-[34px] text-sfi-red filter drop-shadow-[0_0_12px_rgba(255,49,49,1)]">
-                                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
-                            </div>
-                            <span
-                                class="text-4xl font-display font-black text-sfi-red tracking-tighter leading-none filter drop-shadow-[0_0_25px_rgba(255,49,49,0.9)] brightness-125">SFI</span>
-                        </div>
-                        <div class="hidden sm:flex flex-col border-l border-white/50 pl-4 py-1">
-                            <span
-                                class="text-[10px] font-bold tracking-widest leading-none uppercase text-white filter drop-shadow-[0_0_10px_rgba(255,255,255,0.6)] brightness-150">Student's
-                                Federation of India</span>
-                            <span class="text-[8px] font-black text-white leading-tight mt-1 uppercase brightness-110">RAJIV
-                                GANDHI INSTITUTE OF TECHNOLOGY<br><span
-                                    class="text-sfi-red brightness-150 drop-shadow-[0_0_5px_rgba(255,49,49,0.5)]">KOTTAYAM</span></span>
-                        </div>
-                    </a>
                 </div>
-                <div class="hidden lg:flex items-center gap-8">
-                    <a href="#"
-                        class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">HOME</a>
-                    <a href="#notifications"
-                        class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">KEAM NOTIFICATIONS</a>
-                    <a href="pages.html"
-                        class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">OUR PAGES</a>
-                <a href="helpdesk.html"
-                    class="bg-sfi-red text-white px-6 py-2.5 rounded-lg text-[10px] font-black tracking-widest flex items-center gap-2 hover:scale-105 transition-all"><i 
-                        data-lucide="phone" class="w-4 h-4"></i> HELPDESK</a>
-                </div>
-                <!-- Desktop button only - already handled in hidden lg:flex -->
             </div>
         </div>
     </nav>
 
-    <section class="relative min-h-screen flex items-center px-6 pt-20">
+    <section class="relative min-h-[90vh] flex items-center px-6 pt-24">
         <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 items-center gap-8">
             <div class="reveal active flex flex-col items-center text-center mx-auto lg:mx-0 space-y-4">
                 <div class="hero-image-wrapper">
@@ -387,7 +386,7 @@
         </div>
     </section>
 
-    <section id="notifications" class="py-32 bg-sfi-dark/50">
+    <section id="notifications" class="py-16 md:py-24 bg-sfi-dark/50">
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center">
             <div class="reveal">
                 <span class="text-sfi-red text-[10px] font-black tracking-[0.4em] uppercase mb-4 block">LATEST
@@ -440,7 +439,7 @@
         </div>
     </section>
 
-    <section id="news" class="py-32">
+    <section id="news" class="py-16 md:py-24">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-20 reveal">
                 <h2 class="text-4xl md:text-6xl font-display font-bold tracking-[0.2em]">OUR MISSIONS</h2>
@@ -471,7 +470,7 @@
         </div>
     </section>
 
-    <footer class="py-20 border-t border-white/10 bg-black">
+    <footer class="py-12 border-t border-white/10 bg-black">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-10">
             <div class="flex flex-col items-center md:items-start">
                 <span class="text-5xl font-display font-black text-sfi-red tracking-tighter">SFI</span>
