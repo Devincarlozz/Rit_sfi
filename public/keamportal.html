@@ -859,5 +859,145 @@
             }
         });
     </script>
+<!-- Material Viewer Modal -->
+<div id="material-viewer-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px);">
+    <div style="position: absolute; top: 20px; right: 30px; font-size: 3rem; color: white; cursor: pointer; transition: color 0.2s; line-height: 1;" onmouseover="this.style.color='var(--sfi-red)'" onmouseout="this.style.color='white'" onclick="closeViewer()">&times;</div>
+    <div style="display: flex; flex-direction: column; height: 100%; max-width: 1400px; margin: 0 auto; padding: 20px;">
+        <h2 id="viewer-title" class="oswald-font" style="color: var(--sfi-red); margin: 20px 0 10px 0; font-size: 2.5rem; letter-spacing: 1px;">MATERIALS</h2>
+        <p style="color: var(--text-gray); margin-bottom: 25px; font-size: 1.1rem;">Select a document to open in native web view.</p>
+        <div style="display: flex; flex-grow: 1; gap: 25px; overflow: hidden; padding-bottom: 20px;">
+            <div id="viewer-sidebar" style="width: 320px; background: #0a0a0a; border: 1px solid #333; border-radius: 8px; padding: 20px; overflow-y: auto; flex-shrink: 0;">
+                <div id="viewer-list" style="display: flex; flex-direction: column; gap: 12px;"></div>
+            </div>
+            <div style="flex-grow: 1; background: #111; border: 1px solid #333; border-radius: 8px; overflow: hidden; position: relative; box-shadow: 0 0 40px rgba(0,0,0,0.5);">
+                <div id="loading-spinner" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--sfi-red); font-family: 'Oswald', sans-serif; font-size: 1.8rem; letter-spacing: 2px; text-align: center;">
+                    <i class="fas fa-circle-notch fa-spin" style="font-size: 3.5rem; margin-bottom: 15px; display: block;"></i>
+                    LOADING SECURE VIEWER...
+                </div>
+                <iframe id="pdf-iframe" src="" style="width: 100%; height: 100%; border: none; position: relative; z-index: 10; background: transparent; filter: invert(0.9) hue-rotate(180deg) contrast(1.1) drop-shadow(0 0 10px rgba(255,0,0,0.1));" onload="if(this.src) document.getElementById('loading-spinner').style.display='none'"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const DB = {
+    'pyqs': {
+        'physics': [{ name: "Physics PYQs 2026", url: "1GrXQbPCMFErLoxRwVtGkUipjlqOTsQ-X" }],
+        'chemistry': [{ name: "Chemistry PYQs 2026", url: "1Ix3UuHLjNnLx9ZnIiWe4G9otVOY8Nmfs" }],
+        'maths': [{ name: "Maths PYQs 2026", url: "1HtL_Tl2NlyFuuIt8QoHDbHecgl-ugpMl" }]
+    },
+    'notes': {
+        'physics': [
+            { name: "Physics Mind Maps", url: "12lekbzQbwckk2GMkH8cCWQEvVafPPdd-" },
+            { name: "Work Energy Power", url: "1f_qOY3-poHrlD2qhQ8MyXRahF6Ep04Po" },
+            { name: "Units and Measurements", url: "1qVKCYHnFHjsuLs0uFGt2bOSMpUhXCSRt" },
+            { name: "Rotational Motion", url: "1ONMm7GJS6Bumu6tgFAOZRg7krfIvyCKc" },
+            { name: "Laws of Motion", url: "1Tu-BxZZRrlLYUevwbZsEaNGxJlLI-LRp" }
+        ],
+        'chemistry': [
+            { name: "Alcohols", url: "1Yem2pF1oWrt62MMzMmroDzD_rXOShh6o" },
+            { name: "Chemical Bonding", url: "1Cu5P3kH3ycZx9eJzHYIaBvZHMII1GGxu" },
+            { name: "Chemical Equilibrium", url: "1wiWhuzRpAv_7-QaSVU_XIkJNQTErYNg7" }
+        ],
+        'maths': [
+            { name: "Circles", url: "1xgYS7OwkLBZUXeZIDlGV8eKR4EIJ_8Xt" },
+            { name: "Conic Section", url: "1a_aV_oVWhTaNGYmOmYck7PIZbudpA4JQ" }
+        ]
+    }
+};
+
+function openViewer(category, subject) {
+    const data = DB[category][subject];
+    if (!data || data.length === 0) {
+        alert("Materials for this section are being updated. Check back shortly!");
+        return;
+    }
+    
+    document.getElementById('material-viewer-modal').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    
+    const listEl = document.getElementById('viewer-list');
+    listEl.innerHTML = '';
+    
+    document.getElementById('viewer-title').innerText = subject.toUpperCase() + ' ' + (category === 'pyqs' ? 'PREVIOUS YEAR Qs' : 'STUDY NOTES & FORMULAS');
+    
+    data.forEach((item, index) => {
+        const btn = document.createElement('div');
+        btn.innerText = item.name;
+        btn.style.padding = "16px 20px";
+        btn.style.background = index === 0 ? "rgba(230,0,0,0.15)" : "rgba(255,255,255,0.03)";
+        btn.style.border = index === 0 ? "1px solid var(--sfi-red)" : "1px solid #222";
+        btn.style.borderRadius = "6px";
+        btn.style.cursor = "pointer";
+        btn.style.color = index === 0 ? "white" : "var(--text-gray)";
+        btn.style.fontWeight = index === 0 ? "bold" : "normal";
+        btn.style.fontSize = "1.05rem";
+        btn.style.transition = "all 0.2s";
+        
+        btn.onclick = function() {
+            Array.from(listEl.children).forEach(c => {
+                c.style.background = "rgba(255,255,255,0.03)";
+                c.style.border = "1px solid #222";
+                c.style.color = "var(--text-gray)";
+                c.style.fontWeight = "normal";
+            });
+            btn.style.background = "rgba(230,0,0,0.15)";
+            btn.style.border = "1px solid var(--sfi-red)";
+            btn.style.color = "white";
+            btn.style.fontWeight = "bold";
+            
+            document.getElementById('loading-spinner').style.display = 'block';
+            document.getElementById('pdf-iframe').src = `https://drive.google.com/file/d/${item.url}/preview`;
+        };
+        
+        listEl.appendChild(btn);
+    });
+    
+    document.getElementById('loading-spinner').style.display = 'block';
+    document.getElementById('pdf-iframe').src = `https://drive.google.com/file/d/${data[0].url}/preview`;
+}
+
+function closeViewer() {
+    document.getElementById('material-viewer-modal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+    document.getElementById('pdf-iframe').src = '';
+}
+
+setTimeout(() => {
+    const tiles = document.querySelectorAll('.helpdesk-tile');
+    tiles.forEach(tile => {
+        const h3 = tile.querySelector('h3');
+        if(!h3) return;
+        const title = h3.textContent.toUpperCase();
+        let category = '';
+        if (title.includes('STUDY NOTES') || title.includes('FORMULA SHEETS')) category = 'notes';
+        if (title.includes('PYQS')) category = 'pyqs';
+
+        if (category) {
+            const cards = tile.querySelectorAll('div[style*="cursor: pointer"]');
+            cards.forEach(card => {
+                const text = card.textContent.toUpperCase().trim();
+                let subject = '';
+                if (text.includes('PHYSICS')) subject = 'physics';
+                if (text.includes('CHEMISTRY')) subject = 'chemistry';
+                if (text.includes('MATHEMATICS')) subject = 'maths';
+                
+                if (subject) {
+                    // Add hover effect fix if needed
+                    card.style.position = "relative";
+                    card.style.zIndex = "5";
+                    
+                    card.onclick = function() {
+                        openViewer(category, subject);
+                    };
+                }
+            });
+        }
+    });
+    
+    console.log("SFI Viewer: Click handlers successfully attached.");
+}, 500);
+</script>
 </body>
 </html>
