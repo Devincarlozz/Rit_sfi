@@ -14,7 +14,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800;900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800;900&family=Oswald:wght@500;700;900&display=swap"
         rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -154,10 +154,11 @@
         }
 
         .hero-image-text .hero-hero-title {
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: 'Oswald', sans-serif;
             font-size: clamp(3rem, 6vw, 5rem);
-            line-height: 0.9;
-            letter-spacing: 0.05em;
+            line-height: 1;
+            font-weight: 900;
+            letter-spacing: -0.04em;
             text-transform: uppercase;
             color: white;
             text-shadow:
@@ -306,9 +307,9 @@
         <div class="glass-panel rounded-2xl px-6 py-4">
             <div class="flex items-center justify-between">
                 <a href="index.html" class="flex items-center gap-4 group">
-                    <div class="relative flex flex-col pt-1.5">
+                    <div class="relative flex flex-col pt-2">
                         <div
-                            class="absolute -top-1.5 right-0.5 text-sfi-red filter drop-shadow-[0_0_12px_rgba(255,49,49,1)]">
+                            class="absolute -top-1 right-0 text-sfi-red filter drop-shadow-[0_0_12px_rgba(255,49,49,1)]">
                             <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
                         </div>
                         <span
@@ -348,7 +349,14 @@
             <div class="reveal active flex flex-col items-center text-center mx-auto lg:mx-0 space-y-4">
                 <div class="hero-image-wrapper">
                     <div class="hero-image-text">
-                        <span class="hero-hero-title"><span class="hero-sfi">SFI</span> RIT UNIT</span>
+                        <span class="hero-hero-title">
+                            <span class="relative inline-block pt-3">
+                                <div class="absolute top-0 right-0 text-sfi-red filter drop-shadow-[0_0_15px_rgba(255,49,49,1)]">
+                                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                </div>
+                                <span class="hero-sfi">SFI</span>
+                            </span> RIT UNIT
+                        </span>
                         <p class="hero-description">A student-led unit empowering RIT through education, campus action and organised community leadership.</p>
                     </div>
                 </div>
