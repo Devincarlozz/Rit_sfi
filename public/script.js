@@ -1,137 +1,185 @@
 /**
- * KEAM Mock Test - Final Production Link
- * Linked to Supabase: jtgxtwjbsuoeuqjhpzbu
+ * KEAM Mock Test - Final Production Logic
  */
 
 const CONFIG = {
     TOTAL_TIME: 150 * 60,
-    SUPABASE: {
-        URL: 'https://jtgxtwjbsuoeuqjhpzbu.supabase.co',
+    SUBJECTS: { Physics: { start: 1, end: 45 }, Chemistry: { start: 46, end: 75 }, Mathematics: { start: 76, end: 150 } },
+    SUPABASE: { 
+        URL: 'https://jtgxtwjbsuoeuqjhpzbu.supabase.co', 
         KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp0Z3h0d2pic3VvZXVxamhwemJ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU1ODM1NDEsImV4cCI6MjA5MTE1OTU0MX0.a-yHJeS-ljUugBOrwNz2cA5SglpYikj_Dyizx4ajpHs'
     }
 };
 
-const { createClient } = supabase;
-const _supabase = createClient(CONFIG.SUPABASE.URL, CONFIG.SUPABASE.KEY);
-
-let state = {
-    questions: [],
-    currentIdx: 0,
+let state = { 
+    questions: [], 
+    currentIdx: 0, 
     responses: {}, 
-    timeRemaining: CONFIG.TOTAL_TIME,
+    timeRemaining: CONFIG.TOTAL_TIME, 
     activeSubject: 'Physics',
-    timerInterval: null,
-    isReady: false
+    timerInterval: null 
 };
 
-// --- INITIALIZATION ---
-document.addEventListener('DOMContentLoaded', async () => {
+function init() {
     lucide.createIcons();
-    setupButtonListeners();
-    await fetchQuestionsFromSupabase();
-});
-
-async function fetchQuestionsFromSupabase() {
+    
+    // Declaration Logic
+    const check = document.getElementById('declaration-check');
     const startBtn = document.getElementById('start-btn');
-    try {
-        // This calls the 'get_keam_test' SQL function in your Supabase Editor
-        const { data, error } = await _supabase.rpc('get_keam_test');
-        
-        if (error) throw error;
+    let declared = false;
 
-        state.questions = data;
-        state.questions.forEach((_, i) => {
-            state.responses[i] = { status: 'unvisited', selectedOption: null };
-        });
-
-        state.isReady = true;
-        startBtn.innerText = "I AM READY TO BEGIN";
-        startBtn.style.opacity = "1";
-    } catch (err) {
-        console.error("Link Error:", err.message);
-        startBtn.innerText = "DATABASE LINK ERROR";
+    if (check && startBtn) {
+        check.onclick = () => {
+            declared = !declared;
+            const checkbox = check.querySelector('.custom-checkbox');
+            if (checkbox) checkbox.classList.toggle('checked', declared);
+            startBtn.disabled = !declared;
+            startBtn.style.opacity = declared ? '1' : '0.5';
+            startBtn.style.cursor = declared ? 'pointer' : 'not-allowed';
+        };
     }
-}
 
-function setupButtonListeners() {
-    document.getElementById('start-btn').onclick = () => {
-        if(!state.isReady) return;
-        document.getElementById('instruction-screen').style.display = 'none';
-        document.getElementById('test-screen').style.display = 'flex';
-        renderQuestion();
-        startTimer();
-    };
+    // Generate Fallback Data (Overwritten if fetch succeeds)
+    state.questions = [];
+    Object.entries(CONFIG.SUBJECTS).forEach(([sub, info]) => {
+        for (let i = info.start; i <= info.end; i++) {
+            state.questions.push({ 
+                id: i, 
+                subject: sub, 
+                text: `[${sub} Q${i}] Loading real question from database...`, 
+                options: ["Option A", "Option B", "Option C", "Option D", "Option E"] 
+            });
+        }
+    });
+    state.questions.forEach((_, i) => state.responses[i] = { status: 'unvisited', selectedOption: null });
+    
+    if (startBtn) {
+        startBtn.onclick = () => {
+            document.getElementById('instruction-screen').classList.remove('active');
+            document.getElementById('test-screen').classList.add('active');
+            render(); 
+            startTimer();
+        };
+    }
 
     document.getElementById('save-btn').onclick = () => {
-        state.responses[state.currentIdx].status = state.responses[state.currentIdx].selectedOption ? 'answered' : 'viewed';
-        navigate(1);
+        state.responses[state.currentIdx].status = (state.responses[state.currentIdx].selectedOption !== null) ? 'answered' : 'viewed';
+        if (state.currentIdx < state.questions.length - 1) { 
+            state.currentIdx++; 
+            state.activeSubject = state.questions[state.currentIdx].subject;
+            render(); 
+        }
     };
 
     document.getElementById('mark-btn').onclick = () => {
         state.responses[state.currentIdx].status = 'marked';
-        navigate(1);
+        if (state.currentIdx < state.questions.length - 1) { 
+            state.currentIdx++; 
+            state.activeSubject = state.questions[state.currentIdx].subject;
+            render(); 
+        }
     };
 
-    document.getElementById('clear-btn').onclick = () => {
-        state.responses[state.currentIdx].selectedOption = null;
-        renderQuestion();
+    document.getElementById('clear-btn').onclick = () => { 
+        state.responses[state.currentIdx].selectedOption = null; 
+        state.responses[state.currentIdx].status = 'viewed';
+        render(); 
     };
 
-    document.getElementById('prev-btn').onclick = () => navigate(-1);
+    document.getElementById('prev-btn').onclick = () => { 
+        if (state.currentIdx > 0) { 
+            state.currentIdx--; 
+            state.activeSubject = state.questions[state.currentIdx].subject;
+            render(); 
+        } 
+    };
+
+    document.getElementById('submit-btn').onclick = () => { 
+        if(confirm("Are you sure you want to submit the examination? This action cannot be undone.")) {
+            clearInterval(state.timerInterval);
+            alert("Examination Submitted Successfully!");
+            location.reload(); 
+        }
+    };
     
     document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.onclick = () => {
-            state.activeSubject = btn.dataset.subject;
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            state.currentIdx = state.questions.findIndex(q => q.subject.toLowerCase() === state.activeSubject.toLowerCase());
-            renderQuestion();
+        btn.onclick = () => { 
+            state.activeSubject = btn.dataset.subject; 
+            const firstInSub = state.questions.findIndex(q => q.subject.toLowerCase() === state.activeSubject.toLowerCase());
+            if (firstInSub !== -1) state.currentIdx = firstInSub;
+            render(); 
         };
     });
+
+    // Mobile Palette Toggle
+    const mobileToggle = document.getElementById('mobile-palette-toggle');
+    const sidebar = document.getElementById('test-sidebar');
+    const overlay = document.getElementById('mobile-overlay');
+
+    if (mobileToggle && sidebar && overlay) {
+        mobileToggle.onclick = () => {
+            sidebar.classList.toggle('hidden');
+            setTimeout(() => sidebar.classList.toggle('translate-x-full'), 10);
+            overlay.classList.toggle('hidden');
+        };
+
+        overlay.onclick = () => {
+            sidebar.classList.add('translate-x-full');
+            setTimeout(() => {
+                sidebar.classList.add('hidden');
+                overlay.classList.add('hidden');
+            }, 300);
+        };
+    }
+
+    if (CONFIG.SUPABASE.URL && CONFIG.SUPABASE.KEY) fetchSupabase();
 }
 
-function renderQuestion() {
+async function fetchSupabase() {
+    try {
+        const res = await fetch(`${CONFIG.SUPABASE.URL}/rest/v1/KEAM%20Mock%20Test?select=*&order=id.asc`, { 
+            headers: { 
+                'apikey': CONFIG.SUPABASE.KEY, 
+                'Authorization': `Bearer ${CONFIG.SUPABASE.KEY}` 
+            } 
+        });
+        if (!res.ok) throw new Error("Fetch failed");
+        const rawData = await res.json();
+        if (rawData.length > 0) {
+            state.questions = rawData.map(q => ({
+                id: q.id,
+                subject: q.subject,
+                text: q.question_text,
+                options: [q.option_a, q.option_b, q.option_c, q.option_d, q.option_e],
+                correct: q.correct_answer
+            }));
+            render();
+        }
+    } catch (e) { console.error("Supabase Error:", e); }
+}
+
+function render() {
     const q = state.questions[state.currentIdx];
-    const resp = state.responses[state.currentIdx];
+    if (!q) return;
 
     document.getElementById('current-q-num').innerText = (state.currentIdx + 1).toString().padStart(2, '0');
     document.getElementById('current-subject').innerText = q.subject.toUpperCase();
-    document.getElementById('question-text').innerText = q.question_text; // Matches your CSV
-
-    const container = document.getElementById('options-container');
-    container.innerHTML = '';
-
-    // Mapping exactly to your CSV columns
-    const keys = ['option_a', 'option_b', 'option_c', 'option_d', 'option_e'];
-    keys.forEach((key, i) => {
+    document.getElementById('question-text').innerText = q.text;
+    
+    const optCont = document.getElementById('options-container');
+    optCont.innerHTML = '';
+    q.options.forEach((opt, i) => {
+        if (!opt) return;
         const div = document.createElement('div');
-        div.className = `option-item ${resp.selectedOption === key ? 'selected' : ''}`;
-        div.innerHTML = `
-            <div class="option-circle">${String.fromCharCode(65 + i)}</div>
-            <div class="option-text">${q[key]}</div>
-        `;
-        div.onclick = () => {
-            state.responses[state.currentIdx].selectedOption = key;
-            renderQuestion();
+        div.className = `option-item ${state.responses[state.currentIdx].selectedOption === i ? 'selected' : ''}`;
+        div.innerHTML = `<div class="option-circle">${String.fromCharCode(65+i)}</div><div>${opt}</div>`;
+        div.onclick = () => { 
+            state.responses[state.currentIdx].selectedOption = i; 
+            render(); 
         };
-        container.appendChild(div);
+        optCont.appendChild(div);
     });
 
-    if (resp.status === 'unvisited') resp.status = 'viewed';
-    renderPalette();
-    updateSummary();
-}
-
-function navigate(step) {
-    const next = state.currentIdx + step;
-    if (next >= 0 && next < state.questions.length) {
-        state.currentIdx = next;
-        state.activeSubject = state.questions[next].subject;
-        renderQuestion();
-    }
-}
-
-function renderPalette() {
     const grid = document.getElementById('palette-grid');
     grid.innerHTML = '';
     state.questions.forEach((q, i) => {
@@ -140,10 +188,19 @@ function renderPalette() {
             btn.className = `palette-btn ${state.responses[i].status}`;
             if (i === state.currentIdx) btn.classList.add('current');
             btn.innerText = i + 1;
-            btn.onclick = () => { state.currentIdx = i; renderQuestion(); };
+            btn.onclick = () => { 
+                state.currentIdx = i; 
+                state.activeSubject = state.questions[i].subject;
+                render(); 
+            };
             grid.appendChild(btn);
         }
     });
+
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.subject.toLowerCase() === state.activeSubject.toLowerCase()));
+    if (state.responses[state.currentIdx].status === 'unvisited') state.responses[state.currentIdx].status = 'viewed';
+    
+    updateSummary();
 }
 
 function updateSummary() {
@@ -156,10 +213,42 @@ function updateSummary() {
 }
 
 function startTimer() {
+    if (state.timerInterval) clearInterval(state.timerInterval);
+    
     const display = document.getElementById('timer-display');
+    const progressBar = document.getElementById('timer-progress');
+    
+    const updateUI = () => {
+        if (state.timeRemaining <= 0) {
+            clearInterval(state.timerInterval);
+            alert("Time is up! Your test is being submitted.");
+            location.reload();
+            return;
+        }
+
+        const m = Math.floor(state.timeRemaining / 60);
+        const s = state.timeRemaining % 60;
+        if (display) display.innerText = `${m}:${s.toString().padStart(2, '0')}`;
+        
+        if (progressBar) {
+            const percent = (state.timeRemaining / CONFIG.TOTAL_TIME) * 100;
+            progressBar.style.width = `${percent}%`;
+            
+            if (state.timeRemaining < 300) { // Last 5 minutes
+                if (display && display.parentElement) display.parentElement.style.color = '#EF4444';
+                progressBar.style.background = '#EF4444';
+            }
+        }
+    };
+
+    // Initial update
+    updateUI();
+
     state.timerInterval = setInterval(() => {
         state.timeRemaining--;
-        const m = Math.floor(state.timeRemaining / 60), s = state.timeRemaining % 60;
-        display.innerText = `${m}:${s.toString().padStart(2, '0')}`;
+        updateUI();
     }, 1000);
 }
+
+// Initialize on load
+document.addEventListener('DOMContentLoaded', init);
