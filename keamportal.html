@@ -253,6 +253,52 @@
             filter: drop-shadow(0 20px 40px rgba(230, 0, 0, 0.3));
         }
 
+        .gear-hologram {
+            width: 68%;
+            height: 68%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: hologram-float 3.6s ease-in-out infinite;
+        }
+
+        .gear-icon {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: gear-spin 6s linear infinite;
+        }
+
+        .gear-icon svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 20px 40px rgba(230, 0, 0, 0.3));
+        }
+
+        .gear-hologram {
+            animation: gear-spin 6s linear infinite, hologram-float 3.6s ease-in-out infinite;
+        }
+
+        @keyframes gear-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes center-pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.85; }
+        }
+
+        @keyframes hologram-float {
+            0%, 100% { transform: translateY(0) rotateX(0deg) rotateY(0deg); }
+            25% { transform: translateY(-8px) rotateX(3deg) rotateY(-2deg); }
+            50% { transform: translateY(-16px) rotateX(0deg) rotateY(0deg); }
+            75% { transform: translateY(-8px) rotateX(-3deg) rotateY(2deg); }
+        }
+
         @media (max-width: 1024px) {
             .hero-section {
                 grid-template-columns: 1fr;
@@ -365,6 +411,9 @@
             <div class="oswald-font" style="color: white; font-size: 1.2rem; letter-spacing: 2px;">
                 KEAM <span style="color: var(--sfi-red);">HELPDESK</span>
             </div>
+            <a href="index.html" style="padding: 12px 24px; background: transparent; color: white; border: 1px solid #555; border-radius: 5px; cursor: pointer; font-weight: 600; text-decoration: none; transition: all 0.3s ease; font-family: 'Oswald', sans-serif; letter-spacing: 1px;">
+                HOME
+            </a>
             <a href="helpdesk.html" style="padding: 12px 30px; background: #e60000; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; text-decoration: none; transition: all 0.3s ease; font-family: 'Oswald', sans-serif; letter-spacing: 1px;" onmouseover="this.style.background='#cc0000'" onmouseout="this.style.background='#e60000'">
                 CONTACT US
             </a>
@@ -382,27 +431,24 @@
         </div>
         <div class="hero-3d-container">
             <div class="hero-3d-image" id="hero3dImage">
-                <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Background circle -->
-                    <circle cx="200" cy="200" r="180" fill="rgba(230, 0, 0, 0.1)" stroke="var(--sfi-red)" stroke-width="2"/>
-                    <!-- Top pyramid -->
-                    <polygon points="200,80 280,150 120,150" fill="var(--sfi-red)" opacity="0.8"/>
-                    <polygon points="200,80 280,150 240,180" fill="rgba(230, 0, 0, 0.6)" opacity="0.9"/>
-                    <!-- Middle cube -->
-                    <rect x="140" y="180" width="120" height="120" fill="rgba(230, 0, 0, 0.15)" stroke="var(--sfi-red)" stroke-width="2"/>
-                    <polygon points="140,180 160,160 280,160 260,180" fill="var(--sfi-red)" opacity="0.7"/>
-                    <polygon points="260,180 280,160 280,280 260,300" fill="rgba(230, 0, 0, 0.5)" opacity="0.8"/>
-                    <!-- Bottom circle elements -->
-                    <circle cx="140" cy="310" r="25" fill="none" stroke="var(--sfi-red)" stroke-width="2"/>
-                    <circle cx="200" cy="320" r="30" fill="none" stroke="var(--sfi-red)" stroke-width="2"/>
-                    <circle cx="260" cy="310" r="25" fill="none" stroke="var(--sfi-red)" stroke-width="2"/>
-                    <!-- Center dot -->
-                    <circle cx="200" cy="200" r="8" fill="var(--sfi-red)"/>
-                    <!-- Connecting lines -->
-                    <line x1="200" y1="80" x2="200" y2="200" stroke="var(--sfi-red)" stroke-width="1" opacity="0.5"/>
-                    <line x1="140" y1="180" x2="200" y2="200" stroke="var(--sfi-red)" stroke-width="1" opacity="0.5"/>
-                    <line x1="260" y1="180" x2="200" y2="200" stroke="var(--sfi-red)" stroke-width="1" opacity="0.5"/>
-                </svg>
+                <div class="gear-hologram">
+                    <div class="gear-icon">
+                        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <defs>
+                                <linearGradient id="gearGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ff6b6b" />
+                                    <stop offset="100%" stop-color="#cc0000" />
+                                </linearGradient>
+                            </defs>
+                            <g fill="none" stroke="url(#gearGradient)" stroke-width="8" stroke-linejoin="round">
+                                <path d="M60 18 L68 18 L72 30 L84 34 L84 42 L94 48 L94 60 L84 72 L84 80 L72 84 L68 96 L60 96 L52 96 L48 84 L36 80 L36 72 L26 60 L26 48 L36 42 L36 34 L48 30 L52 18 Z" fill="rgba(255,255,255,0.06)" />
+                                <circle cx="60" cy="60" r="24" fill="rgba(255,255,255,0.08)" />
+                                <circle cx="60" cy="60" r="10" fill="rgba(255,255,255,0.95)" />
+                                <circle cx="60" cy="60" r="18" stroke="rgba(255,255,255,0.35)" stroke-width="4" fill="none" />
+                            </g>
+                        </svg>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

@@ -1,37 +1,39 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SFI RIT Kottayam | Educate. Agitate. Organise.</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
-    
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Space+Grotesk:wght@700&display=swap"
+        rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800;900&display=swap"
+        rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    
+
     <script>
         tailwind.config = {
-    theme: {
-        extend: {
-            colors: {
-                'sfi-red': '#ff3131',
-                'sfi-dark': '#06080a',
-            },
-            fontFamily: {
-                // For the "SFI RIT KEAM" revolutionary look
-                display: ['Bebas Neue', 'sans-serif'],
-                // For the clean, bold buttons like "INSTAGRAM"
-                sans: ['Inter', 'sans-serif'],
-            },
+            theme: {
+                extend: {
+                    colors: {
+                        'sfi-red': '#ff3131',
+                        'sfi-dark': '#06080a',
+                    },
+                    fontFamily: {
+                        display: ['Bebas Neue', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
         }
-    }
-}
     </script>
 
     <style type="text/css">
@@ -42,62 +44,68 @@
         }
 
         @layer base {
-    /* Make the whole site's font bold and sharp by default */
-    body {
-        @apply font-sans antialiased;
-        letter-spacing: -0.01em;
-    }
+            body {
+                @apply font-sans antialiased;
+                letter-spacing: -0.01em;
+            }
 
-    /* Force all Headings to use the "Revolutionary" Condensed font */
-    h1, h2, h3, .nav-logo {
-        @apply font-display tracking-tight uppercase;
-        line-height: 0.9;
-    }
+            h1,
+            h2,
+            h3,
+            .nav-logo {
+                @apply font-display tracking-tight uppercase;
+                line-height: 0.9;
+            }
 
-    /* Make all buttons and links use the extra-bold modern font */
-    button, a, .glass-button {
-        @apply font-sans font-black uppercase tracking-widest;
-    }
-}
+            button,
+            a,
+            .glass-button {
+                @apply font-sans font-black uppercase tracking-widest;
+            }
+        }
 
-/* Add that "Amazing Brightness" glow to all red elements globally */
-.text-sfi-red {
-    @apply brightness-125;
-    text-shadow: 0 0 15px rgba(255, 49, 49, 0.3);
-}
-@layer components {
-    .bottom-hub-container {
-        @apply relative z-40 max-w-7xl mx-auto px-4 mb-12;
-    }
+        .text-sfi-red {
+            @apply brightness-125;
+            text-shadow: 0 0 15px rgba(255, 49, 49, 0.3);
+        }
 
-    .hub-glass {
-        @apply relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl shadow-2xl;
-        box-shadow: 0 -20px 50px -20px rgba(0, 0, 0, 0.5);
-    }
+        @layer components {
+            .bottom-hub-container {
+                @apply relative z-40 max-w-7xl mx-auto px-4 mb-12;
+            }
 
-    .hub-accent-line {
-        @apply absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-sfi-red to-transparent opacity-60;
-    }
+            .hub-glass {
+                @apply relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl shadow-2xl;
+                box-shadow: 0 -20px 50px -20px rgba(0, 0, 0, 0.5);
+            }
 
-    .stat-divider {
-        @apply hidden md:block w-px h-12 bg-gradient-to-b from-transparent via-white/10 to-transparent;
-    }
+            .hub-accent-line {
+                @apply absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-sfi-red to-transparent opacity-60;
+            }
 
-    .pulse-red {
-        @apply w-2 h-2 rounded-full bg-sfi-red inline-block mr-2;
-        animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    }
-}
+            .stat-divider {
+                @apply hidden md:block w-px h-12 bg-gradient-to-b from-transparent via-white/10 to-transparent;
+            }
 
-@keyframes pulse-ring {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(1.2); }
-}
+            .pulse-red {
+                @apply w-2 h-2 rounded-full bg-sfi-red inline-block mr-2;
+                animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            }
+        }
 
-@keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(1.2); }
-}
+        @keyframes pulse-ring {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.4;
+                transform: scale(1.2);
+            }
+        }
 
         .glass-panel {
             background: rgba(255, 255, 255, 0.03);
@@ -119,6 +127,92 @@
             border-color: #ff3131;
         }
 
+        .hero-image-wrapper {
+            width: min(100%, 24rem);
+            max-width: 24rem;
+            margin: 0 auto;
+            padding: 0;
+            border-radius: 0;
+            overflow: visible;
+            box-shadow: none;
+            background: transparent;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-image-text {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: white;
+            padding: 0.75rem;
+        }
+
+        .hero-image-text .hero-hero-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            line-height: 0.9;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: white;
+            text-shadow:
+                0 4px 18px rgba(0, 0, 0, 0.55),
+                0 0 30px rgba(255, 49, 49, 0.28);
+        }
+
+        .hero-image-text .hero-sfi {
+            color: #ff3131;
+            filter: brightness(1.2);
+            text-shadow:
+                0 0 12px rgba(255, 49, 49, 0.7),
+                0 0 28px rgba(255, 49, 49, 0.3);
+        }
+
+        .hero-image-text .hero-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 28rem;
+            line-height: 1.6;
+            margin-top: 0.5rem;
+        }
+
+        .hero-copy {
+            width: 100%;
+            max-width: 22rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1rem;
+        }
+
+        .hero-copy .glass-button {
+            min-width: 18rem;
+            width: auto;
+        }
+
+        .right-panel-cards {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+            margin-top: 1.25rem;
+        }
+
+        .right-panel-card {
+            min-height: 9rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1.25rem;
+        }
+
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -130,16 +224,25 @@
             transform: translateY(0);
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #06080a; }
-        ::-webkit-scrollbar-thumb { background: #ff3131; border-radius: 10px; }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
 
-        /* ===== SHINY FONT EFFECTS ===== */
-        /* Main Display Headings - Shady Shining Finish */
-        h1, h2, h3, .font-display {
+        ::-webkit-scrollbar-track {
+            background: #06080a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ff3131;
+            border-radius: 10px;
+        }
+
+        h1,
+        h2,
+        h3,
+        .font-display {
             position: relative;
-            text-shadow: 
+            text-shadow:
                 0 2px 10px rgba(0, 0, 0, 0.8),
                 0 0 20px rgba(255, 49, 49, 0.2),
                 0 0 40px rgba(255, 49, 49, 0.1);
@@ -150,190 +253,106 @@
             letter-spacing: -0.02em;
         }
 
-        h2 {
-            filter: drop-shadow(0 3px 15px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 25px rgba(255, 49, 49, 0.15));
-            letter-spacing: -0.01em;
-        }
-
-        h3 {
-            filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 15px rgba(255, 49, 49, 0.1));
-        }
-
-        /* Red Text - Enhanced Glowing Shine */
         .text-sfi-red {
-            text-shadow: 
+            text-shadow:
                 0 0 10px rgba(255, 49, 49, 0.4),
                 0 0 20px rgba(255, 49, 49, 0.2),
                 0 0 40px rgba(255, 49, 49, 0.1);
             filter: brightness(1.3) drop-shadow(0 0 15px rgba(255, 49, 49, 0.5));
         }
 
-        /* Strong Glow on Brand Title */
         .font-display.font-black.text-sfi-red {
-            text-shadow: 
+            text-shadow:
                 0 0 15px rgba(255, 49, 49, 0.6),
                 0 0 30px rgba(255, 49, 49, 0.3),
                 0 0 60px rgba(255, 49, 49, 0.15);
             filter: brightness(1.4) drop-shadow(0 0 25px rgba(255, 49, 49, 0.7));
             letter-spacing: -0.03em;
         }
-
-        /* Bold Text - Enhanced Contrast and Shine */
-        .font-bold, .font-black {
-            text-shadow: 
-                0 2px 8px rgba(0, 0, 0, 0.7),
-                0 0 15px rgba(255, 49, 49, 0.1);
-        }
-
-        /* Ultra Bold Display - Maximum Shine */
-        .font-display.font-bold, .font-display.font-black {
-            text-shadow: 
-                0 3px 12px rgba(0, 0, 0, 0.8),
-                0 0 25px rgba(255, 49, 49, 0.2),
-                0 0 50px rgba(255, 49, 49, 0.08);
-            letter-spacing: -0.02em;
-        }
-
-        /* Section Title Enhancement */
-        h2.text-5xl, h2.text-6xl, h1.text-7xl, h1.text-9xl {
-            filter: drop-shadow(0 6px 25px rgba(0, 0, 0, 0.8)) 
-                    drop-shadow(0 0 40px rgba(255, 49, 49, 0.3))
-                    brightness(1.15);
-        }
-
-        /* Navigation Text - Subtle Shine */
-        nav .font-bold, nav .font-black {
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-            filter: drop-shadow(0 0 8px rgba(255, 49, 49, 0.1));
-        }
-
-        /* Button Text Enhancement */
-        button .font-black, button .font-bold {
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            letter-spacing: 0.05em;
-        }
-
-        .bg-sfi-red .font-black {
-            text-shadow: 0 3px 15px rgba(0, 0, 0, 0.4);
-            filter: brightness(1.1);
-        }
-
-        /* Footer Text - Elegant Shine */
-        footer .font-black {
-            text-shadow: 
-                0 2px 10px rgba(0, 0, 0, 0.8),
-                0 0 20px rgba(255, 49, 49, 0.15);
-            filter: drop-shadow(0 0 15px rgba(255, 49, 49, 0.2));
-        }
-
-        /* Status Text - Glowing Effect */
-        .text-white.font-black.tracking-widest {
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-            filter: drop-shadow(0 0 12px rgba(255, 49, 49, 0.15));
-        }
-
-        /* Large Text Emphasis */
-        .text-7xl, .text-8xl, .text-9xl {
-            filter: drop-shadow(0 8px 30px rgba(0, 0, 0, 0.7)) 
-                    drop-shadow(0 0 50px rgba(255, 49, 49, 0.25));
-        }
     </style>
 </head>
+
 <body class="font-sans">
 
     <div class="fixed inset-0 z-[-1] overflow-hidden bg-black">
-    <img
-        src="image.png"
-        alt="Main Background"
-        class="w-full h-full object-cover opacity-80 scale-105 saturate-150 brightness-110"
-    >
-    
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_rgba(0,0,0,0.4)_50%,_rgba(0,0,0,0.9)_100%)]"></div>
-    
-    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/90"></div>
-</div>
+        <img src="75633.png" alt="Main Background"
+            class="w-full h-full object-cover opacity-40 scale-105 saturate-50 brightness-75 contrast-125">
+        <div
+            class="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_rgba(0,0,0,0.6)_50%,_rgba(0,0,0,0.95)_100%)]">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/20 to-black/90"></div>
+    </div>
 
     <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl">
         <div class="glass-panel rounded-2xl px-6 py-4">
             <div class="flex justify-between items-center">
-              
-               <a href="index.html" class="flex items-center gap-4 group">
-    <div class="relative flex flex-col items-center">
-        <div class="absolute -top-1.5 left-[34px] text-sfi-red filter drop-shadow-[0_0_12px_rgba(255,49,49,1)]">
-            <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
-        </div>
-        
-        <span class="text-4xl font-display font-black text-sfi-red tracking-tighter leading-none filter drop-shadow-[0_0_25px_rgba(255,49,49,0.9)] brightness-125">
-            SFI
-        </span>
-    </div>
-
-    <div class="flex flex-col border-l border-white/50 pl-4 py-1">
-        <span class="text-[10px] font-bold tracking-widest leading-none uppercase text-white filter drop-shadow-[0_0_10px_rgba(255,255,255,0.6)] brightness-150">
-            Student's Federation of India
-        </span>
-        <span class="text-[8px] font-black text-white leading-tight mt-1 uppercase brightness-110">
-            RAJIV GANDHI INSTITUTE OF TECHNOLOGY<br>
-            <span class="text-sfi-red brightness-150 drop-shadow-[0_0_5px_rgba(255,49,49,0.5)]">KOTTAYAM</span>
-        </span>
-    </div>
-</a>
-
+                <a href="index.html" class="flex items-center gap-4 group">
+                    <div class="relative flex flex-col items-center">
+                        <div
+                            class="absolute -top-1.5 left-[34px] text-sfi-red filter drop-shadow-[0_0_12px_rgba(255,49,49,1)]">
+                            <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                        </div>
+                        <span
+                            class="text-4xl font-display font-black text-sfi-red tracking-tighter leading-none filter drop-shadow-[0_0_25px_rgba(255,49,49,0.9)] brightness-125">SFI</span>
+                    </div>
+                    <div class="flex flex-col border-l border-white/50 pl-4 py-1">
+                        <span
+                            class="text-[10px] font-bold tracking-widest leading-none uppercase text-white filter drop-shadow-[0_0_10px_rgba(255,255,255,0.6)] brightness-150">Student's
+                            Federation of India</span>
+                        <span class="text-[8px] font-black text-white leading-tight mt-1 uppercase brightness-110">RAJIV
+                            GANDHI INSTITUTE OF TECHNOLOGY<br><span
+                                class="text-sfi-red brightness-150 drop-shadow-[0_0_5px_rgba(255,49,49,0.5)]">KOTTAYAM</span></span>
+                    </div>
+                </a>
                 <div class="hidden lg:flex items-center gap-8">
-                    <a href="#" class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">HOME</a>
-                    <a href="#notifications" class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">UPDATES</a>
-                    <a href="#focus" class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">ISSUES</a>
-                    <a href="#news" class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">MEDIA</a>
-                    <button class="bg-sfi-red text-white px-6 py-2.5 rounded-lg text-[10px] font-black tracking-widest flex items-center gap-2 hover:scale-105 transition-all">
-                        JOIN SFI <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                    </button>
+                    <a href="#"
+                        class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">HOME</a>
+                    <a href="#notifications"
+                        class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">KEAM NOTIFICATIONS</a>
+                    <a href="pages.html"
+                        class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">OUR PAGES</a>
+                <a href="helpdesk.html"
+                    class="bg-sfi-red text-white px-6 py-2.5 rounded-lg text-[10px] font-black tracking-widest flex items-center gap-2 hover:scale-105 transition-all"><i 
+                        data-lucide="phone" class="w-4 h-4"></i> HELPDESK</a>
                 </div>
-
                 <button id="menu-toggle" class="lg:hidden p-2"><i data-lucide="menu"></i></button>
             </div>
         </div>
     </nav>
 
     <section class="relative min-h-screen flex items-center px-6 pt-20">
-        <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 items-center gap-12">
-            <div class="reveal active">
-                <h1 class="font-display text-7xl md:text-9xl mb-8 tracking-[0.05em] leading-[1.1] drop-shadow-[0_0_30px_rgba(255,49,49,0.2)]">
-    EDUCATE.<br />
-    <span class="text-sfi-red brightness-125">AGITATE.</span><br />
-    ORGANISE.
-</h1>
-                <p class="text-lg md:text-xl text-white/70 mb-10 max-w-lg leading-relaxed">
-                    For the Students. For the Campus. For the Society. 
-                    Building a Democratic, Equal & Progressive Future.
-                </p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="#notifications" class="glass-button px-8 py-4 rounded-xl font-bold text-xs tracking-[0.2em] flex items-center gap-3">
-                        KEAM UPDATES <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                    </a>
-                    <a href="#focus" class="bg-white/5 border border-white/10 hover:bg-white/10 px-8 py-4 rounded-xl font-bold text-xs tracking-[0.2em] transition-all flex items-center gap-3">
-                        OUR DEMANDS
-                    </a>
+        <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 items-center gap-8">
+            <div class="reveal active flex flex-col items-center text-center mx-auto lg:mx-0 space-y-4">
+                <div class="hero-image-wrapper">
+                    <div class="hero-image-text">
+                        <span class="hero-hero-title"><span class="hero-sfi">SFI</span> RIT UNIT COMMITTEE</span>
+                        <p class="hero-description">A student-led unit empowering RIT through education, campus action and organised community leadership.</p>
+                    </div>
+                </div>
+                <div class="hero-copy">
+                    <div class="flex justify-center gap-4">
+                        <a href="#notifications"
+                            class="glass-button px-10 py-4 rounded-xl font-bold text-xs tracking-[0.2em] flex items-center gap-3">KEAM
+                            NOTIFICATIONS <i data-lucide="chevron-right" class="w-4 h-4"></i></a>
+                    </div>
                 </div>
             </div>
-
-            <div class="reveal active lg:block">
+            <div class="reveal active w-full max-w-lg mx-auto lg:max-w-none">
                 <div class="glass-panel p-10 rounded-[2.5rem] relative overflow-hidden group">
                     <div class="absolute -top-24 -right-24 w-64 h-64 bg-sfi-red/10 rounded-full blur-[80px]"></div>
                     <div class="relative z-10">
-                        <span class="text-sfi-red text-[10px] font-black tracking-[0.4em] uppercase mb-4 block">COMMAND CENTER</span>
                         <h2 class="text-4xl font-display font-bold mb-6 tracking-tight">KEAM HELP DESK 2026</h2>
-                        <p class="text-white/50 text-sm mb-8 leading-relaxed">
-                            Access high-intensity power mocks, real-time result analysis, and direct mentorship for applicants.
-                        </p>
-                        <a href="keam-exam.html" class="w-full bg-sfi-red py-5 rounded-2xl font-black text-center block tracking-widest hover:shadow-[0_0_30px_rgba(255,49,49,0.4)] transition-all">
-                            LAUNCH PORTAL
-                        </a>
-                        <div class="grid grid-cols-2 gap-4 mt-8">
-                            <div class="p-4 bg-white/5 rounded-xl border border-white/5 text-center">
+                        <p class="text-white/50 text-sm mb-8 leading-relaxed">Access high-intensity power mocks,
+                            real-time result analysis, and direct mentorship for applicants.</p>
+                        <a href="keamportal.html"
+                            class="w-full bg-sfi-red py-5 rounded-2xl font-black text-center block tracking-widest hover:shadow-[0_0_30px_rgba(255,49,49,0.4)] transition-all">LAUNCH
+                            PORTAL</a>
+                        <div class="right-panel-cards">
+                            <div class="right-panel-card bg-white/5 rounded-xl border border-white/5 text-center">
                                 <span class="block text-2xl font-black">PYQs</span>
                                 <span class="text-[8px] text-white/40 uppercase font-bold">Explore</span>
                             </div>
-                            <div class="p-4 bg-white/5 rounded-xl border border-white/5 text-center">
+                            <div class="right-panel-card bg-white/5 rounded-xl border border-white/5 text-center">
                                 <span class="block text-2xl font-black">Mock Tests</span>
                                 <span class="text-[8px] text-white/40 uppercase font-bold">Explore</span>
                             </div>
@@ -347,48 +366,49 @@
     <section id="notifications" class="py-32 bg-sfi-dark/50">
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center">
             <div class="reveal">
-                <span class="text-sfi-red text-[10px] font-black tracking-[0.4em] uppercase mb-4 block">LATEST UPDATES</span>
-                <h2 class="text-5xl font-display font-bold mb-8 tracking-tighter">KEAM 2026 <span class="text-sfi-red">NOTIFICATIONS.</span></h2>
-                <p class="text-white/60 leading-relaxed mb-10">
-                    Stay up-to-date with the latest announcements, exam schedules, and important alerts directly from the Commissioner for Entrance Examinations (CEE) Kerala.
-                </p>
-                <a href="https://cee.kerala.gov.in/" target="_blank" class="glass-button px-8 py-4 rounded-xl font-bold text-xs tracking-[0.2em] inline-flex items-center gap-3">
-                    VISIT OFFICIAL PORTAL <i data-lucide="external-link" class="w-4 h-4"></i>
-                </a>
+                <span class="text-sfi-red text-[10px] font-black tracking-[0.4em] uppercase mb-4 block">LATEST
+                    UPDATES</span>
+                <h2 class="text-5xl font-display font-bold mb-8 tracking-tighter">KEAM 2026 <span
+                        class="text-sfi-red">NOTIFICATIONS.</span></h2>
+                <p class="text-white/60 leading-relaxed mb-10">Stay up-to-date with the latest announcements, exam
+                    schedules, and important alerts directly from the Commissioner for Entrance Examinations (CEE)
+                    Kerala.</p>
+                <a href="https://cee.kerala.gov.in/" target="_blank"
+                    class="glass-button px-8 py-4 rounded-xl font-bold text-xs tracking-[0.2em] inline-flex items-center gap-3">VISIT
+                    OFFICIAL PORTAL <i data-lucide="external-link" class="w-4 h-4"></i></a>
             </div>
             <div class="reveal relative">
                 <div class="glass-panel p-8 rounded-[2rem] border border-white/10 relative overflow-hidden">
                     <div class="absolute -top-10 -right-10 w-40 h-40 bg-sfi-red/10 rounded-full blur-[60px]"></div>
                     <div class="flex items-center justify-between mb-6 border-b border-white/10 pb-4">
-                        <h3 class="font-display text-2xl tracking-wide flex items-center gap-3">
-                            <i data-lucide="bell-ring" class="text-sfi-red w-6 h-6"></i> LIVE ALERTS
-                        </h3>
+                        <h3 class="font-display text-2xl tracking-wide flex items-center gap-3"><i
+                                data-lucide="bell-ring" class="text-sfi-red w-6 h-6"></i> LIVE ALERTS</h3>
                         <span class="flex h-3 w-3 relative">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sfi-red opacity-75"></span>
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sfi-red opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-3 w-3 bg-sfi-red"></span>
                         </span>
                     </div>
-                    
                     <div class="space-y-6 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
                         <div class="pl-4 border-l-2 border-sfi-red relative">
-                            <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-sfi-dark border-2 border-sfi-red"></div>
-                            <span class="text-[10px] font-bold text-sfi-red tracking-widest uppercase block mb-1">New Update</span>
+                            <div
+                                class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-sfi-dark border-2 border-sfi-red">
+                            </div>
+                            <span class="text-[10px] font-bold text-sfi-red tracking-widest uppercase block mb-1">New
+                                Update</span>
                             <p class="text-sm text-white/80 font-semibold mb-1">KEAM 2026 Admit Cards</p>
-                            <p class="text-xs text-white/50">Admit cards for KEAM 2026 will be available for download from the official portal soon.</p>
+                            <p class="text-xs text-white/50">Admit cards for KEAM 2026 will be available for download
+                                from the official portal soon.</p>
                         </div>
-                        
                         <div class="pl-4 border-l-2 border-white/20 relative">
-                            <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-sfi-dark border-2 border-white/20"></div>
-                            <span class="text-[10px] font-bold text-white/40 tracking-widest uppercase block mb-1">Exam Date</span>
+                            <div
+                                class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-sfi-dark border-2 border-white/20">
+                            </div>
+                            <span class="text-[10px] font-bold text-white/40 tracking-widest uppercase block mb-1">Exam
+                                Date</span>
                             <p class="text-sm text-white/80 font-semibold mb-1">Computer Based Test Schedule</p>
-                            <p class="text-xs text-white/50">Engineering exams officially scheduled from April 17 to April 23, 2026.</p>
-                        </div>
-
-                        <div class="pl-4 border-l-2 border-white/20 relative">
-                            <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-sfi-dark border-2 border-white/20"></div>
-                            <span class="text-[10px] font-bold text-white/40 tracking-widest uppercase block mb-1">Notification</span>
-                            <p class="text-sm text-white/80 font-semibold mb-1">Profile Verification Available</p>
-                            <p class="text-xs text-white/50">Candidates can verify their details and rectify defects in photograph/signature.</p>
+                            <p class="text-xs text-white/50">Engineering exams officially scheduled from April 17 to
+                                April 23, 2026.</p>
                         </div>
                     </div>
                 </div>
@@ -396,10 +416,10 @@
         </div>
     </section>
 
-    <section id="focus" class="py-32">
+    <section id="news" class="py-32">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-20 reveal">
-                <h2 class="text-4xl md:text-6xl font-display font-bold tracking-tighter">WHAT WE STAND FOR</h2>
+                <h2 class="text-4xl md:text-6xl font-display font-bold tracking-tighter">OUR MISSIONS</h2>
                 <div class="w-20 h-1 bg-sfi-red mx-auto mt-6"></div>
             </div>
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -427,75 +447,6 @@
         </div>
     </section>
 
-    <div class="bottom-hub-container reveal">
-    <div class="hub-glass">
-        <div class="hub-accent-line"></div>
-        
-        <div class="p-8 md:p-12 flex flex-col lg:flex-row items-center justify-between gap-12">
-            
-            <div class="flex items-center gap-6">
-                <div class="w-16 h-16 flex items-center justify-center rounded-2xl bg-sfi-red/10 border border-sfi-red/20">
-                    <i data-lucide="flame" class="text-sfi-red w-8 h-8"></i>
-                </div>
-                <div>
-                    <h4 class="text-[10px] font-black tracking-[0.4em] text-sfi-red uppercase mb-1">Our Core Mission</h4>
-                    <p class="text-xl font-display font-bold text-white tracking-tight">INDEPENDENCE. DEMOCRACY. SOCIALISM.</p>
-                </div>
-            </div>
-
-            <div class="flex flex-1 items-center justify-around w-full max-w-3xl">
-                <div class="text-center group cursor-default">
-                    <span class="text-[9px] font-bold text-white/30 uppercase tracking-[0.2em] block mb-2 group-hover:text-sfi-red transition-colors">Portal Status</span>
-                    <div class="flex items-center justify-center text-xs font-black tracking-widest uppercase">
-                        <span class="pulse-red"></span> LIVE: KEAM HELP DESK
-                    </div>
-                </div>
-
-                <div class="stat-divider"></div>
-
-                <div class="text-center group cursor-default">
-                    <span class="text-[9px] font-bold text-white/30 uppercase tracking-[0.2em] block mb-2 group-hover:text-sfi-red transition-colors">Next Event</span>
-                    <div class="text-xs font-black tracking-widest uppercase">
-                        <i data-lucide="clock" class="w-3 h-3 inline-block mr-1 -mt-1 text-sfi-red"></i> GEN. BODY MEETING
-                    </div>
-                </div>
-
-                <div class="stat-divider"></div>
-
-                <div class="text-center group cursor-default">
-                    <span class="text-[9px] font-bold text-white/30 uppercase tracking-[0.2em] block mb-2 group-hover:text-sfi-red transition-colors">Response Time</span>
-                    <div class="text-xs font-black tracking-widest uppercase">
-                        <i data-lucide="zap" class="w-3 h-3 inline-block mr-1 -mt-1 text-sfi-red"></i> < 30 MINUTES
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex items-center gap-4">
-                <button class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all hover:scale-105">
-                    <i data-lucide="mail" class="w-5 h-5 text-white/60"></i>
-                </button>
-                <button class="bg-sfi-red hover:bg-red-700 text-white px-8 py-4 rounded-2xl font-black text-[10px] tracking-[0.2em] uppercase flex items-center gap-3 transition-all hover:shadow-[0_0_40px_rgba(225,29,72,0.4)] hover:-translate-y-1">
-                    GET ASSISTANCE <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
-                </button>
-                <a href="helpdesk.html" class="bg-sfi-red hover:bg-red-700 text-white px-8 py-4 rounded-2xl font-black text-[10px] tracking-[0.2em] uppercase flex items-center gap-3 transition-all hover:shadow-[0_0_40px_rgba(225,29,72,0.4)] hover:-translate-y-1">
-                    CONTACT US <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
-                </a>
-            </div>
-        </div>
-        
-        <div class="bg-white/5 border-t border-white/5 px-12 py-4 flex flex-wrap justify-center gap-8 md:justify-between items-center">
-            <div class="flex gap-6">
-                <span class="text-[9px] font-bold text-white/20 uppercase tracking-widest cursor-pointer hover:text-white transition-colors">Unit History</span>
-                <span class="text-[9px] font-bold text-white/20 uppercase tracking-widest cursor-pointer hover:text-white transition-colors">Leadership</span>
-                <span class="text-[9px] font-bold text-white/20 uppercase tracking-widest cursor-pointer hover:text-white transition-colors">Documents</span>
-            </div>
-            <div class="text-[9px] font-bold text-sfi-red tracking-[0.3em] uppercase animate-pulse">
-                • 246 Students Joined This Week •
-            </div>
-        </div>
-    </div>
-</div>
-
     <footer class="py-20 border-t border-white/10 bg-black">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-10">
             <div class="flex flex-col items-center md:items-start">
@@ -512,10 +463,7 @@
     </footer>
 
     <script>
-        // Initialize Lucide Icons
         lucide.createIcons();
-
-        // Reveal Animation Logic
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -523,13 +471,11 @@
                 }
             });
         }, { threshold: 0.1 });
-
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // Mobile Menu Toggle
         document.getElementById('menu-toggle').addEventListener('click', () => {
             alert('Menu functionality is integrated into the UI. Desktop navigation is active.');
         });
     </script>
 </body>
+
 </html>

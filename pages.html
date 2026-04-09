@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SFI RIT | Our Pages</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Base Theme Variables & Reset */
+        :root {
+            --sfi-red: #e60000;
+            --sfi-dark-red: #990000;
+            --bg-black: #050505;
+            --card-bg: #121212;
+            --text-white: #ffffff;
+            --text-gray: #a0a0a0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-black);
+            color: var(--text-white);
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        .oswald-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #111;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--sfi-red);
+            border-radius: 3px;
+        }
+
+        /* Responsive Grid for Tiles */
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+            grid-auto-rows: auto;
+            gap: 28px;
+            padding: 40px 4%;
+            max-width: 1240px;
+            margin: 0 auto 40px auto;
+            position: relative;
+            z-index: 10;
+            perspective: 1000px;
+        }
+
+        .helpdesk-tile {
+            grid-column: span 6;
+        }
+
+        @media (max-width: 1100px) {
+            .portal-grid {
+                grid-template-columns: repeat(2, minmax(280px, 1fr));
+            }
+
+            .helpdesk-tile,
+            .helpdesk-tile:nth-child(1),
+            .helpdesk-tile:nth-child(2),
+            .helpdesk-tile:nth-child(3),
+            .helpdesk-tile:nth-child(4) {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .portal-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .helpdesk-tile,
+            .helpdesk-tile:nth-child(1),
+            .helpdesk-tile:nth-child(2),
+            .helpdesk-tile:nth-child(3),
+            .helpdesk-tile:nth-child(4) {
+                grid-column: auto;
+            }
+        }
+
+        /* Tile Interactions */
+        .helpdesk-tile {
+            background-color: var(--card-bg);
+            border: 1px solid #222;
+            padding: 30px;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            will-change: transform;
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .helpdesk-tile::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--sfi-red);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+            z-index: 2;
+        }
+
+        .helpdesk-tile:hover {
+            border-color: #333;
+            box-shadow: 0 15px 35px rgba(230, 0, 0, 0.15);
+        }
+
+        .helpdesk-tile:hover::before {
+            transform: scaleX(1);
+        }
+
+        .tile-img-container {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            margin: -30px -30px 20px -30px;
+            transform: translateZ(10px);
+        }
+
+        .tile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .helpdesk-tile:hover .tile-img {
+            transform: scale(1.08);
+        }
+
+        .img-gradient {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(to top, var(--card-bg) 0%, transparent 100%);
+        }
+
+        /* Buttons */
+        .sfi-btn {
+            background-color: var(--sfi-red);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .sfi-btn:hover {
+            background-color: var(--sfi-dark-red);
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem !important;
+            }
+
+            .hero-subtitle {
+                font-size: 1.5rem !important;
+            }
+
+            .portal-grid {
+                margin-top: 20px;
+            }
+
+            .helpdesk-tile {
+                transform: none !important;
+            }
+
+            .tile-img-container {
+                height: 160px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header identical to keamportal for theme alignment -->
+    <header
+        style="display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: rgba(0,0,0,0.9); border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 100;">
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <div style="color: var(--sfi-red); font-size: 2.5rem; font-weight: 700; line-height: 1;"
+                class="oswald-font">SFI</div>
+            <div style="border-left: 1px solid #444; padding-left: 15px;">
+                <div style="font-size: 0.8rem; color: white; letter-spacing: 1px;">STUDENT'S FEDERATION OF INDIA</div>
+                <div style="font-size: 0.7rem; color: var(--text-gray);">RAJIV GANDHI INSTITUTE OF TECHNOLOGY</div>
+            </div>
+        </div>
+        <div class="oswald-font" style="color: white; font-size: 1.2rem; letter-spacing: 2px;">
+            <a href="index.html" style="color: white; text-decoration: none;">HOME</a> | OUR <span style="color: var(--sfi-red);">PAGES</span>
+        </div>
+    </header>
+
+    <section
+        style="position: relative; padding: 100px 5% 160px 5%; background: linear-gradient(to right, rgba(10,0,0,0.95) 10%, rgba(200,0,0,0.15)), url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2000&auto=format&fit=crop'); background-size: cover; background-position: center;">
+        <div style="max-width: 800px;">
+            <h2 class="hero-subtitle oswald-font" style="color: var(--sfi-red); font-size: 2rem; margin: 0 0 10px 0;">
+                CONNECT. ENGAGE. LEAD.</h2>
+            <h1 class="hero-title oswald-font"
+                style="font-size: 5rem; margin: 0; line-height: 1.1; letter-spacing: -1px;">DISCOVER OUR<br><span
+                    style="color: var(--sfi-red);">OFFICIAL</span> PAGES.</h1>
+            <p style="color: #cccccc; font-size: 1.1rem; line-height: 1.6; margin: 25px 0 35px 0; max-width: 500px;">
+                Stay updated with the latest events, festivals, initiatives, and community activities curated by the
+                various wings of SFI RIT.
+            </p>
+        </div>
+    </section>
+
+    <main id="portal" class="portal-grid">
+
+        <!-- CARD 1 SFI RIT UNIT -->
+        <a class="helpdesk-tile" href="https://www.instagram.com/sfirit.unit/" target="_blank">
+            <div class="tile-img-container">
+                <img src="assets/sfi_rit_unit.png" alt="SFI RIT UNIT" class="tile-img" />
+                <div class="img-gradient"></div>
+            </div>
+            <h3
+                style="color: var(--sfi-red); margin: 0 0 15px 0; font-size: 1.5rem; display: flex; justify-content: space-between; align-items: center; transform: translateZ(15px);">
+                SFI RIT UNIT
+                <span
+                    style="font-size: 0.8rem; font-family: 'Roboto', sans-serif; background: rgba(230,0,0,0.15); padding: 4px 8px; border-radius: 4px; color: var(--sfi-red); text-transform: lowercase;">@sfirit.unit</span>
+            </h3>
+            <p
+                style="color: var(--text-gray); font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px; flex-grow: 1; transform: translateZ(10px);">
+                Follow the official page of Student Federation of India RIT unit for updates on student rights, campus
+                politics, and unity.
+            </p>
+            <div style="transform: translateZ(20px);">
+                <div class="sfi-btn">FOLLOW ON INSTAGRAM</div>
+            </div>
+        </a>
+
+        <!-- CARD 2 SFI HELP DESK -->
+        <a class="helpdesk-tile" href="#" target="_blank">
+            <div class="tile-img-container">
+                <img src="assets/sfi_help_desk.png" alt="SFI HELP DESK" class="tile-img" />
+                <div class="img-gradient"></div>
+            </div>
+            <h3
+                style="color: var(--sfi-red); margin: 0 0 15px 0; font-size: 1.5rem; display: flex; justify-content: space-between; align-items: center; transform: translateZ(15px);">
+                SFI HELP DESK
+                <span
+                    style="font-size: 0.8rem; font-family: 'Roboto', sans-serif; background: rgba(230,0,0,0.15); padding: 4px 8px; border-radius: 4px; color: var(--sfi-red); text-transform: lowercase;">@sfihelpdesk</span>
+            </h3>
+            <p
+                style="color: var(--text-gray); font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px; flex-grow: 1; transform: translateZ(10px);">
+                Got questions about admission, campus life, or academics? The SFI Help Desk is here to provide complete
+                guidance and support.
+            </p>
+            <div style="transform: translateZ(20px);">
+                <div class="sfi-btn">FOLLOW ON INSTAGRAM</div>
+            </div>
+        </a>
+
+        <!-- CARD 3 SAMSKARA RIT -->
+        <a class="helpdesk-tile" href="https://www.instagram.com/samskara_rit/" target="_blank">
+            <div class="tile-img-container">
+                <img src="assets/samskara_rit.png" alt="SAMSKARA RIT" class="tile-img" />
+                <div class="img-gradient"></div>
+            </div>
+            <h3
+                style="color: var(--sfi-red); margin: 0 0 15px 0; font-size: 1.5rem; display: flex; justify-content: space-between; align-items: center; transform: translateZ(15px);">
+                SAMSKARA RIT
+                <span
+                    style="font-size: 0.8rem; font-family: 'Roboto', sans-serif; background: rgba(230,0,0,0.15); padding: 4px 8px; border-radius: 4px; color: var(--sfi-red); text-transform: lowercase;">@samskara_rit</span>
+            </h3>
+            <p
+                style="color: var(--text-gray); font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px; flex-grow: 1; transform: translateZ(10px);">
+                Follow SAMSKARA for updates on our college magazine, literary events, and cultural festivals celebrating
+                student creativity.
+            </p>
+            <div style="transform: translateZ(20px);">
+                <div class="sfi-btn">FOLLOW ON INSTAGRAM</div>
+            </div>
+        </a>
+
+        <!-- CARD 4 VIDHYARTHINI -->
+        <a class="helpdesk-tile" href="https://www.instagram.com/vidhyarthinisubcommitteesfirit/" target="_blank">
+            <div class="tile-img-container">
+                <img src="assets/vidhyarthini.png" alt="VIDHYARTHINI" class="tile-img" />
+                <div class="img-gradient"></div>
+            </div>
+            <h3
+                style="color: var(--sfi-red); margin: 0 0 15px 0; font-size: 1.5rem; display: flex; justify-content: space-between; align-items: center; transform: translateZ(15px);">
+                VIDHYARTHINI
+                <span
+                    style="font-size: 0.8rem; font-family: 'Roboto', sans-serif; background: rgba(230,0,0,0.15); padding: 4px 8px; border-radius: 4px; color: var(--sfi-red); text-transform: lowercase;">@vidhyarthini</span>
+            </h3>
+            <p
+                style="color: var(--text-gray); font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px; flex-grow: 1; transform: translateZ(10px);">
+                Follow VIDHYARTHINI SUB COMMITTEE for updates on women empowerment, equality campaigns, and specific
+                activities for students.
+            </p>
+            <div style="transform: translateZ(20px);">
+                <div class="sfi-btn">FOLLOW ON INSTAGRAM</div>
+            </div>
+        </a>
+
+    </main>
+
+    <footer style="background-color: #000; border-top: 1px solid #222; padding: 40px 5%; margin-top: 40px;">
+        <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px;">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div style="color: var(--sfi-red); font-size: 2rem; font-weight: 700; line-height: 1;"
+                    class="oswald-font">SFI</div>
+                <div style="border-left: 1px solid #444; padding-left: 15px; text-align: left;">
+                    <div style="font-size: 0.8rem; color: white; letter-spacing: 1px;">STUDENT'S FEDERATION OF INDIA
+                    </div>
+                    <div style="font-size: 0.7rem; color: var(--text-gray);">RAJIV GANDHI INSTITUTE OF TECHNOLOGY</div>
+                </div>
+            </div>
+            <p style="color: var(--text-gray); font-size: 0.9rem; max-width: 500px; margin: 0; line-height: 1.6;">
+                Student Federation of India - fighting for student rights, quality education, and social justice since
+                inception. Independence, Democracy, Socialism.
+            </p>
+            <div style="width: 100%; max-width: 800px; height: 1px; background: #222; margin: 10px 0;"></div>
+            <p style="color: #666; font-size: 0.8rem; margin: 0;">
+                © 2026 SFI RIT Kottayam. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // --- 3D Mouse Movement Script identical to keamportal ---
+        if (window.matchMedia("(min-width: 769px)").matches) {
+            const tiles = document.querySelectorAll('.helpdesk-tile');
+
+            tiles.forEach(tile => {
+                tile.addEventListener('mousemove', (e) => {
+                    const rect = tile.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const rotateX = ((y - centerY) / centerY) * -6;
+                    const rotateY = ((x - centerX) / centerX) * 6;
+
+                    tile.style.transition = 'none';
+                    tile.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+
+                tile.addEventListener('mouseleave', () => {
+                    tile.style.transition = 'transform 0.5s ease-out';
+                    tile.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>
