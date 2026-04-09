@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SFI RIT | KEAM Helpdesk Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Base Theme Variables & Reset */
+        :root {
+            --sfi-red: #e60000;
+            --sfi-dark-red: #990000;
+            --bg-black: #050505;
+            --card-bg: #121212;
+            --text-white: #ffffff;
+            --text-gray: #a0a0a0;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-black);
+            color: var(--text-white);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .oswald-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #111; }
+        ::-webkit-scrollbar-thumb { background: var(--sfi-red); border-radius: 3px; }
+
+        /* Responsive Grid for Tiles */
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            padding: 40px 5%;
+            max-width: 1300px;
+            margin: -60px auto 40px auto;
+            position: relative;
+            z-index: 10;
+            perspective: 1000px;
+        }
+
+        /* Responsive grid for tablets and mobile */
+        @media (max-width: 1024px) {
+            .portal-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .portal-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        /* Tile Interactions */
+        .helpdesk-tile {
+            background-color: var(--card-bg);
+            border: 1px solid #222;
+            padding: 30px;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
+            will-change: transform;
+            transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease-out;
+        }
+
+        .helpdesk-tile::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: var(--sfi-red);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+            z-index: 2;
+        }
+
+        .helpdesk-tile:hover {
+            border-color: #333;
+            box-shadow: 0 15px 35px rgba(230, 0, 0, 0.1);
+        }
+
+        .helpdesk-tile:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Accordion CSS for Important Topics */
+        .accordion-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transform: translateZ(10px);
+        }
+        
+        .accordion-item {
+            border: 1px solid #333;
+            border-radius: 4px;
+            overflow: hidden;
+            background: rgba(255,255,255,0.03);
+            transition: border-color 0.3s ease;
+        }
+
+        .accordion-item.active {
+            border-color: var(--sfi-red);
+        }
+
+        .accordion-header {
+            padding: 12px 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: white;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background: rgba(230, 0, 0, 0.1);
+        }
+
+        .accordion-item.active .accordion-header {
+            background: rgba(230, 0, 0, 0.1);
+            color: var(--sfi-red);
+            border-bottom: 1px solid #333;
+        }
+
+        .accordion-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(45deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .accordion-content ul {
+            list-style-type: square;
+            padding: 15px 15px 15px 35px;
+            margin: 0;
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            line-height: 1.8;
+        }
+
+        .accordion-content ul li::marker {
+            color: var(--sfi-red);
+        }
+
+        /* Animations */
+        @keyframes scrollUp {
+            0% { transform: translateY(100%); }
+            100% { transform: translateY(-100%); }
+        }
+
+        .scroll-content {
+            animation: scrollUp 15s linear infinite;
+        }
+        .scroll-container:hover .scroll-content {
+            animation-play-state: paused;
+        }
+
+        /* Buttons */
+        .sfi-btn {
+            background-color: var(--sfi-red);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        .sfi-btn:hover { background-color: var(--sfi-dark-red); }
+
+        .tile-icon {
+            margin-right: 12px;
+            display: inline-flex;
+            align-items: center;
+            width: 28px;
+            height: 28px;
+            vertical-align: middle;
+            transform: translateZ(20px);
+        }
+
+        /* Hero Section with 3D Image */
+        .hero-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            padding: 100px 5% 140px 5%;
+            background: linear-gradient(to right, rgba(10,0,0,0.9) 20%, rgba(200,0,0,0.1)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 500px;
+        }
+
+        .hero-3d-container {
+            perspective: 1000px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 400px;
+        }
+
+        .hero-3d-image {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1);
+            transition: transform 0.1s ease-out;
+        }
+
+        .hero-3d-image svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 20px 40px rgba(230, 0, 0, 0.3));
+        }
+
+        @media (max-width: 1024px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .hero-3d-container {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 5% 80px 5%;
+            }
+            .hero-title { font-size: 3rem !important; }
+            .hero-subtitle { font-size: 1.5rem !important; }
+            .hero-3d-container {
+                height: 250px;
+            }
+        }
+
+        /* Floating Button - Dynamic Side */
+        .floating-btn {
+            position: fixed;
+            bottom: 40px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #e60000, #ff4444);
+            border: 2px solid #ff6666;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+            z-index: 9999 !important;
+            box-shadow: 0 0 10px rgba(230, 0, 0, 0.5);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            opacity: 0 !important;
+            pointer-events: none;
+        }
+
+        .floating-btn.left-side {
+            left: 20px;
+            right: auto;
+            transform: translateX(-50px) scale(0.8);
+        }
+
+        .floating-btn.right-side {
+            right: 20px;
+            left: auto;
+            transform: translateX(50px) scale(0.8);
+        }
+
+        .floating-btn.show-btn {
+            opacity: 1 !important;
+            transform: translateX(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .floating-btn.show-btn:hover {
+            background: linear-gradient(135deg, #cc0000, #ff2222);
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(230, 0, 0, 0.8), 0 5px 15px rgba(230, 0, 0, 0.6);
+        }
+
+        @keyframes icon-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        .floating-btn.show-btn i {
+            animation: icon-pulse 1.5s ease-in-out infinite;
+        }
+
+        @media (max-width: 480px) {
+            .floating-btn {
+                bottom: 30px;
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+            .floating-btn.left-side {
+                left: 10px;
+            }
+            .floating-btn.right-side {
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="helpdesk.html" class="floating-btn" title="Contact Helpdesk">
+        <i class="fas fa-phone"></i>
+    </a>
+
+    <header style="display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: rgba(0,0,0,0.9); border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 100;">
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <div style="color: var(--sfi-red); font-size: 2.5rem; font-weight: 700; line-height: 1;" class="oswald-font">SFI</div>
+            <div style="border-left: 1px solid #444; padding-left: 15px;">
+                <div style="font-size: 0.8rem; color: white; letter-spacing: 1px;">STUDENT'S FEDERATION OF INDIA</div>
+                <div style="font-size: 0.7rem; color: var(--text-gray);">RAJIV GANDHI INSTITUTE OF TECHNOLOGY</div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div class="oswald-font" style="color: white; font-size: 1.2rem; letter-spacing: 2px;">
+                KEAM <span style="color: var(--sfi-red);">HELPDESK</span>
+            </div>
+            <a href="helpdesk.html" style="padding: 12px 30px; background: #e60000; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; text-decoration: none; transition: all 0.3s ease; font-family: 'Oswald', sans-serif; letter-spacing: 1px;" onmouseover="this.style.background='#cc0000'" onmouseout="this.style.background='#e60000'">
+                CONTACT US
+            </a>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <h2 class="hero-subtitle oswald-font" style="color: var(--sfi-red); font-size: 2rem; margin: 0 0 10px 0;">PREPARE. PRACTICE. ACHIEVE.</h2>
+            <h1 class="hero-title oswald-font" style="font-size: 5rem; margin: 0; line-height: 1.1; letter-spacing: -1px;">YOUR GATEWAY<br>TO <span style="color: var(--text-gray);">ENGINEERING.</span></h1>
+            <p style="color: #cccccc; font-size: 1.1rem; line-height: 1.6; margin: 25px 0 35px 0;">
+                For the Students. By the Students. Access comprehensive study materials, mock tests, and real-time CEE updates curated by SFI RIT to help you secure your rank.
+            </p>
+            <a href="#portal" class="sfi-btn">ACCESS KEAM MOCK TEST PORTAL ➔</a>
+        </div>
+        <div class="hero-3d-container">
+            <div class="hero-3d-image" id="hero3dImage">
+                <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Background circle -->
+                    <circle cx="200" cy="200" r="180" fill="rgba(230, 0, 0, 0.1)" stroke="var(--sfi-red)" stroke-width="2"/>
+                    <!-- Top pyramid -->
+                    <polygon points="200,80 280,150 120,150" fill="var(--sfi-red)" opacity="0.8"/>
+                    <polygon points="200,80 280,150 240,180" fill="rgba(230, 0, 0, 0.6)" opacity="0.9"/>
+                    <!-- Middle cube -->
+                    <rect x="140" y="180" width="120" height="120" fill="rgba(230, 0, 0, 0.15)" stroke="var(--sfi-red)" stroke-width="2"/>
+                    <polygon points="140,180 160,160 280,160 260,180" fill="var(--sfi-red)" opacity="0.7"/>
+                    <polygon points="260,180 280,160 280,280 260,300" fill="rgba(230, 0, 0, 0.5)" opacity="0.8"/>
+                    <!-- Bottom circle elements -->
+                    <circle cx="140" cy="310" r="25" fill="none" stroke="var(--sfi-red)" stroke-width="2"/>
+                    <circle cx="200" cy="320" r="30" fill="none" stroke="var(--sfi-red)" stroke-width="2"/>
+                    <circle cx="260" cy="310" r="25" fill="none" stroke="var(--sfi-red)" stroke-width="2"/>
+                    <!-- Center dot -->
+                    <circle cx="200" cy="200" r="8" fill="var(--sfi-red)"/>
+                    <!-- Connecting lines -->
+                    <line x1="200" y1="80" x2="200" y2="200" stroke="var(--sfi-red)" stroke-width="1" opacity="0.5"/>
+                    <line x1="140" y1="180" x2="200" y2="200" stroke="var(--sfi-red)" stroke-width="1" opacity="0.5"/>
+                    <line x1="260" y1="180" x2="200" y2="200" stroke="var(--sfi-red)" stroke-width="1" opacity="0.5"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <main id="portal" class="portal-grid">
+        
+        <div class="helpdesk-tile">
+            <h3 style="color: var(--sfi-red); margin: 0 0 20px 0; font-size: 1.5rem; border-bottom: 1px solid #333; padding-bottom: 10px; display: flex; align-items: center; transform: translateZ(15px);">
+                <span class="tile-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 21C16.4183 21 20 17.4183 20 13C20 8.58172 16.4183 5 12 5C7.58172 5 4 8.58172 4 13C4 17.4183 7.58172 21 12 21Z" stroke="white" stroke-width="2"/>
+                        <path d="M12 9V13H15" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M10 2H14M12 2V5" stroke="#e60000" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                MOCK TESTS
+            </h3>
+            <div style="flex-grow: 1; transform: translateZ(10px);">
+                <ul style="list-style: none; padding: 0; margin: 0 0 25px 0; color: var(--text-gray); line-height: 1.8;">
+                    <li style="display: flex; align-items: center; gap: 10px;">
+                        <span style="color: var(--sfi-red);">✓</span> Real exam UI simulation
+                    </li>
+                    <li style="display: flex; align-items: center; gap: 10px;">
+                        <span style="color: var(--sfi-red);">✓</span> Time-bound CBT format
+                    </li>
+                    <li style="display: flex; align-items: center; gap: 10px;">
+                        <span style="color: var(--sfi-red);">✓</span> Detailed performance analytics
+                    </li>
+                </ul>
+            </div>
+            <button class="sfi-btn" style="width: 100%; transform: translateZ(20px);">START MOCK TEST</button>
+        </div>
+
+        <div class="helpdesk-tile">
+            <h3 style="color: var(--sfi-red); margin: 0 0 20px 0; font-size: 1.5rem; border-bottom: 1px solid #333; padding-bottom: 10px; display: flex; align-items: center; transform: translateZ(15px);">
+                <span class="tile-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C13.1046 22 14 21.1046 14 20H10C10 21.1046 10.8954 22 12 22Z" fill="#e60000"/>
+                        <path d="M18 16.5V10C18 6.75 16.16 4.02 13.5 3.16V2.5C13.5 1.67 12.83 1 12 1C11.17 1 10.5 1.67 10.5 2.5V3.16C7.84 4.02 6 6.75 6 10V16.5L4 18.5V19.5H20V18.5L18 16.5Z" stroke="white" stroke-width="2"/>
+                    </svg>
+                </span>
+                CEE UPDATES
+            </h3>
+            <div class="scroll-container" style="height: 220px; overflow: hidden; position: relative; transform: translateZ(5px);">
+                <div class="scroll-content" style="display: flex; flex-direction: column; gap: 15px;">
+                    <div style="border-left: 2px solid var(--sfi-red); padding-left: 12px;">
+                        <div style="color: var(--sfi-red); font-size: 0.8rem; font-weight: bold;">LIVE NOW!</div>
+                        <p style="margin: 5px 0 0; font-size: 0.95rem; line-height: 1.4;">KEAM 2026 Admit Cards releasing today (April 8) at cee.kerala.gov.in. Keep Application No. and Password ready.</p>
+                    </div>
+                    <div style="border-left: 2px solid #555; padding-left: 12px;">
+                        <div style="color: var(--text-gray); font-size: 0.8rem;">EXAM DATES</div>
+                        <p style="margin: 5px 0 0; font-size: 0.95rem; line-height: 1.4;">Computer-based KEAM 2026 entrance exam officially scheduled from April 17 to April 23, 2026.</p>
+                    </div>
+                    <div style="border-left: 2px solid #555; padding-left: 12px;">
+                        <div style="color: var(--text-gray); font-size: 0.8rem;">PORTAL VERIFICATION</div>
+                        <p style="margin: 5px 0 0; font-size: 0.95rem; line-height: 1.4;">Candidates can verify their Name, Photo, and Signature on the official CEE candidate portal.</p>
+                    </div>
+                    <div style="border-left: 2px solid #555; padding-left: 12px;">
+                        <div style="color: var(--text-gray); font-size: 0.8rem;">CENTRE CHANGE</div>
+                        <p style="margin: 5px 0 0; font-size: 0.95rem; line-height: 1.4;">Facility opened to change Engineering/Pharmacy Entrance Examination Centres for students in Gulf countries.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="helpdesk-tile">
+            <h3 style="color: var(--sfi-red); margin: 0 0 20px 0; font-size: 1.5rem; border-bottom: 1px solid #333; padding-bottom: 10px; display: flex; align-items: center; transform: translateZ(15px);">
+                <span class="tile-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="white" stroke-width="2"/>
+                        <path d="M12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17Z" stroke="white" stroke-width="2"/>
+                        <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" fill="#e60000"/>
+                        <path d="M15 9L21 3" stroke="#e60000" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                HIGH-YIELD TOPICS
+            </h3>
+            <p style="color: var(--text-gray); font-size: 0.9rem; margin-bottom: 15px; transform: translateZ(5px);">Click a subject to view core syllabus areas.</p>
+            
+            <div class="accordion-container">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>📘 PHYSICS</span>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <ul>
+                            <li>Kinematics (Motion in a straight line & plane)</li>
+                            <li>Laws of Motion (Newton's Laws & Friction)</li>
+                            <li>Work, Energy and Power</li>
+                            <li>Rotational Motion & Centre of Mass</li>
+                            <li>Thermodynamics & Isothermal/Adiabatic Processes</li>
+                            <li>Oscillations and Waves (SHM)</li>
+                            <li>Electrostatics & Capacitors</li>
+                            <li>Current Electricity & Kirchhoff's laws</li>
+                            <li>Magnetic Effects of Current & Ampere's Law</li>
+                            <li>Optics (Wave optics, Interference, Diffraction)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>📕 MATHEMATICS</span>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <ul>
+                            <li>Sets, Relations and Functions</li>
+                            <li>Complex Numbers & Algebra</li>
+                            <li>Permutations, Combinations & Binomial Theorem</li>
+                            <li>Matrices and Determinants</li>
+                            <li>Trigonometric Functions & Inverse Trig</li>
+                            <li>Conic Sections (Parabola, Ellipse, Hyperbola)</li>
+                            <li>Vectors & Three-Dimensional Geometry</li>
+                            <li>Limits, Continuity and Differentiability</li>
+                            <li>Application of Derivatives (Maxima/Minima)</li>
+                            <li>Definite Integrals & Differential Equations</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>📗 CHEMISTRY</span>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <ul>
+                            <li>Structure of Atom (Quantum numbers, Bohr's model)</li>
+                            <li>Chemical Bonding & Molecular Structure</li>
+                            <li>Thermodynamics (Enthalpy & Gibbs Energy)</li>
+                            <li>Equilibrium (Ionic equilibrium, Le Chatelier's)</li>
+                            <li>Electrochemistry & Redox Reactions</li>
+                            <li>Chemical Kinetics (Rate law & Order)</li>
+                            <li>Coordination Compounds & Nomenclature</li>
+                            <li>Hydrocarbons (Alkanes, Alkenes, Alkynes, Benzene)</li>
+                            <li>Aldehydes, Ketones & Carboxylic Acids</li>
+                            <li>Biomolecules (Carbohydrates, Proteins, DNA/RNA)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="helpdesk-tile">
+            <h3 style="color: var(--sfi-red); margin: 0 0 20px 0; font-size: 1.5rem; border-bottom: 1px solid #333; padding-bottom: 10px; display: flex; align-items: center; transform: translateZ(15px);">
+                <span class="tile-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 19.5C4 18.837 4.26339 18.2011 4.73223 17.7322C5.20107 17.2634 5.83696 17 6.5 17H20" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6.5 2H20V22H6.5C5.83696 22 5.20107 21.7366 4.73223 21.2678C4.26339 20.7989 4 20.163 4 19.5V4.5C4 3.83696 4.26339 3.20107 4.73223 2.73223C5.20107 2.26339 5.83696 2 6.5 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6 6H18" stroke="#e60000" stroke-width="2"/>
+                    </svg>
+                </span>
+                STUDY NOTES
+            </h3>
+            <p style="color: var(--text-gray); font-size: 0.9rem; margin-bottom: 15px; transform: translateZ(5px);">Downloadable PDFs created by RIT seniors.</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; flex-grow: 1; transform: translateZ(10px);">
+                <div style="background: rgba(255,0,0,0.05); border: 1px solid rgba(255,0,0,0.2); padding: 15px 10px; text-align: center; border-radius: 4px; cursor: pointer; transition: background 0.2s;">
+                    <div style="height: 35px; display: flex; justify-content: center; align-items: center; margin-bottom: 8px;">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:32px; height:32px;">
+                            <circle cx="12" cy="12" r="2.5" fill="#3b82f6"/>
+                            <ellipse cx="12" cy="12" rx="10" ry="3.5" stroke="#3b82f6" stroke-width="1.5" transform="rotate(45 12 12)"/>
+                            <ellipse cx="12" cy="12" rx="10" ry="3.5" stroke="#3b82f6" stroke-width="1.5" transform="rotate(-45 12 12)"/>
+                        </svg>
+                    </div>
+                    <div style="font-size: 0.85rem; font-weight: bold; color: white;">PHYSICS</div>
+                </div>
+                <div style="background: rgba(255,0,0,0.05); border: 1px solid rgba(255,0,0,0.2); padding: 15px 10px; text-align: center; border-radius: 4px; cursor: pointer; transition: background 0.2s;">
+                    <div style="height: 35px; display: flex; justify-content: center; align-items: center; margin-bottom: 8px;">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:32px; height:32px;">
+                            <path d="M9 3H15M10 3V8L5 17C4.5 18 5 19 6 19H18C19 19 19.5 18 19 17L14 8V3" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6 15H18" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="10" cy="12" r="1.5" fill="#22c55e"/>
+                            <circle cx="14" cy="14" r="1" fill="#22c55e"/>
+                        </svg>
+                    </div>
+                    <div style="font-size: 0.85rem; font-weight: bold; color: white;">CHEMISTRY</div>
+                </div>
+                <div style="background: rgba(255,0,0,0.05); border: 1px solid rgba(255,0,0,0.2); padding: 15px 10px; text-align: center; border-radius: 4px; cursor: pointer; transition: background 0.2s; grid-column: span 2;">
+                    <div style="height: 35px; display: flex; justify-content: center; align-items: center; margin-bottom: 8px;">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:36px; height:36px;">
+                            <path d="M3 13L5 13L8 20L13 6L20 6" stroke="#e60000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 15H20M18 13V17" stroke="#e60000" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M16 20H20" stroke="#e60000" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div style="font-size: 0.85rem; font-weight: bold; color: white;">MATHEMATICS</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="helpdesk-tile">
+            <h3 style="color: var(--sfi-red); margin: 0 0 20px 0; font-size: 1.5rem; border-bottom: 1px solid #333; padding-bottom: 10px; display: flex; align-items: center; transform: translateZ(15px);">
+                <span class="tile-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6H8.5L13.5 12L8.5 18H18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                FORMULA SHEETS
+            </h3>
+            <p style="color: var(--text-gray); font-size: 0.9rem; margin-bottom: 15px; transform: translateZ(5px);">Quick revision cheat sheets for last-minute prep.</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; flex-grow: 1; transform: translateZ(10px);">
+                <div style="background: rgba(255,0,0,0.05); border: 1px solid rgba(255,0,0,0.2); padding: 15px 10px; text-align: center; border-radius: 4px; cursor: pointer; transition: background 0.2s;">
+                    <div style="height: 35px; display: flex; justify-content: center; align-items: center; margin-bottom: 8px;">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:32px; height:32px;">
+                            <circle cx="12" cy="12" r="2.5" fill="#3b82f6"/>
+                            <ellipse cx="12" cy="12" rx="10" ry="3.5" stroke="#3b82f6" stroke-width="1.5" transform="rotate(45 12 12)"/>
+                            <ellipse cx="12" cy="12" rx="10" ry="3.5" stroke="#3b82f6" stroke-width="1.5" transform="rotate(-45 12 12)"/>
+                        </svg>
+                    </div>
+                    <div style="font-size: 0.85rem; font-weight: bold; color: white;">PHYSICS</div>
+                </div>
+                <div style="background: rgba(255,0,0,0.05); border: 1px solid rgba(255,0,0,0.2); padding: 15px 10px; text-align: center; border-radius: 4px; cursor: pointer; transition: background 0.2s;">
+                    <div style="height: 35px; display: flex; justify-content: center; align-items: center; margin-bottom: 8px;">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:32px; height:32px;">
+                            <path d="M9 3H15M10 3V8L5 17C4.5 18 5 19 6 19H18C19 19 19.5 18 19 17L14 8V3" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6 15H18" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="10" cy="12" r="1.5" fill="#22c55e"/>
+                            <circle cx="14" cy="14" r="1" fill="#22c55e"/>
+                        </svg>
+                    </div>
+                    <div style="font-size: 0.85rem; font-weight: bold; color: white;">CHEMISTRY</div>
+                </div>
+                <div style="background: rgba(255,0,0,0.05); border: 1px solid rgba(255,0,0,0.2); padding: 15px 10px; text-align: center; border-radius: 4px; cursor: pointer; transition: background 0.2s; grid-column: span 2;">
+                    <div style="height: 35px; display: flex; justify-content: center; align-items: center; margin-bottom: 8px;">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:36px; height:36px;">
+                            <path d="M3 13L5 13L8 20L13 6L20 6" stroke="#e60000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 15H20M18 13V17" stroke="#e60000" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M16 20H20" stroke="#e60000" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div style="font-size: 0.85rem; font-weight: bold; color: white;">MATHEMATICS</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="helpdesk-tile">
+            <h3 style="color: var(--sfi-red); margin: 0 0 20px 0; font-size: 1.5rem; border-bottom: 1px solid #333; padding-bottom: 10px; display: flex; align-items: center; transform: translateZ(15px);">
+                <span class="tile-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V8L14 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14 2V8H20" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 13C12 12 14 12 14 10C14 8.89543 13.1046 8 12 8C10.8954 8 10 8.89543 10 10" stroke="#e60000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="12" cy="17" r="1" fill="#e60000"/>
+                    </svg>
+                </span>
+                SUBJECT-WISE PYQS
+            </h3>
+            <p style="color: var(--text-gray); font-size: 0.9rem; margin-bottom: 15px; transform: translateZ(5px);">Topic-wise Previous Year Question banks.</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; flex-grow: 1; transform: translateZ(10px);">
+                <div style="background: rgba(255,0,0,0.05); border: 1px solid rgba(255,0,0,0.2); padding: 15px 10px; text-align: center; border-radius: 4px; cursor: pointer; transition: background 0.2s;">
+                    <div style="height: 35px; display: flex; justify-content: center; align-items: center; margin-bottom: 8px;">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:32px; height:32px;">
+                            <circle cx="12" cy="12" r="2.5" fill="#3b82f6"/>
+                            <ellipse cx="12" cy="12" rx="10" ry="3.5" stroke="#3b82f6" stroke-width="1.5" transform="rotate(45 12 12)"/>
+                            <ellipse cx="12" cy="12" rx="10" ry="3.5" stroke="#3b82f6" stroke-width="1.5" transform="rotate(-45 12 12)"/>
+                        </svg>
+                    </div>
+                    <div style="font-size: 0.85rem; font-weight: bold; color: white;">PHYSICS</div>
+                </div>
+                <div style="background: rgba(255,0,0,0.05); border: 1px solid rgba(255,0,0,0.2); padding: 15px 10px; text-align: center; border-radius: 4px; cursor: pointer; transition: background 0.2s;">
+                    <div style="height: 35px; display: flex; justify-content: center; align-items: center; margin-bottom: 8px;">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:32px; height:32px;">
+                            <path d="M9 3H15M10 3V8L5 17C4.5 18 5 19 6 19H18C19 19 19.5 18 19 17L14 8V3" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6 15H18" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="10" cy="12" r="1.5" fill="#22c55e"/>
+                            <circle cx="14" cy="14" r="1" fill="#22c55e"/>
+                        </svg>
+                    </div>
+                    <div style="font-size: 0.85rem; font-weight: bold; color: white;">CHEMISTRY</div>
+                </div>
+                <div style="background: rgba(255,0,0,0.05); border: 1px solid rgba(255,0,0,0.2); padding: 15px 10px; text-align: center; border-radius: 4px; cursor: pointer; transition: background 0.2s; grid-column: span 2;">
+                    <div style="height: 35px; display: flex; justify-content: center; align-items: center; margin-bottom: 8px;">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:36px; height:36px;">
+                            <path d="M3 13L5 13L8 20L13 6L20 6" stroke="#e60000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 15H20M18 13V17" stroke="#e60000" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M16 20H20" stroke="#e60000" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div style="font-size: 0.85rem; font-weight: bold; color: white;">MATHEMATICS</div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer style="background-color: #000; border-top: 1px solid #222; padding: 30px 5%; text-align: center; margin-top: 40px;">
+        <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 15px;">
+            <div style="color: var(--sfi-red); font-size: 1.5rem; font-weight: 700;" class="oswald-font">SFI</div>
+            <div style="text-align: left; line-height: 1.2;">
+                <div style="font-size: 0.7rem; color: white; letter-spacing: 1px;">STUDENT'S FEDERATION OF INDIA</div>
+                <div style="font-size: 0.6rem; color: var(--text-gray);">RAJIV GANDHI INSTITUTE OF TECHNOLOGY</div>
+            </div>
+        </div>
+        <p style="color: var(--text-gray); font-size: 0.8rem; margin: 0;">
+            For the Students. For the Campus. For the Society.<br>
+            © 2026 SFI RIT Kottayam. All Rights Reserved.
+        </p>
+    </footer>
+
+    <script>
+        // --- 1. Accordion Functionality (Only One Open at a Time) ---
+        function toggleAccordion(headerElement) {
+            const item = headerElement.parentElement;
+            const accordion = item.parentElement;
+            const content = item.querySelector('.accordion-content');
+            
+            // Close all other accordion items in the same container
+            accordion.querySelectorAll('.accordion-item.active').forEach(activeItem => {
+                if (activeItem !== item) {
+                    activeItem.classList.remove('active');
+                    const activeContent = activeItem.querySelector('.accordion-content');
+                    activeContent.style.maxHeight = null;
+                }
+            });
+            
+            // Toggle current item
+            item.classList.toggle('active');
+            
+            if (item.classList.contains('active')) {
+                content.style.maxHeight = content.scrollHeight + "px";
+            } else {
+                content.style.maxHeight = null;
+            }
+        }
+
+        // --- 2. 3D Mouse Movement Script ---
+        if (window.matchMedia("(min-width: 769px)").matches) {
+            const tiles = document.querySelectorAll('.helpdesk-tile');
+
+            tiles.forEach(tile => {
+                // Store original transform
+                const originalTransform = tile.style.transform || '';
+
+                tile.addEventListener('mousemove', (e) => {
+                    const rect = tile.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const rotateX = ((y - centerY) / centerY) * -6;
+                    const rotateY = ((x - centerX) / centerX) * 6;
+
+                    tile.style.transition = 'none';
+                    tile.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+
+                tile.addEventListener('mouseleave', () => {
+                    tile.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                    
+                    // Close all accordion items in this tile
+                    const accordionItems = tile.querySelectorAll('.accordion-item.active');
+                    accordionItems.forEach(item => {
+                        item.classList.remove('active');
+                        const content = item.querySelector('.accordion-content');
+                        if (content) {
+                            content.style.maxHeight = null;
+                        }
+                    });
+                });
+            });
+        }
+
+        // --- 3. Hero 3D Image Mouse Movement ---
+        const hero3dImage = document.getElementById('hero3dImage');
+        if (hero3dImage && window.matchMedia("(min-width: 769px)").matches) {
+            const container = hero3dImage.parentElement;
+            
+            container.addEventListener('mousemove', (e) => {
+                const rect = container.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Calculate rotation based on mouse position
+                const rotateX = ((y - centerY) / centerY) * 15;
+                const rotateY = ((x - centerX) / centerX) * -15;
+                
+                hero3dImage.style.transition = 'none';
+                hero3dImage.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1)`;
+            });
+            
+            container.addEventListener('mouseleave', () => {
+                hero3dImage.style.transition = 'transform 0.6s ease-out';
+                hero3dImage.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) scale(1)';
+            });
+        }
+
+        // --- 4. Floating Button Logic (Dynamic side pop-up) ---
+        document.addEventListener('mousemove', (e) => {
+            const floatingBtn = document.querySelector('.floating-btn');
+            if (floatingBtn) {
+                const width = window.innerWidth;
+                if (e.clientX < width * 0.25) {
+                    floatingBtn.classList.remove('right-side');
+                    floatingBtn.classList.add('left-side', 'show-btn');
+                } else if (e.clientX > width * 0.75) {
+                    floatingBtn.classList.remove('left-side');
+                    floatingBtn.classList.add('right-side', 'show-btn');
+                } else {
+                    floatingBtn.classList.remove('show-btn');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

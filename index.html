@@ -3,978 +3,532 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SFI | Rajiv Gandhi Institute of Technology, Kottayam</title>
+    <title>SFI RIT Kottayam | Educate. Agitate. Organise.</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&family=Noto+Sans+Malayalam:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --bg: #050505;
-            --panel: rgba(15, 15, 15, 0.8);
-            --panel-muted: rgba(18, 18, 18, 0.92);
-            --text: #f5f5f5;
-            --text-secondary: #c4c4c4;
-            --accent: #e53935;
-            --accent-dark: #b71c1c;
-            --border: rgba(255, 255, 255, 0.08);
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                'sfi-red': '#ff3131',
+                'sfi-dark': '#06080a',
+            },
+            fontFamily: {
+                // For the "SFI RIT KEAM" revolutionary look
+                display: ['Bebas Neue', 'sans-serif'],
+                // For the clean, bold buttons like "INSTAGRAM"
+                sans: ['Inter', 'sans-serif'],
+            },
         }
+    }
+}
+    </script>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Outfit', sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+    <style type="text/css">
         body {
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
+            background-color: #06080a;
+            color: white;
             overflow-x: hidden;
         }
 
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .page-shell {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 30;
-            backdrop-filter: blur(18px);
-            background: rgba(5, 5, 5, 0.75);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .topbar {
-            max-width: 1440px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 3%;
-            gap: 1rem;
-        }
-
-        .logo {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .brand {
-            font-size: 1.05rem;
-            font-weight: 900;
-            letter-spacing: 0.13em;
-            text-transform: uppercase;
-        }
-
-        .brand small {
-            display: block;
-            color: var(--accent);
-            font-size: 0.75rem;
-            letter-spacing: 0.18em;
-            font-weight: 600;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 26px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            font-size: 0.88rem;
-            font-weight: 700;
-            color: var(--text-secondary);
-            transition: color 0.25s ease;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--text);
-        }
-
-        .nav-button {
-            padding: 11px 20px;
-            border-radius: 999px;
-            border: 1px solid transparent;
-            font-weight: 800;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            background: var(--accent);
-            color: #fff;
-            transition: background 0.2s ease;
-        }
-
-        .nav-button:hover {
-            background: var(--accent-dark);
-        }
-
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            padding-top: 108px;
-            background-image:
-                linear-gradient(180deg, rgba(7, 7, 7, 0.82), rgba(7, 7, 7, 0.9)),
-                linear-gradient(90deg, rgba(17, 8, 8, 0.95) 0%, rgba(17, 8, 8, 0.2) 48%, rgba(17, 8, 8, 0.95) 100%),
-                url('2255.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            display: grid;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 20% 25%, rgba(229, 57, 53, 0.18), transparent 30%),
-                        radial-gradient(circle at 85% 45%, rgba(229, 57, 53, 0.14), transparent 30%);
-            pointer-events: none;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 1320px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: minmax(0, 1.2fr) minmax(280px, 1fr);
-            align-items: center;
-            gap: 3rem;
-            padding: 0 3%;
-        }
-
-        .hero-copy {
-            max-width: 680px;
-        }
-
-        .eyebrow {
-            display: inline-block;
-            margin-bottom: 1rem;
-            font-size: 0.79rem;
-            letter-spacing: 0.24em;
-            text-transform: uppercase;
-            color: var(--accent);
-            font-weight: 800;
-        }
-
-        .hero-copy h1 {
-            font-size: clamp(3.6rem, 7vw, 7.4rem);
-            line-height: 0.92;
-            letter-spacing: -0.06em;
-            text-transform: uppercase;
-        }
-
-        .hero-copy h1 span {
-            display: block;
-            color: var(--accent);
-        }
-
-        .hero-copy p {
-            margin: 1.75rem 0 2rem;
-            max-width: 610px;
-            line-height: 1.75;
-            color: var(--text-secondary);
-            font-size: 1rem;
-        }
-
-        .hero-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 160px;
-            padding: 14px 22px;
-            border-radius: 999px;
-            font-weight: 800;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            color: #fff;
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: #fff;
-        }
-
-        .btn-helpdesk {
-            background: #fff;
-            color: var(--accent-dark);
-            border: 1px solid rgba(229, 57, 53, 0.25);
-            box-shadow: 0 14px 30px rgba(229, 57, 53, 0.18);
-        }
-
-        .btn-helpdesk:hover {
-            background: #fbe9e7;
-            color: var(--accent-dark);
-        }
-
-        .btn:hover {
-            transform: translateY(-1px);
-        }
-
-        .hero-meta {
-            display: grid;
-            gap: 1.5rem;
-            align-items: start;
-        }
-
-        .hero-card {
-            background: rgba(0, 0, 0, 0.55);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 32px;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.28);
-            backdrop-filter: blur(16px);
-        }
-
-        .hero-card p {
-            margin: 0;
-            font-size: 0.97rem;
-            line-height: 1.8;
-            color: #e0e0e0;
-        }
-
-        .hero-label {
-            font-size: 0.75rem;
-            letter-spacing: 0.24em;
-            text-transform: uppercase;
-            color: var(--accent);
-            font-weight: 800;
-            text-align: right;
-        }
-
-        .hero-card strong {
-            display: block;
-            font-size: 1rem;
-            margin-bottom: 0.65rem;
-            color: #fff;
-        }
-
-        .section-block {
-            max-width: 1440px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 5rem 3% 3rem;
-        }
-
-        .section-title {
-            display: flex;
-            flex-direction: column;
-            gap: 0.7rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .section-title span {
-            color: var(--accent);
-            font-size: 0.78rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            font-weight: 800;
-        }
-
-        .section-title h2 {
-            font-size: clamp(2.2rem, 3vw, 3.1rem);
-            line-height: 1.05;
-            max-width: 760px;
-        }
-
-        .intro-grid {
-            display: grid;
-            grid-template-columns: 1.8fr 1fr;
-            gap: 2rem;
-            margin-bottom: 3.5rem;
-        }
-
-        .about-panel,
-        .stats-panel {
-            border-radius: 28px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
-            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
-            overflow: hidden;
-        }
-
-        .about-panel {
-            padding: 2.5rem;
-            background-image:
-                linear-gradient(180deg, rgba(5,5,5,0.84), rgba(5,5,5,0.96)),
-                url('75026.jpg');
-            background-size: cover;
-            background-position: center;
-        }
-
-        .about-panel .mask {
-            background: rgba(6, 6, 6, 0.65);
-            padding: 2.5rem;
-            border-radius: 28px;
-        }
-
-        .about-panel h3,
-        .focus-panel h3,
-        .feature-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: #fff;
-        }
-
-        .about-panel p {
-            color: #e5e5e5;
-            line-height: 1.8;
-            margin-bottom: 1.8rem;
-            max-width: 560px;
-        }
-
-        .about-panel .btn-outline {
-            display: inline-flex;
-            padding: 12px 22px;
-            border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            background: transparent;
-            color: #fff;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-        }
-
-        .stats-panel {
-            padding: 2.2rem;
-            display: grid;
-            gap: 1.3rem;
-        }
-
-        .stat-card {
-            display: flex;
-            gap: 1rem;
-            align-items: flex-start;
-            padding: 1.15rem 1.2rem;
-            border-radius: 22px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            min-height: 120px;
-        }
-
-        .stat-card i {
-            font-size: 1.75rem;
-            color: var(--accent);
-            margin-top: 4px;
-        }
-
-        .stat-card h4 {
-            margin-bottom: 0.65rem;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-        }
-
-        .stat-card p {
-            color: var(--text-secondary);
-            line-height: 1.65;
-            font-size: 0.95rem;
-        }
-
-        .focus-section {
-            padding-bottom: 4rem;
-        }
-
-        .focus-grid {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 1.5rem;
-        }
-
-        .feature-card {
-            background: rgba(18, 18, 18, 0.96);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 24px;
-            padding: 2rem;
-            transition: transform 0.25s ease, border-color 0.25s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(229, 57, 53, 0.35);
-        }
-
-        .feature-card i {
-            font-size: 1.7rem;
-            color: var(--accent);
-            margin-bottom: 1.2rem;
-        }
-
-        .feature-card h3 {
-            margin-bottom: 0.9rem;
-        }
-
-        .feature-card p {
-            color: var(--text-secondary);
-            line-height: 1.72;
-            font-size: 0.96rem;
-        }
-
-        .news-section {
-            padding-bottom: 4rem;
-        }
-
-        .helpdesk-section {
-            padding: 3rem 0 4rem;
-        }
-
-        .helpdesk-card {
-            max-width: 1440px;
-            margin: 0 auto;
-            padding: 2rem;
-            background: rgba(229, 57, 53, 0.12);
-            border: 1px solid rgba(229, 57, 53, 0.24);
-            border-radius: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .helpdesk-copy {
-            max-width: 820px;
-        }
-
-        .helpdesk-copy h3 {
-            margin: 0 0 0.6rem;
-            font-size: clamp(1.8rem, 2.5vw, 2.6rem);
-            color: #fff;
-        }
-
-        .helpdesk-copy p {
-            margin: 0;
-            color: rgba(255, 255, 255, 0.82);
-            line-height: 1.75;
-        }
-
-        .helpdesk-action {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 200px;
-            padding: 16px 24px;
-            border-radius: 999px;
-            background: #fff;
-            color: var(--accent-dark);
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            border: 1px solid rgba(229, 57, 53, 0.24);
-            transition: transform 0.2s ease, background 0.2s ease;
-        }
-
-        .helpdesk-action:hover {
-            transform: translateY(-1px);
-            background: #f8ecec;
-        }
-
-        .news-grid {
-            display: grid;
-            grid-template-columns: 1.4fr 0.9fr;
-            gap: 1.5rem;
-        }
-
-        .news-card {
-            background: var(--panel-muted);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 26px;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.75rem;
-        }
-
-        .news-card header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .news-card header h3 {
-            margin: 0;
-            font-size: 1.2rem;
-            letter-spacing: 0.03em;
-        }
-
-        .news-card header a {
-            color: var(--accent);
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-
-        .news-list,
-        .event-list {
-            list-style: none;
-            display: grid;
-            gap: 1rem;
-            padding: 0;
-            margin: 0;
-        }
-
-        .news-item,
-        .event-item {
-            padding: 1.15rem 1.3rem;
+        @layer base {
+    /* Make the whole site's font bold and sharp by default */
+    body {
+        @apply font-sans antialiased;
+        letter-spacing: -0.01em;
+    }
+
+    /* Force all Headings to use the "Revolutionary" Condensed font */
+    h1, h2, h3, .nav-logo {
+        @apply font-display tracking-tight uppercase;
+        line-height: 0.9;
+    }
+
+    /* Make all buttons and links use the extra-bold modern font */
+    button, a, .glass-button {
+        @apply font-sans font-black uppercase tracking-widest;
+    }
+}
+
+/* Add that "Amazing Brightness" glow to all red elements globally */
+.text-sfi-red {
+    @apply brightness-125;
+    text-shadow: 0 0 15px rgba(255, 49, 49, 0.3);
+}
+@layer components {
+    .bottom-hub-container {
+        @apply relative z-40 max-w-7xl mx-auto px-4 mb-12;
+    }
+
+    .hub-glass {
+        @apply relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl shadow-2xl;
+        box-shadow: 0 -20px 50px -20px rgba(0, 0, 0, 0.5);
+    }
+
+    .hub-accent-line {
+        @apply absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-sfi-red to-transparent opacity-60;
+    }
+
+    .stat-divider {
+        @apply hidden md:block w-px h-12 bg-gradient-to-b from-transparent via-white/10 to-transparent;
+    }
+
+    .pulse-red {
+        @apply w-2 h-2 rounded-full bg-sfi-red inline-block mr-2;
+        animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+}
+
+@keyframes pulse-ring {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.2); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.2); }
+}
+
+        .glass-panel {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 18px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .news-item h4,
-        .event-item h4 {
-            margin: 0 0 0.45rem;
-            font-size: 1rem;
-            color: #fff;
+        .glass-button {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .news-item span,
-        .event-item span {
-            display: block;
-            font-size: 0.82rem;
-            color: var(--text-secondary);
-            letter-spacing: 0.01em;
+        .glass-button:hover {
+            background: rgba(255, 49, 49, 0.8);
+            transform: translateY(-2px);
+            border-color: #ff3131;
         }
 
-        .event-date {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 56px;
-            min-height: 56px;
-            border-radius: 18px;
-            background: rgba(229, 57, 53, 0.12);
-            color: var(--accent);
-            font-weight: 700;
-            margin-right: 1rem;
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
         }
 
-        .event-row {
-            display: flex;
-            align-items: center;
-            gap: 0.85rem;
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .event-meta {
-            display: grid;
-            gap: 0.35rem;
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #06080a; }
+        ::-webkit-scrollbar-thumb { background: #ff3131; border-radius: 10px; }
+
+        /* ===== SHINY FONT EFFECTS ===== */
+        /* Main Display Headings - Shady Shining Finish */
+        h1, h2, h3, .font-display {
+            position: relative;
+            text-shadow: 
+                0 2px 10px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(255, 49, 49, 0.2),
+                0 0 40px rgba(255, 49, 49, 0.1);
         }
 
-        .footer {
-            margin-top: auto;
-            padding: 2rem 3%;
-            background: linear-gradient(180deg, rgba(10, 10, 10, 0.98), rgba(15, 15, 15, 1));
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        h1 {
+            filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 30px rgba(255, 49, 49, 0.25));
+            letter-spacing: -0.02em;
         }
 
-        .footer-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            max-width: 1440px;
-            margin: 0 auto;
+        h2 {
+            filter: drop-shadow(0 3px 15px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 25px rgba(255, 49, 49, 0.15));
+            letter-spacing: -0.01em;
         }
 
-        .footer-brand {
-            display: flex;
-            align-items: center;
-            gap: 0.9rem;
+        h3 {
+            filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 15px rgba(255, 49, 49, 0.1));
         }
 
-        .footer-brand i {
-            font-size: 1.8rem;
-            color: var(--accent);
+        /* Red Text - Enhanced Glowing Shine */
+        .text-sfi-red {
+            text-shadow: 
+                0 0 10px rgba(255, 49, 49, 0.4),
+                0 0 20px rgba(255, 49, 49, 0.2),
+                0 0 40px rgba(255, 49, 49, 0.1);
+            filter: brightness(1.3) drop-shadow(0 0 15px rgba(255, 49, 49, 0.5));
         }
 
-        .footer-brand p,
-        .footer-copy {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.7;
+        /* Strong Glow on Brand Title */
+        .font-display.font-black.text-sfi-red {
+            text-shadow: 
+                0 0 15px rgba(255, 49, 49, 0.6),
+                0 0 30px rgba(255, 49, 49, 0.3),
+                0 0 60px rgba(255, 49, 49, 0.15);
+            filter: brightness(1.4) drop-shadow(0 0 25px rgba(255, 49, 49, 0.7));
+            letter-spacing: -0.03em;
         }
 
-        .footer-links {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+        /* Bold Text - Enhanced Contrast and Shine */
+        .font-bold, .font-black {
+            text-shadow: 
+                0 2px 8px rgba(0, 0, 0, 0.7),
+                0 0 15px rgba(255, 49, 49, 0.1);
         }
 
-        .footer-links a {
-            color: var(--text-secondary);
-            transition: color 0.2s ease;
+        /* Ultra Bold Display - Maximum Shine */
+        .font-display.font-bold, .font-display.font-black {
+            text-shadow: 
+                0 3px 12px rgba(0, 0, 0, 0.8),
+                0 0 25px rgba(255, 49, 49, 0.2),
+                0 0 50px rgba(255, 49, 49, 0.08);
+            letter-spacing: -0.02em;
         }
 
-        .footer-links a:hover {
-            color: #fff;
+        /* Section Title Enhancement */
+        h2.text-5xl, h2.text-6xl, h1.text-7xl, h1.text-9xl {
+            filter: drop-shadow(0 6px 25px rgba(0, 0, 0, 0.8)) 
+                    drop-shadow(0 0 40px rgba(255, 49, 49, 0.3))
+                    brightness(1.15);
         }
 
-        .mobile-nav {
-            display: none;
+        /* Navigation Text - Subtle Shine */
+        nav .font-bold, nav .font-black {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            filter: drop-shadow(0 0 8px rgba(255, 49, 49, 0.1));
         }
 
-        @media (max-width: 1120px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                padding-bottom: 3rem;
-            }
-
-            .intro-grid,
-            .news-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .focus-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .hero {
-                padding-top: 90px;
-            }
-
-            .hero-card {
-                padding: 28px;
-            }
+        /* Button Text Enhancement */
+        button .font-black, button .font-bold {
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.05em;
         }
 
-        @media (max-width: 860px) {
-            .topbar {
-                padding: 18px 4%;
-            }
-            .nav-links {
-                display: none;
-            }
-            .mobile-nav {
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-            }
-            .hero {
-                padding-top: 80px;
-            }
-            .section-block {
-                padding-top: 2.5rem;
-            }
-            .hero-copy h1 {
-                font-size: clamp(2.8rem, 10vw, 4.8rem);
-            }
+        .bg-sfi-red .font-black {
+            text-shadow: 0 3px 15px rgba(0, 0, 0, 0.4);
+            filter: brightness(1.1);
         }
 
-        @media (max-width: 680px) {
-            .hero {
-                background-attachment: scroll;
-            }
-
-            .hero-actions {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .hero-card {
-                padding: 24px;
-            }
-
-            .about-panel,
-            .stats-panel,
-            .feature-card,
-            .news-card {
-                border-radius: 20px;
-            }
-
-            .section-title h2 {
-                font-size: 2.4rem;
-            }
-
-            .focus-grid {
-                grid-template-columns: 1fr;
-            }
+        /* Footer Text - Elegant Shine */
+        footer .font-black {
+            text-shadow: 
+                0 2px 10px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(255, 49, 49, 0.15);
+            filter: drop-shadow(0 0 15px rgba(255, 49, 49, 0.2));
         }
 
-        @media (max-width: 520px) {
-            .topbar {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 1rem;
-            }
-            .hero-content {
-                padding: 0 5% 3rem;
-                gap: 2rem;
-            }
-            .hero-copy p,
-            .about-panel p,
-            .stat-card p,
-            .feature-card p {
-                font-size: 0.95rem;
-            }
-            .nav-button {
-                width: 100%;
-                justify-content: center;
-            }
+        /* Status Text - Glowing Effect */
+        .text-white.font-black.tracking-widest {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            filter: drop-shadow(0 0 12px rgba(255, 49, 49, 0.15));
+        }
+
+        /* Large Text Emphasis */
+        .text-7xl, .text-8xl, .text-9xl {
+            filter: drop-shadow(0 8px 30px rgba(0, 0, 0, 0.7)) 
+                    drop-shadow(0 0 50px rgba(255, 49, 49, 0.25));
         }
     </style>
 </head>
-<body>
-    <div class="page-shell">
-        <header>
-            <div class="topbar">
-                <div class="logo">
-                    <span class="brand">SFI RIT</span>
-                    <small>Rajiv Gandhi Institute of Technology</small>
-                </div>
-                <nav class="nav-links" id="navMenu">
-                    <a href="#home">Home</a>
-                    <a href="#about">About</a>
-                    <a href="#focus">Issues</a>
-                    <a href="#events">Events</a>
-                    <a href="#helpdesk" class="nav-button">KEAM 2025 Helpdesk</a>
-                    <a href="#contact" class="nav-button">Join SFI</a>
-                </nav>
-                <div class="mobile-nav">
-                    <button id="hamburger" aria-label="Toggle navigation" class="nav-button">Menu</button>
-                </div>
-            </div>
-        </header>
+<body class="font-sans">
 
-        <main>
-            <section class="hero" id="home">
-                <div class="hero-content">
-                    <div class="hero-copy">
-                        <span class="eyebrow">Students' Federation of India</span>
-                        <h1>EDUCATE.<span>AGITATE.</span>ORGANISE.</h1>
-                        <p>For the students. For the campus. For the society. Building a democratic, equal, and progressive future for every learner.</p>
-                        <div class="hero-actions">
-                            <a href="#about" class="btn btn-primary">About SFI</a>
-                            <a href="#focus" class="btn btn-secondary">Our Demands</a>
-                            <a href="#helpdesk" class="btn btn-helpdesk">KEAM 2025 Helpdesk</a>
-                        </div>
-                    </div>
-                    <div class="hero-meta">
-                        <div class="hero-label">Students Unite for Change</div>
-                        <div class="hero-card">
-                            <strong>Rajiv Gandhi Institute of Technology, Kottayam</strong>
-                            <p>Our college unit organizes campaigns, protects student rights, and builds solidarity for academic freedom and campus justice.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+    <div class="fixed inset-0 z-[-1] overflow-hidden bg-black">
+    <img
+        src="image.png"
+        alt="Main Background"
+        class="w-full h-full object-cover opacity-80 scale-105 saturate-150 brightness-110"
+    >
+    
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_rgba(0,0,0,0.4)_50%,_rgba(0,0,0,0.9)_100%)]"></div>
+    
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/90"></div>
+</div>
 
-            <section class="section-block" id="about">
-                <div class="section-title">
-                    <span>About SFI RIT Kottayam</span>
-                    <h2>A legacy of struggle. A vision for tomorrow.</h2>
-                </div>
-                <div class="intro-grid">
-                    <div class="about-panel">
-                        <div class="mask">
-                            <h3>Stronger together, fighting for every student.</h3>
-                            <p>We are the collective voice of Rajiv Gandhi Institute of Technology, Kottayam. We stand for quality education, democratic rights, social justice, and campus solidarity. Every effort is grounded in student unity and a commitment to a better tomorrow.</p>
-                            <a href="#focus" class="btn btn-outline">Read More</a>
-                        </div>
-                    </div>
-                    <div class="stats-panel">
-                        <div class="stat-card">
-                            <i class="fas fa-users"></i>
-                            <div>
-                                <h4>Stronger Together</h4>
-                                <p>Uniting students from all departments and years to shape a fair campus culture.</p>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <i class="fas fa-gavel"></i>
-                            <div>
-                                <h4>Fighting for Rights</h4>
-                                <p>Protecting academic freedom, democratic student governance, and campus welfare.</p>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <i class="fas fa-book-open"></i>
-                            <div>
-                                <h4>Education for Emancipation</h4>
-                                <p>Promoting knowledge, critical thinking, and access to resources for all learners.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section-block focus-section" id="focus">
-                <div class="section-title">
-                    <span>Our Focus Areas</span>
-                    <h2>What we stand for</h2>
-                </div>
-                <div class="focus-grid">
-                    <div class="feature-card">
-                        <i class="fas fa-graduation-cap"></i>
-                        <h3>Quality Education</h3>
-                        <p>Ensuring accessible, affordable, and inclusive education for every student, regardless of background.</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-university"></i>
-                        <h3>Student Rights</h3>
-                        <p>Protecting democratic rights, academic freedom, and equal access to campus services.</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-balance-scale"></i>
-                        <h3>Social Justice</h3>
-                        <p>Standing against discrimination, harassment, and inequality in all forms.</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-handshake"></i>
-                        <h3>Peace & Solidarity</h3>
-                        <p>Building a progressive student movement rooted in unity, dignity, and mutual support.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section-block news-section" id="events">
-                <div class="news-grid">
-                    <div class="news-card">
-                        <header>
-                            <h3>Latest News</h3>
-                            <a href="#">View All</a>
-                        </header>
-                        <ul class="news-list">
-                            <li class="news-item">
-                                <h4>SFI condemns unjust fee hike protest erupt on campus</h4>
-                                <span>May 20, 2026 · Campus</span>
-                            </li>
-                            <li class="news-item">
-                                <h4>SFI RITK organizes seminar on Education and Emancipation</h4>
-                                <span>May 18, 2026 · Events</span>
-                            </li>
-                            <li class="news-item">
-                                <h4>Students unite for better hostel facilities</h4>
-                                <span>May 10, 2026 · Campus</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="news-card">
-                        <header>
-                            <h3>Upcoming Events</h3>
-                            <a href="#">View All</a>
-                        </header>
-                        <ul class="event-list">
-                            <li class="event-item">
-                                <div class="event-row">
-                                    <div class="event-date">Jun 05</div>
-                                    <div class="event-meta">
-                                        <h4>General Body Meeting</h4>
-                                        <span>Seminar Hall · 4:00 PM</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="event-item">
-                                <div class="event-row">
-                                    <div class="event-date">Jun 12</div>
-                                    <div class="event-meta">
-                                        <h4>Study Circle: Constitution & Rights</h4>
-                                        <span>Room 201 · 4:30 PM</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="event-item">
-                                <div class="event-row">
-                                    <div class="event-date">Jun 20</div>
-                                    <div class="event-meta">
-                                        <h4>Campus Protest Against Fee Hike</h4>
-                                        <span>Main Gate · 11:00 AM</span>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section class="helpdesk-section" id="helpdesk">
-                <div class="helpdesk-card">
-                    <div class="helpdesk-copy">
-                        <h3>KEAM 2025 Helpdesk — fast support for aspirants</h3>
-                        <p>Need quick guidance, application support or issue resolution? Our KEAM 2025 helpdesk is live and ready for students seeking admissions advice.</p>
-                    </div>
-                    <a href="mailto:keam.helpdesk@rit.edu" class="helpdesk-action">Contact KEAM Helpdesk</a>
-                </div>
-            </section>
-        </main>
-
-        <footer class="footer" id="contact">
-            <div class="footer-inner">
-                <div class="footer-brand">
-                    <i class="fas fa-flag"></i>
-                    <div>
-                        <p>For the Students. For the Campus. For the Society.</p>
-                        <p>Join the movement. Be the change.</p>
-                    </div>
-                </div>
-                <div class="footer-copy">© 2026 SFI RIT Kottayam. All Rights Reserved.</div>
-                <div class="footer-links">
-                    <a href="#home"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#home"><i class="fab fa-instagram"></i></a>
-                    <a href="#home"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-        </footer>
+    <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl">
+        <div class="glass-panel rounded-2xl px-6 py-4">
+            <div class="flex justify-between items-center">
+              
+               <a href="index.html" class="flex items-center gap-4 group">
+    <div class="relative flex flex-col items-center">
+        <div class="absolute -top-1.5 left-[34px] text-sfi-red filter drop-shadow-[0_0_12px_rgba(255,49,49,1)]">
+            <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+        </div>
+        
+        <span class="text-4xl font-display font-black text-sfi-red tracking-tighter leading-none filter drop-shadow-[0_0_25px_rgba(255,49,49,0.9)] brightness-125">
+            SFI
+        </span>
     </div>
 
+    <div class="flex flex-col border-l border-white/50 pl-4 py-1">
+        <span class="text-[10px] font-bold tracking-widest leading-none uppercase text-white filter drop-shadow-[0_0_10px_rgba(255,255,255,0.6)] brightness-150">
+            Student's Federation of India
+        </span>
+        <span class="text-[8px] font-black text-white leading-tight mt-1 uppercase brightness-110">
+            RAJIV GANDHI INSTITUTE OF TECHNOLOGY<br>
+            <span class="text-sfi-red brightness-150 drop-shadow-[0_0_5px_rgba(255,49,49,0.5)]">KOTTAYAM</span>
+        </span>
+    </div>
+</a>
+
+                <div class="hidden lg:flex items-center gap-8">
+                    <a href="#" class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">HOME</a>
+                    <a href="#notifications" class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">UPDATES</a>
+                    <a href="#focus" class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">ISSUES</a>
+                    <a href="#news" class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">MEDIA</a>
+                    <button class="bg-sfi-red text-white px-6 py-2.5 rounded-lg text-[10px] font-black tracking-widest flex items-center gap-2 hover:scale-105 transition-all">
+                        JOIN SFI <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <button id="menu-toggle" class="lg:hidden p-2"><i data-lucide="menu"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative min-h-screen flex items-center px-6 pt-20">
+        <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 items-center gap-12">
+            <div class="reveal active">
+                <h1 class="font-display text-7xl md:text-9xl mb-8 tracking-[0.05em] leading-[1.1] drop-shadow-[0_0_30px_rgba(255,49,49,0.2)]">
+    EDUCATE.<br />
+    <span class="text-sfi-red brightness-125">AGITATE.</span><br />
+    ORGANISE.
+</h1>
+                <p class="text-lg md:text-xl text-white/70 mb-10 max-w-lg leading-relaxed">
+                    For the Students. For the Campus. For the Society. 
+                    Building a Democratic, Equal & Progressive Future.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#notifications" class="glass-button px-8 py-4 rounded-xl font-bold text-xs tracking-[0.2em] flex items-center gap-3">
+                        KEAM UPDATES <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </a>
+                    <a href="#focus" class="bg-white/5 border border-white/10 hover:bg-white/10 px-8 py-4 rounded-xl font-bold text-xs tracking-[0.2em] transition-all flex items-center gap-3">
+                        OUR DEMANDS
+                    </a>
+                </div>
+            </div>
+
+            <div class="reveal active lg:block">
+                <div class="glass-panel p-10 rounded-[2.5rem] relative overflow-hidden group">
+                    <div class="absolute -top-24 -right-24 w-64 h-64 bg-sfi-red/10 rounded-full blur-[80px]"></div>
+                    <div class="relative z-10">
+                        <span class="text-sfi-red text-[10px] font-black tracking-[0.4em] uppercase mb-4 block">COMMAND CENTER</span>
+                        <h2 class="text-4xl font-display font-bold mb-6 tracking-tight">KEAM HELP DESK 2026</h2>
+                        <p class="text-white/50 text-sm mb-8 leading-relaxed">
+                            Access high-intensity power mocks, real-time result analysis, and direct mentorship for applicants.
+                        </p>
+                        <a href="keam-exam.html" class="w-full bg-sfi-red py-5 rounded-2xl font-black text-center block tracking-widest hover:shadow-[0_0_30px_rgba(255,49,49,0.4)] transition-all">
+                            LAUNCH PORTAL
+                        </a>
+                        <div class="grid grid-cols-2 gap-4 mt-8">
+                            <div class="p-4 bg-white/5 rounded-xl border border-white/5 text-center">
+                                <span class="block text-2xl font-black">PYQs</span>
+                                <span class="text-[8px] text-white/40 uppercase font-bold">Explore</span>
+                            </div>
+                            <div class="p-4 bg-white/5 rounded-xl border border-white/5 text-center">
+                                <span class="block text-2xl font-black">Mock Tests</span>
+                                <span class="text-[8px] text-white/40 uppercase font-bold">Explore</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="notifications" class="py-32 bg-sfi-dark/50">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center">
+            <div class="reveal">
+                <span class="text-sfi-red text-[10px] font-black tracking-[0.4em] uppercase mb-4 block">LATEST UPDATES</span>
+                <h2 class="text-5xl font-display font-bold mb-8 tracking-tighter">KEAM 2026 <span class="text-sfi-red">NOTIFICATIONS.</span></h2>
+                <p class="text-white/60 leading-relaxed mb-10">
+                    Stay up-to-date with the latest announcements, exam schedules, and important alerts directly from the Commissioner for Entrance Examinations (CEE) Kerala.
+                </p>
+                <a href="https://cee.kerala.gov.in/" target="_blank" class="glass-button px-8 py-4 rounded-xl font-bold text-xs tracking-[0.2em] inline-flex items-center gap-3">
+                    VISIT OFFICIAL PORTAL <i data-lucide="external-link" class="w-4 h-4"></i>
+                </a>
+            </div>
+            <div class="reveal relative">
+                <div class="glass-panel p-8 rounded-[2rem] border border-white/10 relative overflow-hidden">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-sfi-red/10 rounded-full blur-[60px]"></div>
+                    <div class="flex items-center justify-between mb-6 border-b border-white/10 pb-4">
+                        <h3 class="font-display text-2xl tracking-wide flex items-center gap-3">
+                            <i data-lucide="bell-ring" class="text-sfi-red w-6 h-6"></i> LIVE ALERTS
+                        </h3>
+                        <span class="flex h-3 w-3 relative">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sfi-red opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-sfi-red"></span>
+                        </span>
+                    </div>
+                    
+                    <div class="space-y-6 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                        <div class="pl-4 border-l-2 border-sfi-red relative">
+                            <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-sfi-dark border-2 border-sfi-red"></div>
+                            <span class="text-[10px] font-bold text-sfi-red tracking-widest uppercase block mb-1">New Update</span>
+                            <p class="text-sm text-white/80 font-semibold mb-1">KEAM 2026 Admit Cards</p>
+                            <p class="text-xs text-white/50">Admit cards for KEAM 2026 will be available for download from the official portal soon.</p>
+                        </div>
+                        
+                        <div class="pl-4 border-l-2 border-white/20 relative">
+                            <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-sfi-dark border-2 border-white/20"></div>
+                            <span class="text-[10px] font-bold text-white/40 tracking-widest uppercase block mb-1">Exam Date</span>
+                            <p class="text-sm text-white/80 font-semibold mb-1">Computer Based Test Schedule</p>
+                            <p class="text-xs text-white/50">Engineering exams officially scheduled from April 17 to April 23, 2026.</p>
+                        </div>
+
+                        <div class="pl-4 border-l-2 border-white/20 relative">
+                            <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-sfi-dark border-2 border-white/20"></div>
+                            <span class="text-[10px] font-bold text-white/40 tracking-widest uppercase block mb-1">Notification</span>
+                            <p class="text-sm text-white/80 font-semibold mb-1">Profile Verification Available</p>
+                            <p class="text-xs text-white/50">Candidates can verify their details and rectify defects in photograph/signature.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="focus" class="py-32">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-4xl md:text-6xl font-display font-bold tracking-tighter">WHAT WE STAND FOR</h2>
+                <div class="w-20 h-1 bg-sfi-red mx-auto mt-6"></div>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass-panel p-8 rounded-3xl reveal hover:border-sfi-red/50 transition-colors">
+                    <i data-lucide="book" class="text-sfi-red w-10 h-10 mb-6"></i>
+                    <h3 class="font-black text-xs tracking-widest uppercase mb-4">Quality Education</h3>
+                    <p class="text-xs text-white/40 leading-relaxed">Accessible, affordable, and inclusive education for all.</p>
+                </div>
+                <div class="glass-panel p-8 rounded-3xl reveal hover:border-sfi-red/50 transition-colors">
+                    <i data-lucide="shield" class="text-sfi-red w-10 h-10 mb-6"></i>
+                    <h3 class="font-black text-xs tracking-widest uppercase mb-4">Student Rights</h3>
+                    <p class="text-xs text-white/40 leading-relaxed">Protecting democracy and free speech on campus.</p>
+                </div>
+                <div class="glass-panel p-8 rounded-3xl reveal hover:border-sfi-red/50 transition-colors">
+                    <i data-lucide="users" class="text-sfi-red w-10 h-10 mb-6"></i>
+                    <h3 class="font-black text-xs tracking-widest uppercase mb-4">Social Justice</h3>
+                    <p class="text-xs text-white/40 leading-relaxed">Standing against oppression and discrimination.</p>
+                </div>
+                <div class="glass-panel p-8 rounded-3xl reveal hover:border-sfi-red/50 transition-colors">
+                    <i data-lucide="globe" class="text-sfi-red w-10 h-10 mb-6"></i>
+                    <h3 class="font-black text-xs tracking-widest uppercase mb-4">Solidarity</h3>
+                    <p class="text-xs text-white/40 leading-relaxed">Building a united, progressive student society.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="bottom-hub-container reveal">
+    <div class="hub-glass">
+        <div class="hub-accent-line"></div>
+        
+        <div class="p-8 md:p-12 flex flex-col lg:flex-row items-center justify-between gap-12">
+            
+            <div class="flex items-center gap-6">
+                <div class="w-16 h-16 flex items-center justify-center rounded-2xl bg-sfi-red/10 border border-sfi-red/20">
+                    <i data-lucide="flame" class="text-sfi-red w-8 h-8"></i>
+                </div>
+                <div>
+                    <h4 class="text-[10px] font-black tracking-[0.4em] text-sfi-red uppercase mb-1">Our Core Mission</h4>
+                    <p class="text-xl font-display font-bold text-white tracking-tight">INDEPENDENCE. DEMOCRACY. SOCIALISM.</p>
+                </div>
+            </div>
+
+            <div class="flex flex-1 items-center justify-around w-full max-w-3xl">
+                <div class="text-center group cursor-default">
+                    <span class="text-[9px] font-bold text-white/30 uppercase tracking-[0.2em] block mb-2 group-hover:text-sfi-red transition-colors">Portal Status</span>
+                    <div class="flex items-center justify-center text-xs font-black tracking-widest uppercase">
+                        <span class="pulse-red"></span> LIVE: KEAM HELP DESK
+                    </div>
+                </div>
+
+                <div class="stat-divider"></div>
+
+                <div class="text-center group cursor-default">
+                    <span class="text-[9px] font-bold text-white/30 uppercase tracking-[0.2em] block mb-2 group-hover:text-sfi-red transition-colors">Next Event</span>
+                    <div class="text-xs font-black tracking-widest uppercase">
+                        <i data-lucide="clock" class="w-3 h-3 inline-block mr-1 -mt-1 text-sfi-red"></i> GEN. BODY MEETING
+                    </div>
+                </div>
+
+                <div class="stat-divider"></div>
+
+                <div class="text-center group cursor-default">
+                    <span class="text-[9px] font-bold text-white/30 uppercase tracking-[0.2em] block mb-2 group-hover:text-sfi-red transition-colors">Response Time</span>
+                    <div class="text-xs font-black tracking-widest uppercase">
+                        <i data-lucide="zap" class="w-3 h-3 inline-block mr-1 -mt-1 text-sfi-red"></i> < 30 MINUTES
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all hover:scale-105">
+                    <i data-lucide="mail" class="w-5 h-5 text-white/60"></i>
+                </button>
+                <button class="bg-sfi-red hover:bg-red-700 text-white px-8 py-4 rounded-2xl font-black text-[10px] tracking-[0.2em] uppercase flex items-center gap-3 transition-all hover:shadow-[0_0_40px_rgba(225,29,72,0.4)] hover:-translate-y-1">
+                    GET ASSISTANCE <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
+                </button>
+                <a href="helpdesk.html" class="bg-sfi-red hover:bg-red-700 text-white px-8 py-4 rounded-2xl font-black text-[10px] tracking-[0.2em] uppercase flex items-center gap-3 transition-all hover:shadow-[0_0_40px_rgba(225,29,72,0.4)] hover:-translate-y-1">
+                    CONTACT US <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+        
+        <div class="bg-white/5 border-t border-white/5 px-12 py-4 flex flex-wrap justify-center gap-8 md:justify-between items-center">
+            <div class="flex gap-6">
+                <span class="text-[9px] font-bold text-white/20 uppercase tracking-widest cursor-pointer hover:text-white transition-colors">Unit History</span>
+                <span class="text-[9px] font-bold text-white/20 uppercase tracking-widest cursor-pointer hover:text-white transition-colors">Leadership</span>
+                <span class="text-[9px] font-bold text-white/20 uppercase tracking-widest cursor-pointer hover:text-white transition-colors">Documents</span>
+            </div>
+            <div class="text-[9px] font-bold text-sfi-red tracking-[0.3em] uppercase animate-pulse">
+                • 246 Students Joined This Week •
+            </div>
+        </div>
+    </div>
+</div>
+
+    <footer class="py-20 border-t border-white/10 bg-black">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-10">
+            <div class="flex flex-col items-center md:items-start">
+                <span class="text-5xl font-display font-black text-sfi-red tracking-tighter">SFI</span>
+                <p class="text-[10px] font-bold text-white/30 uppercase mt-4 tracking-[0.2em]">RIT KOTTAYAM UNIT</p>
+            </div>
+            <div class="flex gap-8">
+                <i data-lucide="facebook" class="text-white/20 hover:text-white cursor-pointer"></i>
+                <i data-lucide="instagram" class="text-white/20 hover:text-white cursor-pointer"></i>
+                <i data-lucide="twitter" class="text-white/20 hover:text-white cursor-pointer"></i>
+            </div>
+            <p class="text-[10px] font-bold text-white/10 uppercase tracking-widest">© 2026 ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
     <script>
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('navMenu');
+        // Initialize Lucide Icons
+        lucide.createIcons();
 
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            if (navMenu.classList.contains('active')) {
-                navMenu.style.display = 'flex';
-                navMenu.style.flexDirection = 'column';
-                navMenu.style.background = 'rgba(5, 5, 5, 0.98)';
-                navMenu.style.position = 'absolute';
-                navMenu.style.top = '100%';
-                navMenu.style.right = '3%';
-                navMenu.style.left = '3%';
-                navMenu.style.padding = '18px 16px';
-                navMenu.style.borderRadius = '20px';
-            } else {
-                navMenu.removeAttribute('style');
-            }
-        });
-
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (navMenu.classList.contains('active')) {
-                    navMenu.classList.remove('active');
-                    navMenu.removeAttribute('style');
+        // Reveal Animation Logic
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
                 }
             });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Mobile Menu Toggle
+        document.getElementById('menu-toggle').addEventListener('click', () => {
+            alert('Menu functionality is integrated into the UI. Desktop navigation is active.');
         });
     </script>
 </body>
