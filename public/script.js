@@ -21,7 +21,11 @@ let state = {
 };
 
 function init() {
-    lucide.createIcons();
+    try {
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    } catch (e) {
+        console.error("Lucide Error:", e);
+    }
     
     // Declaration Logic
     const check = document.getElementById('declaration-check');
@@ -55,10 +59,16 @@ function init() {
     
     if (startBtn) {
         startBtn.onclick = () => {
+            // Prioritize timer and screen switch
+            startTimer();
             document.getElementById('instruction-screen').classList.remove('active');
             document.getElementById('test-screen').classList.add('active');
-            render(); 
-            startTimer();
+            
+            try {
+                render(); 
+            } catch (e) {
+                console.error("Initial Render Error:", e);
+            }
         };
     }
 
@@ -130,9 +140,15 @@ function init() {
                 overlay.classList.add('hidden');
             }, 300);
         };
+    } catch (e) {
+        console.warn("Mobile Toggle Error:", e);
     }
 
-    if (CONFIG.SUPABASE.URL && CONFIG.SUPABASE.KEY) fetchSupabase();
+    try {
+        if (CONFIG.SUPABASE.URL && CONFIG.SUPABASE.KEY) fetchSupabase();
+    } catch (e) {
+        console.error("Supabase Init Error:", e);
+    }
 }
 
 async function fetchSupabase() {
