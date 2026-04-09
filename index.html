@@ -155,7 +155,7 @@
 
         .hero-image-text .hero-hero-title {
             font-family: 'Oswald', sans-serif;
-            font-size: clamp(3rem, 6vw, 5rem);
+            font-size: clamp(2.5rem, 4.5vw, 4rem);
             line-height: 1;
             font-weight: 900;
             letter-spacing: -0.04em;
@@ -289,6 +289,19 @@
         .no-scroll {
             overflow: hidden;
         }
+        .hero-image-text .hero-hero-title {
+            letter-spacing: -0.03em;
+        }
+
+        .highlight-glow {
+            box-shadow: 0 0 40px rgba(255, 49, 49, 0.15), inset 0 0 20px rgba(255, 49, 49, 0.05);
+            border-color: rgba(255, 49, 49, 0.3) !important;
+        }
+
+        .highlight-glow:hover {
+            box-shadow: 0 0 60px rgba(255, 49, 49, 0.25), inset 0 0 30px rgba(255, 49, 49, 0.1);
+            border-color: rgba(255, 49, 49, 0.5) !important;
+        }
     </style>
 </head>
 
@@ -345,7 +358,7 @@
     </nav>
 
     <section class="relative min-h-[90vh] flex items-center px-6 pt-24">
-        <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 items-center gap-8">
+        <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-[0.85fr_1.15fr] items-center gap-12">
             <div class="reveal active flex flex-col items-center text-center mx-auto lg:mx-0 space-y-4">
                 <div class="hero-image-wrapper">
                     <div class="hero-image-text">
@@ -369,10 +382,10 @@
                 </div>
             </div>
             <div class="reveal active w-full max-w-lg mx-auto lg:max-w-none">
-                <div class="glass-panel p-10 rounded-[2.5rem] relative overflow-hidden group">
-                    <div class="absolute -top-24 -right-24 w-64 h-64 bg-sfi-red/10 rounded-full blur-[80px]"></div>
+                <div class="glass-panel p-10 md:p-14 rounded-[2.5rem] relative overflow-hidden group highlight-glow transition-all duration-500 hover:scale-[1.02]">
+                    <div class="absolute -top-24 -right-24 w-80 h-80 bg-sfi-red/20 rounded-full blur-[100px]"></div>
                     <div class="relative z-10">
-                        <h2 class="text-4xl font-display font-bold mb-6 tracking-tight">KEAM HELP DESK 2026</h2>
+                        <h2 class="text-4xl md:text-5xl font-display font-bold mb-6 tracking-tight">KEAM HELP DESK 2026</h2>
                         <p class="text-white/50 text-sm mb-8 leading-relaxed">Access high-intensity power mocks,
                             real-time result analysis, and direct mentorship for applicants.</p>
                         <a href="keamportal.html"
