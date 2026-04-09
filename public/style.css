@@ -9,6 +9,7 @@
   --viewed: #F43F5E;
   --marked: #3B82F6;
   --unvisited: rgba(255, 255, 255, 0.05);
+  --question-scale: 1;
 }
 
 body {

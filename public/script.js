@@ -17,7 +17,8 @@ let state = {
     responses: {}, 
     timeRemaining: CONFIG.TOTAL_TIME, 
     activeSubject: 'Physics',
-    timerInterval: null 
+    timerInterval: null,
+    questionScale: 1.0 
 };
 
 function init() {
@@ -145,6 +146,17 @@ function init() {
         overlay.onclick = closePalette;
     }
 
+    // Zoom System
+    const updateZoom = () => {
+        document.documentElement.style.setProperty('--question-scale', state.questionScale);
+        render();
+    };
+
+    const zoomIn = document.getElementById('zoom-in');
+    const zoomOut = document.getElementById('zoom-out');
+    if (zoomIn) zoomIn.onclick = () => { if (state.questionScale < 1.5) { state.questionScale += 0.1; updateZoom(); } };
+    if (zoomOut) zoomOut.onclick = () => { if (state.questionScale > 0.8) { state.questionScale -= 0.1; updateZoom(); } };
+
     try {
         if (CONFIG.SUPABASE.URL && CONFIG.SUPABASE.KEY) fetchSupabase();
     } catch (e) {
@@ -154,22 +166,56 @@ function init() {
 
 async function fetchSupabase() {
     try {
-        const res = await fetch(`${CONFIG.SUPABASE.URL}/rest/v1/KEAM%20Mock%20Test?select=*&order=id.asc`, { 
+        const res = await fetch(`${CONFIG.SUPABASE.URL}/rest/v1/KEAM%20Mock%20Test?select=*`, { 
             headers: { 
                 'apikey': CONFIG.SUPABASE.KEY, 
                 'Authorization': `Bearer ${CONFIG.SUPABASE.KEY}` 
             } 
         });
         if (!res.ok) throw new Error("Fetch failed");
-        const rawData = await res.json();
-        if (rawData.length > 0) {
-            state.questions = rawData.map(q => ({
-                id: q.id,
+        let allQuestions = await res.json();
+        
+        // Group by subject
+        const grouped = { Physics: [], Chemistry: [], Mathematics: [] };
+        allQuestions.forEach(q => {
+            if (grouped[q.subject]) grouped[q.subject].push(q);
+        });
+
+        // Shuffle helper
+        const shuffle = (array) => array.sort(() => Math.random() - 0.5);
+
+        // Select required counts
+        const selected = [
+            ...shuffle(grouped.Physics).slice(0, 45),
+            ...shuffle(grouped.Chemistry).slice(0, 30),
+            ...shuffle(grouped.Mathematics).slice(0, 75)
+        ];
+
+        if (selected.length > 0) {
+            const cleanText = (str) => {
+                if (!str) return "";
+                return str
+                    .replace(/\[cite:\s*\d+\]/g, '') // Remove [cite: 1]
+                    .replace(/\\AA/g, 'Å')            // Convert Angstrom
+                    .replace(/\\circ/g, '°')          // Convert degree
+                    .trim();
+            };
+
+            state.questions = selected.map((q, i) => ({
+                id: i + 1,
                 subject: q.subject,
-                text: q.question_text,
-                options: [q.option_a, q.option_b, q.option_c, q.option_d, q.option_e],
+                text: cleanText(q.question_text),
+                options: [
+                    cleanText(q.option_a), 
+                    cleanText(q.option_b), 
+                    cleanText(q.option_c), 
+                    cleanText(q.option_d), 
+                    cleanText(q.option_e)
+                ],
                 correct: q.correct_answer
             }));
+            state.responses = {};
+            state.questions.forEach((_, i) => state.responses[i] = { status: 'unvisited', selectedOption: null });
             render();
         }
     } catch (e) { console.error("Supabase Error:", e); }
@@ -219,27 +265,14 @@ function render() {
     
     // Render Math
     try {
-        if (typeof renderMathInElement === 'function') {
-            renderMathInElement(document.getElementById('question-text'), {
-                delimiters: [
-                    {left: '$$', right: '$$', display: true},
-                    {left: '$', right: '$', display: false}
-                ],
-                throwOnError: false
-            });
-            renderMathInElement(document.getElementById('options-container'), {
-                delimiters: [
-                    {left: '$$', right: '$$', display: true},
-                    {left: '$', right: '$', display: false}
-                ],
-                throwOnError: false
-            });
+        if (window.MathJax && window.MathJax.typesetPromise) {
+            MathJax.typesetPromise();
         }
-    } catch (e) {
-        console.warn("KaTeX rendering error:", e);
-    }
+    } catch (e) { console.error("MathJax error:", e); }
 
-    updateSummary();
+    try {
+        updateSummary();
+    } catch (e) { console.error("Stats update failed:", e); }
 }
 
 function updateSummary() {
