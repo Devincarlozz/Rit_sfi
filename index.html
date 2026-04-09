@@ -309,7 +309,8 @@
 
     <div class="fixed inset-0 z-[-1] overflow-hidden bg-black">
         <img src="/2.jpg" alt="Main Background"
-            class="w-full h-full object-cover opacity-80 scale-100 saturate-100 brightness-100 contrast-100">
+            class="w-full h-[120vh] object-cover opacity-80 saturate-100 brightness-100 contrast-100"
+            style="object-position: center 25%; transform: translateY(calc(var(--scroll-y, 0) * -0.2px));">
         <div
             class="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_rgba(0,0,0,0.4)_50%,_rgba(0,0,0,0.85)_100%)]">
         </div>
@@ -558,6 +559,11 @@
         closeMenu.addEventListener('click', () => toggleMenu(false));
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => toggleMenu(false));
+        });
+
+        // Background Parallax Shadow Variable
+        window.addEventListener('scroll', () => {
+            document.documentElement.style.setProperty('--scroll-y', window.scrollY + 'px');
         });
     </script>
 </body>
