@@ -321,6 +321,17 @@
                             style="font-size: calc(1rem * var(--question-scale))">
                             <!-- Options rendered by JS -->
                         </div>
+
+                        <!-- Explanation Container (Visible in Review Mode) -->
+                        <div id="explanation-container" class="hidden mt-8 p-5 md:p-8 rounded-2xl md:rounded-3xl border border-[#3B82F6]/30 bg-[#3B82F6]/[0.05] relative overflow-hidden transition-all">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-[#3B82F6]"></div>
+                            <h4 class="text-[10px] md:text-xs font-black tracking-widest text-[#3B82F6] uppercase mb-4 flex items-center gap-2 font-sans">
+                                <i data-lucide="info" class="w-4 h-4"></i> STEP-BY-STEP EXPLANATION
+                            </h4>
+                            <div id="explanation-text" class="text-sm md:text-base text-white/70 leading-relaxed font-sans" style="font-size: calc(1rem * var(--question-scale))">
+                                <!-- Explanation text injected by JS -->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

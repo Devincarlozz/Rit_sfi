@@ -223,7 +223,8 @@ async function fetchSupabase() {
                     cleanText(q.option_d), 
                     cleanText(q.option_e)
                 ],
-                correct: q.correct_answer
+                correct: q.correct_answer,
+                explanation: cleanText(q.explanation || q.solution)
             }));
             state.responses = {};
             state.questions.forEach((_, i) => state.responses[i] = { status: 'unvisited', selectedOption: null });
@@ -297,8 +298,29 @@ function render() {
     });
 
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.subject.toLowerCase() === state.activeSubject.toLowerCase()));
-    if (state.responses[state.currentIdx].status === 'unvisited') state.responses[state.currentIdx].status = 'viewed';
+    if (state.responses[state.currentIdx].status === 'unvisited' && !state.isReviewMode) {
+        state.responses[state.currentIdx].status = 'viewed';
+    }
     
+    // Handle Explanation
+    const expCont = document.getElementById('explanation-container');
+    if (expCont) {
+        if (state.isReviewMode) {
+            const sel = state.responses[state.currentIdx].selectedOption;
+            const isCorr = checkIfCorrect(q, sel);
+            if (!isCorr) { // Only show if wrong or skipped
+                let correctOptLabel = (q.correct || '').toUpperCase();
+                let fb = `The correct answer is Option <strong>${correctOptLabel}</strong>.<br><br><span style="opacity: 0.5; font-size: 0.9em;">Detailed step-by-step mathematical explanation is currently unavailable for this question in the database.</span>`;
+                document.getElementById('explanation-text').innerHTML = q.explanation ? q.explanation : fb;
+                expCont.classList.remove('hidden');
+            } else {
+                expCont.classList.add('hidden');
+            }
+        } else {
+            expCont.classList.add('hidden');
+        }
+    }
+
     // Render Math
     try {
         if (window.MathJax && window.MathJax.typesetPromise) {
