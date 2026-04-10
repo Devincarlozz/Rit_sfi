@@ -183,25 +183,21 @@
             font-weight: 700;
         }
 
-        /* --- HELPDESK (LINEAR FLEXIBLE LAYOUT) --- */
+        /* --- HELPDESK (STACKED LAYOUT) --- */
         .priority-grid {
             display: grid;
             grid-template-columns: minmax(0, 1fr);
             gap: 15px;
             margin-bottom: 60px;
             width: 100%;
-            max-width: 600px;
+            max-width: 650px; /* Optimal width for a single column stack */
             margin-left: auto;
             margin-right: auto;
-            justify-items: center;
         }
 
         @media (min-width: 768px) {
             .priority-grid {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
                 gap: 20px;
-                max-width: 1200px;
-                justify-items: stretch;
                 margin-bottom: 100px;
             }
         }
