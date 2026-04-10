@@ -572,6 +572,29 @@
             mobileMenu.classList.remove('active');
         });
 
+        // Test screen palette toggle
+        const testPaletteToggle = document.getElementById('mobile-palette-toggle');
+        const testSidebar = document.getElementById('test-sidebar');
+        const testOverlay = document.getElementById('mobile-overlay');
+
+        if (testPaletteToggle && testSidebar && testOverlay) {
+            testPaletteToggle.addEventListener('click', () => {
+                testSidebar.classList.remove('hidden');
+                testSidebar.classList.add('flex');
+                requestAnimationFrame(() => testSidebar.classList.remove('translate-x-full'));
+                testOverlay.classList.remove('hidden');
+            });
+
+            testOverlay.addEventListener('click', () => {
+                testSidebar.classList.add('translate-x-full');
+                testOverlay.classList.add('hidden');
+                setTimeout(() => { 
+                    testSidebar.classList.add('hidden'); 
+                    testSidebar.classList.remove('flex'); 
+                }, 300);
+            });
+        }
+
         // Review screen palette toggle — reuse same sidebar/overlay
         document.querySelectorAll('.review-palette-toggle').forEach(btn => {
             btn.addEventListener('click', () => {

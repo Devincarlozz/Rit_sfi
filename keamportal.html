@@ -1029,47 +1029,65 @@ function openViewer(category, subject) {
         return;
     }
     
-    document.getElementById('material-viewer-modal').style.display = 'block';
+    document.getElementById('material-viewer-modal').style.display = 'flex';
     document.body.style.overflow = 'hidden';
     
-    const listEl = document.getElementById('viewer-list');
-    listEl.innerHTML = '';
+    const desktopList = document.getElementById('viewer-list');
+    const mobileList = document.getElementById('viewer-list-mobile');
+    desktopList.innerHTML = '';
+    mobileList.innerHTML = '';
     
-    document.getElementById('viewer-title').innerText = subject.toUpperCase() + ' ' + (category === 'pyqs' ? 'PREVIOUS YEAR Qs' : 'STUDY NOTES & FORMULAS');
+    document.getElementById('viewer-title').innerText = subject.toUpperCase();
     
     data.forEach((item, index) => {
-        const btn = document.createElement('div');
-        btn.innerText = item.name;
-        btn.style.padding = "16px 20px";
-        btn.style.background = index === 0 ? "rgba(230,0,0,0.15)" : "rgba(255,255,255,0.03)";
-        btn.style.border = index === 0 ? "1px solid var(--sfi-red)" : "1px solid #222";
-        btn.style.borderRadius = "6px";
-        btn.style.cursor = "pointer";
-        btn.style.color = index === 0 ? "white" : "var(--text-gray)";
-        btn.style.fontWeight = index === 0 ? "bold" : "normal";
-        btn.style.fontSize = "1.05rem";
-        btn.style.transition = "all 0.2s";
-        
-        btn.onclick = function() {
-            Array.from(listEl.children).forEach(c => {
-                c.style.background = "rgba(255,255,255,0.03)";
-                c.style.border = "1px solid #222";
-                c.style.color = "var(--text-gray)";
-                c.style.fontWeight = "normal";
-            });
-            btn.style.background = "rgba(230,0,0,0.15)";
-            btn.style.border = "1px solid var(--sfi-red)";
-            btn.style.color = "white";
-            btn.style.fontWeight = "bold";
+        const createItem = (isMobile) => {
+            const btn = document.createElement('div');
+            btn.className = "p-4 rounded-xl cursor-pointer transition-all border flex items-center justify-between group";
+            btn.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <i data-lucide="file-text" class="w-4 h-4 text-sfi-red"></i>
+                    <span class="text-sm font-medium">${item.name}</span>
+                </div>
+                <i data-lucide="chevron-right" class="w-3 h-3 text-white/20 group-hover:text-white transition-colors"></i>
+            `;
             
-            document.getElementById('loading-spinner').style.display = 'block';
-            document.getElementById('pdf-iframe').src = `https://drive.google.com/file/d/${item.url}/preview`;
+            const setActive = () => {
+                const allItems = [...desktopList.children, ...mobileList.children];
+                allItems.forEach(c => {
+                    c.classList.remove('bg-sfi-red/10', 'border-sfi-red/50', 'text-white');
+                    c.classList.add('bg-white/[0.03]', 'border-white/10', 'text-white/60');
+                });
+                // Find all items with same name to highlight both lists
+                allItems.forEach(c => {
+                    if (c.innerText.includes(item.name)) {
+                        c.classList.add('bg-sfi-red/10', 'border-sfi-red/50', 'text-white');
+                        c.classList.remove('text-white/60');
+                    }
+                });
+            };
+
+            if (index === 0) {
+                btn.classList.add('bg-sfi-red/10', 'border-sfi-red/50', 'text-white');
+            } else {
+                btn.classList.add('bg-white/[0.03]', 'border-white/10', 'text-white/60');
+            }
+
+            btn.onclick = function() {
+                setActive();
+                document.getElementById('loading-spinner').style.display = 'flex';
+                document.getElementById('pdf-iframe').src = `https://drive.google.com/file/d/${item.url}/preview`;
+                if (isMobile) toggleDocList(); // Close sheet on selection
+            };
+            return btn;
         };
-        
-        listEl.appendChild(btn);
+
+        desktopList.appendChild(createItem(false));
+        mobileList.appendChild(createItem(true));
     });
     
-    document.getElementById('loading-spinner').style.display = 'block';
+    if (window.lucide) lucide.createIcons();
+    
+    document.getElementById('loading-spinner').style.display = 'flex';
     document.getElementById('pdf-iframe').src = `https://drive.google.com/file/d/${data[0].url}/preview`;
 }
 
@@ -1077,9 +1095,11 @@ function closeViewer() {
     document.getElementById('material-viewer-modal').style.display = 'none';
     document.body.style.overflow = 'auto';
     document.getElementById('pdf-iframe').src = '';
-    // Close mobile sheet too
+    docListOpen = false;
     const sheet = document.getElementById('mobile-doc-sheet');
     if (sheet) sheet.classList.add('translate-y-full');
+    const label = document.getElementById('toggle-doc-label');
+    if (label) label.textContent = 'DOCS';
 }
 
 let docListOpen = false;
@@ -1091,10 +1111,6 @@ function toggleDocList() {
     if (docListOpen) {
         sheet.classList.remove('translate-y-full');
         if (label) label.textContent = 'CLOSE';
-        // Sync mobile list with desktop list
-        const mobileList = document.getElementById('viewer-list-mobile');
-        const desktopList = document.getElementById('viewer-list');
-        if (mobileList && desktopList) mobileList.innerHTML = desktopList.innerHTML;
     } else {
         sheet.classList.add('translate-y-full');
         if (label) label.textContent = 'DOCS';
