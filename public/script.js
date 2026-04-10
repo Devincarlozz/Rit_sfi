@@ -18,8 +18,21 @@ let state = {
     timeRemaining: CONFIG.TOTAL_TIME, 
     activeSubject: 'Physics',
     timerInterval: null,
-    questionScale: 1.0 
+    questionScale: 1.0,
+    isReviewMode: false
 };
+
+function checkIfCorrect(q, optIdx) {
+    if (!q.correct || optIdx === null) return false;
+    const correctStr = String(q.correct).trim().toUpperCase();
+    const selectedText = (q.options[optIdx] || "").trim().toUpperCase();
+    if (correctStr.length === 1 && correctStr >= 'A' && correctStr <= 'E') {
+        return optIdx === (correctStr.charCodeAt(0) - 65);
+    }
+    if (correctStr === selectedText) return true;
+    if (correctStr.includes(selectedText) || selectedText.includes(correctStr)) return true;
+    return false;
+}
 
 function init() {
     try {
@@ -232,9 +245,25 @@ function render() {
     q.options.forEach((opt, i) => {
         if (!opt) return;
         const div = document.createElement('div');
-        div.className = `option-item ${state.responses[state.currentIdx].selectedOption === i ? 'selected' : ''}`;
+        const isSel = (state.responses[state.currentIdx].selectedOption === i);
+        div.className = `option-item ${isSel && !state.isReviewMode ? 'selected' : ''}`;
         div.innerHTML = `<div class="option-circle">${String.fromCharCode(65+i)}</div><div>${opt}</div>`;
+        
+        if (state.isReviewMode) {
+            const isCorr = checkIfCorrect(q, i);
+            if (isCorr) {
+                div.style.borderColor = '#22C55E';
+                div.style.backgroundColor = 'rgba(34, 197, 94, 0.2)';
+                div.style.color = '#22C55E';
+            } else if (isSel && !isCorr) {
+                div.style.borderColor = '#EF4444';
+                div.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
+                div.style.color = '#EF4444';
+            }
+        }
+        
         div.onclick = () => { 
+            if (state.isReviewMode) return;
             state.responses[state.currentIdx].selectedOption = i; 
             render(); 
         };
@@ -248,6 +277,15 @@ function render() {
             const btn = document.createElement('button');
             btn.className = `palette-btn ${state.responses[i].status}`;
             if (i === state.currentIdx) btn.classList.add('current');
+            
+            if (state.isReviewMode && state.responses[i].status === 'answered') {
+                const sel = state.responses[i].selectedOption;
+                const isCorr = checkIfCorrect(state.questions[i], sel);
+                btn.style.backgroundColor = isCorr ? 'rgba(34, 197, 94, 0.2)' : 'rgba(239, 68, 68, 0.2)';
+                btn.style.borderColor = isCorr ? '#22C55E' : '#EF4444';
+                btn.style.color = isCorr ? '#22C55E' : '#EF4444';
+            }
+            
             btn.innerText = i + 1;
             btn.onclick = () => { 
                 state.currentIdx = i; 
@@ -340,19 +378,7 @@ function showResultAnalysis() {
             attempted++;
             if (subjectsStats[q.subject]) subjectsStats[q.subject].attempted++;
             
-            let isCorrect = false;
-            if (q.correct) {
-                const correctStr = String(q.correct).trim().toUpperCase();
-                const selectedText = (q.options[response.selectedOption] || "").trim().toUpperCase();
-                
-                if (correctStr.length === 1 && correctStr >= 'A' && correctStr <= 'E') {
-                    if (response.selectedOption === (correctStr.charCodeAt(0) - 65)) isCorrect = true;
-                } else if (correctStr === selectedText) {
-                    isCorrect = true;
-                } else if (correctStr.includes(selectedText) || selectedText.includes(correctStr)) {
-                    isCorrect = true;     
-                }
-            }
+            let isCorrect = checkIfCorrect(q, response.selectedOption);
 
             if (isCorrect) {
                 correct++;
@@ -417,10 +443,61 @@ function showResultAnalysis() {
         });
     }
 
+    const ctx = document.getElementById('resultChart');
+    if (ctx && window.Chart) {
+        if (window.myResultChart) window.myResultChart.destroy();
+        window.myResultChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Correct', 'Incorrect', 'Skipped'],
+                datasets: [{
+                    data: [correct, incorrect, state.questions.length - attempted],
+                    backgroundColor: ['#22C55E', '#EF4444', '#374151'],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: 'rgba(255, 255, 255, 0.7)', font: { family: 'Inter', size: 10 } }
+                    }
+                },
+                cutout: '75%'
+            }
+        });
+    }
+
     const rs = document.getElementById('result-screen');
     if (rs) {
         rs.classList.remove('hidden');
         rs.classList.add('active');
+    }
+
+    const reviewBtn = document.getElementById('review-btn');
+    if (reviewBtn) {
+        reviewBtn.onclick = () => {
+            state.isReviewMode = true;
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('active');
+            document.getElementById('test-screen').classList.add('active');
+            
+            const saveBtn = document.getElementById('save-btn');
+            if(saveBtn) { saveBtn.innerText = "BACK TO RESULTS"; saveBtn.onclick = showResultAnalysis; }
+            const markBtn = document.getElementById('mark-btn');
+            if(markBtn) markBtn.style.display = 'none';
+            const clearBtn = document.getElementById('clear-btn');
+            if(clearBtn) clearBtn.style.display = 'none';
+            const submitBtn = document.getElementById('submit-btn');
+            if(submitBtn) submitBtn.style.display = 'none';
+            
+            state.currentIdx = 0;
+            state.activeSubject = state.questions[0].subject;
+            render();
+        };
     }
 }
 
