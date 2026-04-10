@@ -565,18 +565,17 @@
             mobileMenu.classList.remove('active');
         });
     </script>
-    <script type="module">
+    <script>
         /**
          * SFI RIT - AI Explanation Engine (Triple-Stack Reliability)
-         * This version uses Environment Variables for security.
          */
         const AI_CONFIG = {
-            GEMINI_KEY: import.meta.env.VITE_GEMINI_KEY || '',
+            GEMINI_KEY: '',
             GEMINI_URL: 'https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent',
-            GROQ_KEY: import.meta.env.VITE_GROQ_KEY || '',
+            GROQ_KEY: '',
             GROQ_URL: 'https://api.groq.com/openai/v1/chat/completions',
             GROQ_MODEL: 'llama-3.1-8b-instant',
-            OR_KEY: import.meta.env.VITE_OR_KEY || '',
+            OR_KEY: '',
             OR_URL: 'https://openrouter.ai/api/v1/chat/completions',
             OR_MODEL: 'google/gemini-flash-1.5-8b'
         };
@@ -916,15 +915,22 @@ Provide only the explanation text. Focus strictly on the core concept. Limit to 
             if (state.isReviewMode) {
                 const expCont = document.getElementById('explanation-container');
                 const expText = document.getElementById('explanation-text');
-                let correctOptLabel = String.fromCharCode(65 + (state.questions[state.currentIdx].correct.charCodeAt(0) - 65));
+                const correctVal = String(q.correct || '').trim();
+                let correctOptLabel = correctVal;
+                if (correctVal.length === 1 && correctVal >= 'A' && correctVal <= 'E') {
+                    correctOptLabel = correctVal;
+                }
                 let header = `<div class="mb-4">The correct answer is Option <strong>${correctOptLabel}</strong>.</div>`;
                 
                 expCont.classList.remove('hidden');
                 if (q.ai_explanation) { expText.innerHTML = header + q.ai_explanation; }
-                else if (q.explanation && q.explanation.length > 20) { expText.innerHTML = header + q.explanation; }
-                else {
+                else if (q.explanation && q.explanation.length > 5) { expText.innerHTML = header + q.explanation; }
+                else if (AI_CONFIG.GEMINI_KEY || AI_CONFIG.GROQ_KEY || AI_CONFIG.OR_KEY) {
                     expText.innerHTML = header + `<div class="flex items-center gap-2 text-white/40"><span class="w-4 h-4 border-2 border-t-transparent border-sfi-red rounded-full animate-spin"></span> Generating AI Explanation...</div>`;
                     fetchAIExplanation(q, () => { if (state.questions[state.currentIdx].id === q.id && state.isReviewMode) render(); });
+                }
+                else {
+                    expText.innerHTML = header + `<div class="text-white/50">Refer to your study material for a detailed explanation of this concept.</div>`;
                 }
             }
 
@@ -995,6 +1001,8 @@ Provide only the explanation text. Focus strictly on the core concept. Limit to 
             document.getElementById('review-btn').onclick = () => {
                 state.isReviewMode = true;
                 document.getElementById('result-screen').classList.add('hidden');
+                document.getElementById('result-screen').classList.remove('active');
+                document.getElementById('test-screen').classList.remove('hidden');
                 document.getElementById('test-screen').classList.add('active');
                 document.getElementById('timer-container').style.display = 'none';
                 document.getElementById('timer-progress').parentElement.style.opacity = '0';
