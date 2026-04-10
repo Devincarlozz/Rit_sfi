@@ -116,6 +116,17 @@
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
+        .nav-panel {
+            background: linear-gradient(180deg, rgba(18, 18, 18, 0.97) 0%, rgba(6, 8, 10, 0.96) 100%);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.08),
+                0 8px 32px rgba(0, 0, 0, 0.6),
+                0 1px 0 rgba(0, 0, 0, 0.8);
+        }
+
         .glass-button {
             --glass-bg: rgba(6, 8, 10, 0.4);
             --glass-border: rgba(255, 255, 255, 0.1);
@@ -360,7 +371,7 @@
     </div>
 
     <nav class="fixed top-0 left-0 w-full z-50">
-        <div class="glass-panel border-x-0 border-t-0 rounded-none px-6 py-4">
+        <div class="nav-panel border-x-0 border-t-0 rounded-none px-6 py-4">
             <div class="flex items-center justify-between">
                 <a href="index.html" class="flex items-center gap-4 group">
                     <div class="relative flex flex-col pt-2">
@@ -387,13 +398,13 @@
                         <a href="#notifications"
                             class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">KEAM
                             NOTIFICATIONS</a>
-                        <a href="pages.html"
+                        <a href="public/pages.html"
                             class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">OUR
                             PAGES</a>
-                        <a href="#helpdesk"
+                        <a href="public/helpdesk.html"
                             class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">CONTACT
                             US</a>
-                        <a href="keamportal.html"
+                        <a href="public/keamportal.html"
                             class="bg-sfi-red text-white px-6 py-2.5 rounded-lg text-[10px] font-black tracking-widest flex items-center gap-2 hover:scale-105 transition-all">KEAM
                             PORTAL</a>
                     </div>
@@ -448,18 +459,18 @@
                             KEAM HELP DESK 2026</h2>
                         <p class="text-white/50 text-sm mb-8 leading-relaxed">Access high-intensity power mocks,
                             real-time result analysis, and direct mentorship for applicants.</p>
-                        <a href="keamportal.html"
+                        <a href="public/keamportal.html"
                             class="w-full bg-sfi-red py-5 rounded-2xl font-black text-center block tracking-widest hover:shadow-[0_0_30px_rgba(255,49,49,0.4)] transition-all">LAUNCH
                             PORTAL</a>
                         <div class="right-panel-cards">
-                            <div class="right-panel-card bg-white/5 rounded-xl border border-white/5 text-center">
+                            <a href="public/keamportal.html" class="right-panel-card bg-white/5 rounded-xl border border-white/5 text-center hover:border-sfi-red/40 transition-colors cursor-pointer">
                                 <span class="block text-2xl font-black">PYQs</span>
                                 <span class="text-[8px] text-white/40 uppercase font-bold">Explore</span>
-                            </div>
-                            <div class="right-panel-card bg-white/5 rounded-xl border border-white/5 text-center">
+                            </a>
+                            <a href="public/keamportal.html" class="right-panel-card bg-white/5 rounded-xl border border-white/5 text-center hover:border-sfi-red/40 transition-colors cursor-pointer">
                                 <span class="block text-2xl font-black">Mock Tests</span>
                                 <span class="text-[8px] text-white/40 uppercase font-bold">Explore</span>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -584,13 +595,13 @@
                 <a href="#notifications"
                     class="mobile-nav-link text-4xl font-display font-bold tracking-[0.2em] hover:text-sfi-red">KEAM
                     NOTIFICATIONS</a>
-                <a href="pages.html"
+                <a href="public/pages.html"
                     class="mobile-nav-link text-5xl font-display font-bold tracking-[0.2em] hover:text-sfi-red">OUR
                     PAGES</a>
-                <a href="#helpdesk"
+                <a href="public/helpdesk.html"
                     class="mobile-nav-link text-5xl font-display font-bold tracking-[0.2em] hover:text-sfi-red">CONTACT
                     US</a>
-                <a href="keamportal.html"
+                <a href="public/keamportal.html"
                     class="mobile-nav-link text-5xl font-display font-bold tracking-[0.2em] text-sfi-red">KEAM
                     PORTAL</a>
             </div>
