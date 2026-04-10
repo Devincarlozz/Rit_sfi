@@ -4,9 +4,7 @@ import { fetchAIExplanation } from './ai_explanation.js';
 // Attach to window so our HTML buttons can still find it if needed
 window.fetchAIExplanation = fetchAIExplanation;
 
-/**
- * KEAM Mock Test - Final Production Logic
- */
+console.log("SFI Script Module Loaded");
 
 const CONFIG = {
     TOTAL_TIME: 150 * 60,
@@ -41,6 +39,7 @@ function checkIfCorrect(q, optIdx) {
 }
 
 function init() {
+    console.log("Initializing SFI Portal...");
     try {
         if (typeof lucide !== 'undefined') lucide.createIcons();
     } catch (e) {
