@@ -943,21 +943,18 @@
     </script>
 <!-- Material Viewer Modal -->
 <div id="material-viewer-modal" style="display: none;" class="fixed inset-0 z-[10000] bg-black/95 backdrop-blur-md flex flex-col">
-    <!-- Header -->
-    <div class="flex items-center justify-between px-5 py-4 border-b border-white/10 shrink-0">
-        <div>
-            <h2 id="viewer-title" class="oswald-font text-sfi-red text-2xl md:text-4xl tracking-wide leading-tight">MATERIALS</h2>
-            <p class="text-white/40 text-xs mt-0.5 hidden md:block">Select a document to view</p>
-        </div>
-        <div class="flex items-center gap-3">
+    <!-- Header (compact on mobile) -->
+    <div class="flex items-center justify-between px-4 py-3 border-b border-white/10 shrink-0">
+        <h2 id="viewer-title" class="oswald-font text-sfi-red text-lg md:text-4xl tracking-wide leading-tight truncate max-w-[55%]">MATERIALS</h2>
+        <div class="flex items-center gap-2">
             <!-- Mobile: Toggle list button -->
             <button id="toggle-doc-list"
                 onclick="toggleDocList()"
-                class="md:hidden flex items-center gap-2 bg-white/10 border border-white/20 px-3 py-2 rounded-xl text-white text-[11px] font-bold tracking-widest hover:bg-white/20 transition-all">
+                class="md:hidden flex items-center gap-1.5 bg-sfi-red/20 border border-sfi-red/40 px-3 py-2 rounded-xl text-sfi-red text-[11px] font-bold tracking-widest hover:bg-sfi-red/30 transition-all">
                 <i data-lucide="list" class="w-4 h-4"></i>
                 <span id="toggle-doc-label">DOCS</span>
             </button>
-            <button class="flex items-center gap-2 text-white/60 hover:text-sfi-red transition-colors text-sm px-3 py-2" onclick="closeViewer()">
+            <button class="flex items-center gap-1 text-white/50 hover:text-sfi-red transition-colors px-3 py-2" onclick="closeViewer()">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
         </div>

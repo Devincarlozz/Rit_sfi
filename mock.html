@@ -475,9 +475,15 @@
                                 class="bg-sfi-red text-white px-6 py-2.5 rounded-lg text-[10px] font-black tracking-widest flex items-center gap-2 hover:scale-105 transition-all">KEAM
                                 PORTAL</a>
                         </div>
-                        <button class="result-menu-toggle lg:hidden p-2 text-white/70 hover:text-white transition-colors relative z-50">
-                            <i data-lucide="menu" class="w-6 h-6"></i>
-                        </button>
+                        <div class="flex items-center gap-3">
+                            <button class="review-palette-toggle md:hidden flex items-center gap-1.5 bg-white/10 border border-white/20 px-3 py-2 rounded-lg text-white/80 font-sans text-[10px] font-bold tracking-widest hover:bg-white/20 transition-all">
+                                <i data-lucide="layout-grid" class="w-4 h-4"></i>
+                                <span>QUESTIONS</span>
+                            </button>
+                            <button class="result-menu-toggle lg:hidden p-2 text-white/70 hover:text-white transition-colors relative z-50">
+                                <i data-lucide="menu" class="w-6 h-6"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -564,6 +570,24 @@
         if (closeMenu) closeMenu.addEventListener('click', () => {
             mobileMenu.classList.add('translate-x-full');
             mobileMenu.classList.remove('active');
+        });
+
+        // Review screen palette toggle — reuse same sidebar/overlay
+        document.querySelectorAll('.review-palette-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const sidebar = document.getElementById('test-sidebar');
+                const overlay = document.getElementById('mobile-overlay');
+                if (!sidebar || !overlay) return;
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('flex');
+                requestAnimationFrame(() => sidebar.classList.remove('translate-x-full'));
+                overlay.classList.remove('hidden');
+                overlay.onclick = () => {
+                    sidebar.classList.add('translate-x-full');
+                    overlay.classList.add('hidden');
+                    setTimeout(() => { sidebar.classList.add('hidden'); sidebar.classList.remove('flex'); }, 300);
+                };
+            });
         });
     </script>
     <script type="module">
