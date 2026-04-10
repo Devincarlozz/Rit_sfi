@@ -53,14 +53,18 @@ function init() {
     let declared = false;
 
     if (check && startBtn) {
-        check.onclick = () => {
+        // Use addEventListener for more robust event handling in modules
+        check.addEventListener('click', () => {
             declared = !declared;
             const checkbox = check.querySelector('.custom-checkbox');
-            if (checkbox) checkbox.classList.toggle('checked', declared);
+            if (checkbox) {
+                if (declared) checkbox.classList.add('checked');
+                else checkbox.classList.remove('checked');
+            }
             startBtn.disabled = !declared;
             startBtn.style.opacity = declared ? '1' : '0.5';
             startBtn.style.cursor = declared ? 'pointer' : 'not-allowed';
-        };
+        });
     }
 
     // Generate Fallback Data (Overwritten if fetch succeeds)
@@ -596,5 +600,5 @@ function showResultAnalysis() {
     }
 }
 
-// Initialize on load
-document.addEventListener('DOMContentLoaded', init);
+// Initialize immediately (ES Modules are already deferred)
+init();
