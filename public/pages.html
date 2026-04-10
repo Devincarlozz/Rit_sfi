@@ -108,9 +108,12 @@
 
         @media (min-width: 768px) {
             .portal-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                grid-template-columns: repeat(2, 1fr);
                 justify-items: stretch;
                 gap: 28px;
+            }
+            .helpdesk-tile.full-width {
+                grid-column: span 2;
             }
         }
 
