@@ -177,6 +177,14 @@ function init() {
 
 async function fetchSupabase() {
     try {
+        let explanationsDB = {};
+        try {
+            const expRes = await fetch('./explanations.json');
+            if(expRes.ok) explanationsDB = await expRes.json();
+        } catch(e) {
+            console.log("No local explanations mapping found.");
+        }
+
         const res = await fetch(`${CONFIG.SUPABASE.URL}/rest/v1/KEAM%20Mock%20Test?select=*`, { 
             headers: { 
                 'apikey': CONFIG.SUPABASE.KEY, 
@@ -224,7 +232,7 @@ async function fetchSupabase() {
                     cleanText(q.option_e)
                 ],
                 correct: q.correct_answer,
-                explanation: cleanText(q.explanation || q.solution)
+                explanation: cleanText(q.explanation || q.solution || explanationsDB[String(q.id)])
             }));
             state.responses = {};
             state.questions.forEach((_, i) => state.responses[i] = { status: 'unvisited', selectedOption: null });
@@ -493,8 +501,72 @@ function showResultAnalysis() {
         });
     }
 
+    // Subject Comparison Chart
+    const ctxComp = document.getElementById('subjectComparisonChart');
+    if (ctxComp && window.Chart) {
+        if (window.myCompChart) window.myCompChart.destroy();
+        
+        const subLabels = Object.keys(subjectsStats);
+        const subScores = subLabels.map(s => subjectsStats[s].score);
+        const maxPossible = subLabels.map(s => {
+            const count = state.questions.filter(q => q.subject === s).length;
+            return count * 4;
+        });
+
+        window.myCompChart = new Chart(ctxComp, {
+            type: 'bar',
+            data: {
+                labels: subLabels,
+                datasets: [
+                    {
+                        label: 'Your Score',
+                        data: subScores,
+                        backgroundColor: '#22C55E',
+                        borderRadius: 8,
+                        barThickness: 12
+                    },
+                    {
+                        label: 'Max Possible',
+                        data: maxPossible,
+                        backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                        borderRadius: 8,
+                        barThickness: 12
+                    }
+                ]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#06080a',
+                        titleFont: { family: 'Inter', size: 12, weight: 'bold' },
+                        bodyFont: { family: 'Inter', size: 11 },
+                        padding: 12,
+                        cornerRadius: 12,
+                        borderColor: 'rgba(255,255,255,0.1)',
+                        borderWidth: 1
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(255,255,255,0.05)' },
+                        ticks: { color: 'rgba(255,255,255,0.5)', font: { family: 'Inter', size: 10 } }
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: { color: 'rgba(255,255,255,0.7)', font: { family: 'Inter', size: 11, weight: 'bold' } }
+                    }
+                }
+            }
+        });
+    }
+
     const rs = document.getElementById('result-screen');
     if (rs) {
+        document.getElementById('test-screen').classList.add('hidden');
         rs.classList.remove('hidden');
         rs.classList.add('active');
     }
