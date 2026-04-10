@@ -45,6 +45,7 @@
             }
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -320,6 +321,17 @@
                             style="font-size: calc(1rem * var(--question-scale))">
                             <!-- Options rendered by JS -->
                         </div>
+
+                        <!-- Explanation Container (Visible in Review Mode) -->
+                        <div id="explanation-container" class="hidden mt-8 p-5 md:p-8 rounded-2xl md:rounded-3xl border border-[#3B82F6]/30 bg-[#3B82F6]/[0.05] relative overflow-hidden transition-all">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-[#3B82F6]"></div>
+                            <h4 class="text-[10px] md:text-xs font-black tracking-widest text-[#3B82F6] uppercase mb-4 flex items-center gap-2 font-sans">
+                                <i data-lucide="info" class="w-4 h-4"></i> STEP-BY-STEP EXPLANATION
+                            </h4>
+                            <div id="explanation-text" class="text-sm md:text-base text-white/70 leading-relaxed font-sans" style="font-size: calc(1rem * var(--question-scale))">
+                                <!-- Explanation text injected by JS -->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -391,6 +403,92 @@
                     & NEXT</button>
             </div>
         </footer>
+    </div>
+
+    <!-- Result Screen -->
+    <div id="result-screen" class="screen flex-col overflow-y-auto pt-20 hidden">
+        <nav class="fixed top-0 left-0 w-full z-50">
+            <div class="glass-panel border-x-0 border-t-0 rounded-none px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <a href="/index.html" class="flex items-center gap-4 group">
+                        <div class="relative flex flex-col pt-2">
+                            <div class="absolute -top-1 right-0 text-sfi-red filter drop-shadow-[0_0_8px_rgba(255,49,49,0.5)]">
+                                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                            </div>
+                            <span class="text-4xl font-display font-black text-sfi-red tracking-tight leading-none filter drop-shadow-[0_0_15px_rgba(255,49,49,0.4)]">SFI</span>
+                        </div>
+                    </a>
+                    <div class="flex items-center gap-6">
+                        <a href="/public/keamportal.html" class="bg-white/10 text-white hover:bg-sfi-red px-6 py-2.5 rounded-lg text-[10px] font-black tracking-widest transition-all">BACK TO PORTAL</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="w-full flex-1 flex items-start justify-center p-3 md:p-12 py-6 md:py-16 mt-20">
+            <div class="glass-panel p-5 md:p-12 rounded-3xl md:rounded-[3rem] relative overflow-hidden w-full max-w-4xl shadow-2xl">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#22C55E] to-transparent opacity-60"></div>
+                
+                <div class="text-center mb-8 md:mb-12">
+                    <h1 class="text-3xl sm:text-4xl md:text-6xl font-display font-black tracking-tighter mb-4 uppercase">
+                        RESULT <span class="text-sfi-red">ANALYSIS</span>
+                    </h1>
+                    <p class="text-[10px] md:text-xs font-bold tracking-[0.3em] opacity-50 uppercase font-sans">PERFORMANCE REPORT</p>
+                </div>
+
+                <div class="flex flex-col items-center justify-center mb-12">
+                    <div class="text-6xl md:text-8xl font-display font-black text-white filter drop-shadow-[0_0_20px_rgba(255,255,255,0.2)] mb-2">
+                        <span id="final-score" class="text-sfi-red">0</span><span class="text-2xl md:text-4xl text-white/30"> / 600</span>
+                    </div>
+                    <div class="text-[10px] font-black tracking-widest text-white/40 uppercase">Total Score</div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mb-12">
+                    <div class="glass-panel p-6 rounded-2xl text-center border-white/5 bg-white/[0.01]">
+                        <div id="stat-attempted" class="text-2xl md:text-4xl font-display font-bold text-white mb-2">0</div>
+                        <div class="text-[9px] font-black tracking-widest opacity-40 uppercase font-sans">ATTEMPTED</div>
+                    </div>
+                    <div class="glass-panel p-6 rounded-2xl text-center border-white/5 bg-white/[0.01]">
+                        <div id="stat-correct" class="text-2xl md:text-4xl font-display font-bold text-[#22C55E] mb-2">0</div>
+                        <div class="text-[9px] font-black tracking-widest opacity-40 uppercase font-sans">CORRECT</div>
+                    </div>
+                    <div class="glass-panel p-6 rounded-2xl text-center border-white/5 bg-white/[0.01]">
+                        <div id="stat-incorrect" class="text-2xl md:text-4xl font-display font-bold text-[#EF4444] mb-2">0</div>
+                        <div class="text-[9px] font-black tracking-widest opacity-40 uppercase font-sans">INCORRECT</div>
+                    </div>
+                    <div class="glass-panel p-6 rounded-2xl text-center border-white/5 bg-white/[0.01]">
+                        <div id="stat-accuracy" class="text-2xl md:text-4xl font-display font-bold text-[#3B82F6] mb-2">0%</div>
+                        <div class="text-[9px] font-black tracking-widest opacity-40 uppercase font-sans">ACCURACY</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                        <h3 class="text-sm font-black tracking-widest text-white/50 uppercase mb-4 flex items-center justify-between">
+                            <span>SUBJECT WISE BREAKDOWN</span>
+                        </h3>
+                        <div id="subject-breakdown" class="space-y-4">
+                            <!-- Breakdown injected by JS -->
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col items-center justify-center">
+                        <h3 class="text-sm font-black tracking-widest text-white/50 uppercase mb-4 w-full text-left">
+                            <span>PERFORMANCE CHART</span>
+                        </h3>
+                        <div class="w-48 h-48 sm:w-64 sm:h-64 relative">
+                            <canvas id="resultChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center">
+                    <button id="review-btn" class="bg-sfi-red text-white px-8 md:px-16 py-3 md:py-5 rounded-xl md:rounded-2xl text-[10px] md:text-base font-black tracking-widest hover:scale-105 transition-all shadow-xl shadow-sfi-red/20 uppercase font-sans">
+                        REVIEW ANSWERS
+                    </button>
+                </div>
+            </div>
+        </main>
     </div>
 
     <script>
