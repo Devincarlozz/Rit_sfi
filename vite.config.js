@@ -6,6 +6,15 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        main: './index.html',
+        mock: './mock.html',
+        helpdesk: './helpdesk.html',
+        pages: './pages.html',
+        keamportal: './keamportal.html'
+      }
+    }
   },
   server: {
     port: 3000,
