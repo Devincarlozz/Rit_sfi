@@ -942,21 +942,21 @@
         });
     </script>
 <!-- Material Viewer Modal -->
-<div id="material-viewer-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px);">
-    <div style="position: absolute; top: 20px; right: 30px; font-size: 3rem; color: white; cursor: pointer; transition: color 0.2s; line-height: 1;" onmouseover="this.style.color='var(--sfi-red)'" onmouseout="this.style.color='white'" onclick="closeViewer()">&times;</div>
-    <div style="display: flex; flex-direction: column; height: 100%; max-width: 1400px; margin: 0 auto; padding: 20px;">
-        <h2 id="viewer-title" class="oswald-font" style="color: var(--sfi-red); margin: 20px 0 10px 0; font-size: 2.5rem; letter-spacing: 1px;">MATERIALS</h2>
-        <p style="color: var(--text-gray); margin-bottom: 25px; font-size: 1.1rem;">Select a document to open in native web view.</p>
-        <div style="display: flex; flex-grow: 1; gap: 25px; overflow: hidden; padding-bottom: 20px;">
-            <div id="viewer-sidebar" style="width: 320px; background: #0a0a0a; border: 1px solid #333; border-radius: 8px; padding: 20px; overflow-y: auto; flex-shrink: 0;">
-                <div id="viewer-list" style="display: flex; flex-direction: column; gap: 12px;"></div>
+<div id="material-viewer-modal" style="display: none;" class="fixed inset-0 z-[10000] bg-black/95 backdrop-blur-md">
+    <button class="absolute top-6 right-6 text-4xl text-white hover:text-sfi-red transition-colors z-50 leading-none" onclick="closeViewer()">&times;</button>
+    <div class="flex flex-col h-full max-w-[1400px] mx-auto p-5 pt-16 md:pt-8 w-full">
+        <h2 id="viewer-title" class="oswald-font text-sfi-red text-3xl md:text-5xl tracking-wide mb-2 pr-10 leading-tight shrink-0">MATERIALS</h2>
+        <p class="text-white/60 mb-6 text-sm md:text-base shrink-0">Select a document to open in native web view.</p>
+        <div class="flex flex-col md:flex-row flex-grow gap-4 md:gap-6 overflow-hidden pb-4">
+            <div id="viewer-sidebar" class="w-full md:w-80 bg-[#0a0a0a] border border-[#333] rounded-xl p-4 overflow-y-auto shrink-0 md:h-full max-h-[35vh] md:max-h-none">
+                <div id="viewer-list" class="flex flex-col gap-3"></div>
             </div>
-            <div style="flex-grow: 1; background: #111; border: 1px solid #333; border-radius: 8px; overflow: hidden; position: relative; box-shadow: 0 0 40px rgba(0,0,0,0.5);">
-                <div id="loading-spinner" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--sfi-red); font-family: 'Oswald', sans-serif; font-size: 1.8rem; letter-spacing: 2px; text-align: center;">
-                    <i class="fas fa-circle-notch fa-spin" style="font-size: 3.5rem; margin-bottom: 15px; display: block;"></i>
+            <div class="flex-grow bg-[#111] border border-[#333] rounded-xl overflow-hidden relative shadow-[0_0_40px_rgba(0,0,0,0.5)] min-h-[40vh] md:min-h-0">
+                <div id="loading-spinner" class="absolute inset-0 flex flex-col items-center justify-center text-sfi-red font-display text-xl md:text-2xl tracking-widest bg-[#111] z-20">
+                    <i class="fas fa-circle-notch fa-spin text-4xl mb-4"></i>
                     LOADING SECURE VIEWER...
                 </div>
-                <iframe id="pdf-iframe" src="" style="width: 100%; height: 100%; border: none; position: relative; z-index: 10; background: transparent; filter: invert(0.9) hue-rotate(180deg) contrast(1.1) drop-shadow(0 0 10px rgba(255,0,0,0.1));" onload="if(this.src) document.getElementById('loading-spinner').style.display='none'"></iframe>
+                <iframe id="pdf-iframe" src="" class="w-full h-full border-none relative z-10 invert-[.9] hue-rotate-180 contrast-125 drop-shadow-[0_0_10px_rgba(255,0,0,0.1)] bg-transparent" onload="document.getElementById('loading-spinner').style.display='none'"></iframe>
             </div>
         </div>
     </div>
