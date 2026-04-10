@@ -61,6 +61,31 @@
         </div>
     </div>
 
+    <!-- Mobile Menu Overlay (Moved outside test-screen for global access) -->
+    <div id="mobile-menu"
+        class="fixed inset-0 bg-[#06080a] z-[1000] translate-x-full transition-transform duration-500 flex-col">
+        <div class="relative h-full flex flex-col p-8">
+            <div class="flex justify-end mb-12">
+                <button id="close-menu" class="p-2 text-white/50 hover:text-white transition-colors">
+                    <i data-lucide="x" class="w-10 h-10"></i>
+                </button>
+            </div>
+            <div class="flex flex-col gap-6 items-center text-center mt-8">
+                <a href="index.html"
+                    class="mobile-nav-link text-2xl font-display font-bold tracking-widest hover:text-sfi-red transition-colors">HOME</a>
+                <a href="/pages.html"
+                    class="mobile-nav-link text-2xl font-display font-bold tracking-widest hover:text-sfi-red transition-colors">OUR
+                    PAGES</a>
+                <a href="/helpdesk.html"
+                    class="mobile-nav-link text-2xl font-display font-bold tracking-widest hover:text-sfi-red transition-colors">CONTACT
+                    US</a>
+                <a href="/keamportal.html"
+                    class="mobile-nav-link text-2xl font-display font-bold tracking-widest text-sfi-red">KEAM
+                    PORTAL</a>
+            </div>
+        </div>
+    </div>
+
     <!-- Instruction Screen -->
     <div id="instruction-screen" class="screen active flex-col overflow-y-auto pt-20">
         <!-- Persistent Header -->
@@ -111,31 +136,6 @@
                 </div>
             </div>
         </nav>
-
-        <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu"
-            class="fixed inset-0 bg-[#06080a] z-[100] translate-x-full transition-transform duration-500 flex-col">
-            <div class="relative h-full flex flex-col p-8">
-                <div class="flex justify-end mb-12">
-                    <button id="close-menu" class="p-2 text-white/50 hover:text-white transition-colors">
-                        <i data-lucide="x" class="w-10 h-10"></i>
-                    </button>
-                </div>
-                <div class="flex flex-col gap-6 items-center text-center mt-8">
-                    <a href="index.html"
-                        class="mobile-nav-link text-2xl font-display font-bold tracking-widest hover:text-sfi-red transition-colors">HOME</a>
-                    <a href="/pages.html"
-                        class="mobile-nav-link text-2xl font-display font-bold tracking-widest hover:text-sfi-red transition-colors">OUR
-                        PAGES</a>
-                    <a href="/helpdesk.html"
-                        class="mobile-nav-link text-2xl font-display font-bold tracking-widest hover:text-sfi-red transition-colors">CONTACT
-                        US</a>
-                    <a href="/keamportal.html"
-                        class="mobile-nav-link text-2xl font-display font-bold tracking-widest text-sfi-red">KEAM
-                        PORTAL</a>
-                </div>
-            </div>
-        </div>
 
         <main class="w-full flex-1 flex items-start justify-center p-3 md:p-12 py-6 md:py-16">
             <div
@@ -524,16 +524,16 @@
                     <div id="subject-breakdown" class="space-y-3 font-sans"></div>
                 </div>
 
-                <div class="glass-panel p-6 md:p-8 rounded-3xl lg:col-span-2 shadow-2xl relative bg-white/[0.01] border-white/5 grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="h-48 md:h-64 flex flex-col">
+                <div class="glass-panel p-6 md:p-8 rounded-3xl lg:col-span-2 shadow-2xl relative bg-white/[0.01] border-white/5 flex flex-col md:grid md:grid-cols-2 gap-12 md:gap-8">
+                    <div class="h-[300px] md:h-64 flex flex-col w-full">
                         <h3 class="text-xs font-black tracking-[0.2em] text-white/40 uppercase mb-4 text-center">Accuracy Distribution</h3>
-                        <div class="flex-1 relative">
+                        <div class="flex-1 relative w-full">
                             <canvas id="resultChart"></canvas>
                         </div>
                     </div>
-                    <div class="h-48 md:h-64 flex flex-col">
+                    <div class="h-[300px] md:h-64 flex flex-col w-full">
                         <h3 class="text-xs font-black tracking-[0.2em] text-white/40 uppercase mb-4 text-center">Subject Performance</h3>
-                        <div class="flex-1 relative">
+                        <div class="flex-1 relative w-full">
                             <canvas id="subjectComparisonChart"></canvas>
                         </div>
                     </div>
