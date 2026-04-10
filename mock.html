@@ -951,7 +951,22 @@ Provide only the explanation text. Focus strictly on the core concept. Limit to 
                         btn.style.color = isCorr ? '#22C55E' : '#EF4444';
                     }
                     btn.innerText = i + 1;
-                    btn.onclick = () => { state.currentIdx = i; state.activeSubject = state.questions[i].subject; render(); };
+                    btn.onclick = () => { 
+                        state.currentIdx = i; 
+                        state.activeSubject = state.questions[i].subject; 
+                        render();
+                        // Auto-close palette on mobile
+                        const sidebar = document.getElementById('test-sidebar');
+                        const overlay = document.getElementById('mobile-overlay');
+                        if (window.innerWidth < 768 && sidebar && overlay) {
+                            sidebar.classList.add('translate-x-full');
+                            overlay.classList.add('hidden');
+                            setTimeout(() => { 
+                                sidebar.classList.add('hidden'); 
+                                sidebar.classList.remove('flex'); 
+                            }, 300);
+                        }
+                    };
                     grid.appendChild(btn);
                 }
             });
