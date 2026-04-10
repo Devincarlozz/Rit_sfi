@@ -224,6 +224,8 @@
             text-decoration: none;
             display: inline-block;
             text-align: center;
+            white-space: normal;
+            word-wrap: break-word;
         }
         .sfi-btn:hover { background-color: var(--sfi-dark-red); }
 
@@ -340,10 +342,10 @@
 
         @media (max-width: 768px) {
             .hero-section {
-                padding: 60px 5% 80px 5%;
+                padding: 60px 4% 80px 4%;
             }
-            .hero-title { font-size: 3rem !important; }
-            .hero-subtitle { font-size: 1.5rem !important; }
+            .hero-title { font-size: clamp(2.5rem, 11vw, 4rem) !important; line-height: 1.1 !important; }
+            .hero-subtitle { font-size: clamp(1.2rem, 5vw, 1.8rem) !important; padding-right: 0; }
             .hero-3d-container {
                 height: 250px;
             }
