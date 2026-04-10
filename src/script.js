@@ -160,14 +160,22 @@ function init() {
 
     if (mobileToggle && sidebar && overlay) {
         const openPalette = () => {
-            sidebar.classList.remove('hidden', 'translate-x-full');
+            sidebar.classList.remove('hidden');
+            sidebar.classList.add('flex');
+            // Force reflow then animate
+            requestAnimationFrame(() => {
+                sidebar.classList.remove('translate-x-full');
+            });
             overlay.classList.remove('hidden');
         };
 
         const closePalette = () => {
             sidebar.classList.add('translate-x-full');
             overlay.classList.add('hidden');
-            setTimeout(() => sidebar.classList.add('hidden'), 300);
+            setTimeout(() => {
+                sidebar.classList.add('hidden');
+                sidebar.classList.remove('flex');
+            }, 300);
         };
 
         mobileToggle.onclick = () => {
