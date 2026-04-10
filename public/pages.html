@@ -69,16 +69,24 @@
             grid-column: span 6;
         }
 
+        .helpdesk-tile.full-width {
+            grid-column: span 12;
+        }
+        
+        .helpdesk-tile.full-width .tile-img-container {
+            height: 300px;
+        }
+
         @media (max-width: 1100px) {
             .portal-grid {
                 grid-template-columns: repeat(2, minmax(280px, 1fr));
             }
 
-            .helpdesk-tile,
-            .helpdesk-tile:nth-child(1),
-            .helpdesk-tile:nth-child(2),
-            .helpdesk-tile:nth-child(3),
-            .helpdesk-tile:nth-child(4) {
+            .helpdesk-tile {
+                grid-column: span 1;
+            }
+            
+            .helpdesk-tile.full-width {
                 grid-column: span 2;
             }
         }
@@ -88,12 +96,12 @@
                 grid-template-columns: 1fr;
             }
 
-            .helpdesk-tile,
-            .helpdesk-tile:nth-child(1),
-            .helpdesk-tile:nth-child(2),
-            .helpdesk-tile:nth-child(3),
-            .helpdesk-tile:nth-child(4) {
+            .helpdesk-tile {
                 grid-column: auto;
+            }
+            
+            .helpdesk-tile.full-width .tile-img-container {
+                height: 200px;
             }
         }
 
@@ -231,7 +239,7 @@
     </header>
 
     <section
-        style="position: relative; padding: 100px 5% 160px 5%; background: linear-gradient(to right, rgba(10,0,0,0.95) 10%, rgba(200,0,0,0.15)), url('assets/pages_hero_bg.jpg'); background-size: cover; background-position: center;">
+        style="position: relative; padding: 100px 5% 160px 5%; background: linear-gradient(to right, rgba(10,0,0,0.95) 10%, rgba(200,0,0,0.15)), url('assets/pages_hero_bg.jpg'); background-size: cover; background-position: center top;">
         <div style="max-width: 800px;">
             <h2 class="hero-subtitle oswald-font" style="color: var(--sfi-red); font-size: 2rem; margin: 0 0 10px 0;">
                 CONNECT. ENGAGE. LEAD.</h2>
@@ -248,7 +256,7 @@
     <main id="portal" class="portal-grid">
 
         <!-- CARD 1 SFI RIT UNIT -->
-        <a class="helpdesk-tile" href="https://www.instagram.com/sfirit.unit/" target="_blank">
+        <a class="helpdesk-tile full-width" href="https://www.instagram.com/sfirit.unit/" target="_blank">
             <div class="tile-img-container">
                 <img src="assets/sfi_rit_unit.jpg" alt="SFI RIT UNIT" class="tile-img" />
                 <div class="img-gradient"></div>
@@ -269,7 +277,27 @@
             </div>
         </a>
 
-
+        <!-- CARD 2 VIDHYARTHINI -->
+        <a class="helpdesk-tile" href="https://www.instagram.com/vidhyarthinisubcommitteesfirit/" target="_blank">
+            <div class="tile-img-container">
+                <img src="assets/vidhyarthini.png" alt="VIDHYARTHINI" class="tile-img" />
+                <div class="img-gradient"></div>
+            </div>
+            <h3
+                style="color: var(--sfi-red); margin: 0 0 15px 0; font-size: 1.5rem; display: flex; justify-content: space-between; align-items: center; transform: translateZ(15px);">
+                VIDHYARTHINI
+                <span
+                    style="font-size: 0.8rem; font-family: 'Roboto', sans-serif; background: rgba(230,0,0,0.15); padding: 4px 8px; border-radius: 4px; color: var(--sfi-red); text-transform: lowercase;">@vidhyarthini</span>
+            </h3>
+            <p
+                style="color: var(--text-gray); font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px; flex-grow: 1; transform: translateZ(10px);">
+                Follow VIDHYARTHINI SUB COMMITTEE for updates on women empowerment, equality campaigns, and specific
+                activities for students.
+            </p>
+            <div style="transform: translateZ(20px);">
+                <div class="sfi-btn">FOLLOW ON INSTAGRAM</div>
+            </div>
+        </a>
 
         <!-- CARD 3 SAMSKARA RIT -->
         <a class="helpdesk-tile" href="https://www.instagram.com/samskara_rit/" target="_blank">
@@ -287,28 +315,6 @@
                 style="color: var(--text-gray); font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px; flex-grow: 1; transform: translateZ(10px);">
                 Follow SAMSKARA for updates on our college magazine, literary events, and cultural festivals celebrating
                 student creativity.
-            </p>
-            <div style="transform: translateZ(20px);">
-                <div class="sfi-btn">FOLLOW ON INSTAGRAM</div>
-            </div>
-        </a>
-
-        <!-- CARD 4 VIDHYARTHINI -->
-        <a class="helpdesk-tile" href="https://www.instagram.com/vidhyarthinisubcommitteesfirit/" target="_blank">
-            <div class="tile-img-container">
-                <img src="assets/vidhyarthini.png" alt="VIDHYARTHINI" class="tile-img" />
-                <div class="img-gradient"></div>
-            </div>
-            <h3
-                style="color: var(--sfi-red); margin: 0 0 15px 0; font-size: 1.5rem; display: flex; justify-content: space-between; align-items: center; transform: translateZ(15px);">
-                VIDHYARTHINI
-                <span
-                    style="font-size: 0.8rem; font-family: 'Roboto', sans-serif; background: rgba(230,0,0,0.15); padding: 4px 8px; border-radius: 4px; color: var(--sfi-red); text-transform: lowercase;">@vidhyarthini</span>
-            </h3>
-            <p
-                style="color: var(--text-gray); font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px; flex-grow: 1; transform: translateZ(10px);">
-                Follow VIDHYARTHINI SUB COMMITTEE for updates on women empowerment, equality campaigns, and specific
-                activities for students.
             </p>
             <div style="transform: translateZ(20px);">
                 <div class="sfi-btn">FOLLOW ON INSTAGRAM</div>
