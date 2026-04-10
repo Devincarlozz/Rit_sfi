@@ -31,6 +31,16 @@
     </script>
     
     <style>
+        /* Mobile Performance & Safety Resets */
+        html, body {
+            overflow-x: hidden !important;
+            width: 100%;
+            position: relative;
+        }
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
         /* --- DESIGN TOKENS --- */
         :root { 
             --bg-deep: #030303;
@@ -175,34 +185,31 @@
 
         /* --- HELPDESK (LINEAR FLEXIBLE LAYOUT) --- */
         .priority-grid {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
             gap: 15px;
-            margin-bottom: 100px;
+            margin-bottom: 60px;
             width: 100%;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+            justify-items: center;
         }
 
-        /* Tablet: 2 columns */
-        @media (max-width: 1024px) {
+        @media (min-width: 768px) {
             .priority-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 25px;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 20px;
+                max-width: 1200px;
+                justify-items: stretch;
+                margin-bottom: 100px;
             }
         }
 
-        /* Mobile: 1 column */
-        @media (max-width: 768px) {
-            .priority-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-                margin-bottom: 60px;
-            }
-            .pro-card {
-                padding: 14px 18px;
-                gap: 12px;
+        .pro-card {
+            padding: 14px 18px;
+            gap: 12px;
+            width: 100%;
             }
             .name {
                 font-size: 1.1rem;

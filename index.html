@@ -31,7 +31,17 @@
     </script>
 
     <style type="text/css">
-        body {
+        /* Mobile Performance & Safety Resets */
+        html, body {
+            overflow-x: hidden !important;
+            width: 100%;
+            position: relative;
+        }
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        .hero-bg {
             background-color: #06080a;
             color: white;
             overflow-x: hidden;

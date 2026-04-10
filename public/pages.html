@@ -31,6 +31,16 @@
     </script>
 
     <style>
+        /* Mobile Performance & Safety Resets */
+        html, body {
+            overflow-x: hidden !important;
+            width: 100%;
+            position: relative;
+        }
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
         /* Base Theme Variables & Reset */
         :root {
             --sfi-red: #e60000;
@@ -98,7 +108,7 @@
 
         @media (min-width: 768px) {
             .portal-grid {
-                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
                 justify-items: stretch;
                 gap: 28px;
             }
@@ -337,7 +347,7 @@
                 <div class="img-gradient"></div>
             </div>
             <h3
-                style="color: var(--sfi-red); margin: 0 0 15px 0; font-size: 1.5rem; display: flex; justify-content: space-between; align-items: center; transform: translateZ(15px);">
+                style="color: var(--sfi-red); margin: 0 0 15px 0; font-size: 1.5rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; transform: translateZ(15px);">
                 SAMSKARA RIT
                 <span
                     style="font-size: 0.8rem; font-family: 'Roboto', sans-serif; background: rgba(230,0,0,0.15); padding: 4px 8px; border-radius: 4px; color: var(--sfi-red); text-transform: lowercase;">@samskara_rit</span>

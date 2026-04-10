@@ -29,6 +29,16 @@
         }
     </script>
     <style>
+        /* Mobile Performance & Safety Resets */
+        html, body {
+            overflow-x: hidden !important;
+            width: 100%;
+            position: relative;
+        }
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
         /* Base Theme Variables & Reset */
         :root {
             --sfi-red: #e60000;
@@ -75,7 +85,7 @@
 
         @media (min-width: 768px) {
             .portal-grid {
-                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
                 justify-items: stretch;
                 gap: 25px;
             }
