@@ -111,17 +111,26 @@
             }
         }
 
-        @media (max-width: 720px) {
+        @media (max-width: 768px) {
             .portal-grid {
-                grid-template-columns: 1fr;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px 5%;
+                margin-top: 10px;
             }
 
             .helpdesk-tile {
-                grid-column: auto;
+                width: 100%;
+                transform: none !important;
+            }
+            
+            .tile-img-container {
+                height: 180px;
             }
             
             .helpdesk-tile.full-width .tile-img-container {
-                height: 200px;
+                height: 180px;
             }
         }
 
@@ -215,7 +224,7 @@
             background-color: var(--sfi-dark-red);
         }
 
-        /* Media Queries */
+        /* Unified Media Queries */
         @media (max-width: 768px) {
             .hero-title {
                 font-size: 3rem !important;
@@ -225,16 +234,10 @@
                 font-size: 1.5rem !important;
             }
 
-            .portal-grid {
-                margin-top: 20px;
-            }
-
-            .helpdesk-tile {
-                transform: none !important;
-            }
-
-            .tile-img-container {
-                height: 160px;
+            .card-title-flex {
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 5px;
             }
         }
     </style>
@@ -313,7 +316,7 @@
                 <img src="assets/sfi_rit_unit.jpg" alt="SFI RIT UNIT" class="tile-img" />
                 <div class="img-gradient"></div>
             </div>
-            <h3
+            <h3 class="card-title-flex"
                 style="color: var(--sfi-red); margin: 0 0 15px 0; font-size: 1.5rem; display: flex; justify-content: space-between; align-items: center; transform: translateZ(15px);">
                 SFI RIT UNIT
                 <span
@@ -335,7 +338,7 @@
                 <img src="assets/vidhyarthini.png" alt="VIDHYARTHINI" class="tile-img" />
                 <div class="img-gradient"></div>
             </div>
-            <h3
+            <h3 class="card-title-flex"
                 style="color: var(--sfi-red); margin: 0 0 15px 0; font-size: 1.5rem; display: flex; justify-content: space-between; align-items: center; transform: translateZ(15px);">
                 VIDHYARTHINI
                 <span
@@ -357,7 +360,7 @@
                 <img src="assets/samskara_rit.jpg" alt="SAMSKARA RIT" class="tile-img" />
                 <div class="img-gradient"></div>
             </div>
-            <h3
+            <h3 class="card-title-flex"
                 style="color: var(--sfi-red); margin: 0 0 15px 0; font-size: 1.5rem; display: flex; justify-content: space-between; align-items: center; transform: translateZ(15px);">
                 SAMSKARA RIT
                 <span
