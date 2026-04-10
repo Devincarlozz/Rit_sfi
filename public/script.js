@@ -107,9 +107,7 @@ function init() {
 
     document.getElementById('submit-btn').onclick = () => { 
         if(confirm("Are you sure you want to submit the examination? This action cannot be undone.")) {
-            clearInterval(state.timerInterval);
-            alert("Examination Submitted Successfully!");
-            location.reload(); 
+            showResultAnalysis();
         }
     };
     
@@ -292,9 +290,8 @@ function startTimer() {
     
     const updateUI = () => {
         if (state.timeRemaining <= 0) {
-            clearInterval(state.timerInterval);
             alert("Time is up! Your test is being submitted.");
-            location.reload();
+            showResultAnalysis();
             return;
         }
 
@@ -320,6 +317,111 @@ function startTimer() {
         state.timeRemaining--;
         updateUI();
     }, 1000);
+}
+
+function showResultAnalysis() {
+    clearInterval(state.timerInterval);
+    document.getElementById('test-screen').classList.remove('active');
+    
+    let totalScore = 0;
+    let attempted = 0;
+    let correct = 0;
+    let incorrect = 0;
+    
+    const subjectsStats = {
+        Physics: { attempted: 0, correct: 0, incorrect: 0, score: 0 },
+        Chemistry: { attempted: 0, correct: 0, incorrect: 0, score: 0 },
+        Mathematics: { attempted: 0, correct: 0, incorrect: 0, score: 0 }
+    };
+
+    state.questions.forEach((q, i) => {
+        const response = state.responses[i];
+        if (response && response.selectedOption !== null) {
+            attempted++;
+            if (subjectsStats[q.subject]) subjectsStats[q.subject].attempted++;
+            
+            let isCorrect = false;
+            if (q.correct) {
+                const correctStr = String(q.correct).trim().toUpperCase();
+                const selectedText = (q.options[response.selectedOption] || "").trim().toUpperCase();
+                
+                if (correctStr.length === 1 && correctStr >= 'A' && correctStr <= 'E') {
+                    if (response.selectedOption === (correctStr.charCodeAt(0) - 65)) isCorrect = true;
+                } else if (correctStr === selectedText) {
+                    isCorrect = true;
+                } else if (correctStr.includes(selectedText) || selectedText.includes(correctStr)) {
+                    isCorrect = true;     
+                }
+            }
+
+            if (isCorrect) {
+                correct++;
+                totalScore += 4;
+                if (subjectsStats[q.subject]) {
+                    subjectsStats[q.subject].correct++;
+                    subjectsStats[q.subject].score += 4;
+                }
+            } else {
+                incorrect++;
+                totalScore -= 1;
+                if (subjectsStats[q.subject]) {
+                    subjectsStats[q.subject].incorrect++;
+                    subjectsStats[q.subject].score -= 1;
+                }
+            }
+        }
+    });
+
+    const accuracy = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
+
+    document.getElementById('stat-attempted').innerText = attempted;
+    document.getElementById('stat-correct').innerText = correct;
+    document.getElementById('stat-incorrect').innerText = incorrect;
+    document.getElementById('stat-accuracy').innerText = accuracy + '%';
+    
+    const scoreEl = document.getElementById('final-score');
+    let currentScore = 0;
+    const targetScore = totalScore;
+    
+    if (targetScore === 0) {
+        scoreEl.innerText = "0";
+    } else {
+        const interval = setInterval(() => {
+            if (currentScore < targetScore) {
+                currentScore += Math.ceil(targetScore / 50) || 1;
+                if (currentScore >= targetScore) { currentScore = targetScore; clearInterval(interval); }
+                scoreEl.innerText = currentScore;
+            } else if (currentScore > targetScore) {
+                currentScore -= Math.ceil(Math.abs(targetScore) / 50) || 1;
+                if (currentScore <= targetScore) { currentScore = targetScore; clearInterval(interval); }
+                scoreEl.innerText = currentScore;
+            }
+        }, 20);
+    }
+
+    const breakdownEl = document.getElementById('subject-breakdown');
+    if (breakdownEl) {
+        breakdownEl.innerHTML = '';
+        Object.entries(subjectsStats).forEach(([sub, stats]) => {
+            breakdownEl.innerHTML += `
+                <div class="flex items-center justify-between p-3 rounded-lg bg-white/5 flex-wrap gap-2">
+                    <div class="font-bold text-white/80">${sub}</div>
+                    <div class="flex gap-3 md:gap-4 text-[10px] md:text-xs font-medium">
+                        <span class="text-white/40">Attempted: ${stats.attempted}</span>
+                        <span class="text-[#22C55E]">Correct: ${stats.correct}</span>
+                        <span class="text-[#EF4444]">Wrong: ${stats.incorrect}</span>
+                        <span class="text-white font-bold ml-1 md:ml-2">Score: ${stats.score}</span>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    const rs = document.getElementById('result-screen');
+    if (rs) {
+        rs.classList.remove('hidden');
+        rs.classList.add('active');
+    }
 }
 
 // Initialize on load
