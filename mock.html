@@ -1053,8 +1053,71 @@ Provide only the explanation text. Focus strictly on the core concept. Limit to 
 
             const renderCharts = () => {
                 if (!window.Chart) return;
-                new Chart(document.getElementById('resultChart'), { type: 'doughnut', data: { labels: ['Correct', 'Incorrect', 'Skipped'], datasets: [{ data: [correct, incorrect, state.questions.length - attempted], backgroundColor: ['#22C55E', '#EF4444', '#374151'], borderWidth: 0 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, cutout: '75%' } });
-                new Chart(document.getElementById('subjectComparisonChart'), { type: 'bar', data: { labels: Object.keys(subjectsStats), datasets: [{ label: 'Score', data: Object.keys(subjectsStats).map(s => subjectsStats[s].score), backgroundColor: '#22C55E', borderRadius: 8 }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { color: 'rgba(255,255,255,0.05)' } }, y: { grid: { display: false } } } } });
+                
+                // Final Accuracy Distribution
+                new Chart(document.getElementById('resultChart'), { 
+                    type: 'doughnut', 
+                    data: { 
+                        labels: ['Correct', 'Incorrect', 'Skipped'], 
+                        datasets: [{ 
+                            data: [correct, incorrect, state.questions.length - attempted], 
+                            backgroundColor: ['#22C55E', '#EF4444', '#374151'], 
+                            borderWidth: 0 
+                        }] 
+                    }, 
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        plugins: { legend: { display: false } }, 
+                        cutout: '75%' 
+                    } 
+                });
+
+                // Subject Wise Correct vs Incorrect
+                new Chart(document.getElementById('subjectComparisonChart'), { 
+                    type: 'bar', 
+                    data: { 
+                        labels: Object.keys(subjectsStats), 
+                        datasets: [
+                            { 
+                                label: 'Correct', 
+                                data: Object.keys(subjectsStats).map(s => subjectsStats[s].correct), 
+                                backgroundColor: '#22C55E',
+                                borderRadius: 4
+                            },
+                            { 
+                                label: 'Incorrect', 
+                                data: Object.keys(subjectsStats).map(s => subjectsStats[s].incorrect), 
+                                backgroundColor: '#EF4444',
+                                borderRadius: 4
+                            }
+                        ] 
+                    }, 
+                    options: { 
+                        indexAxis: 'y', 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        plugins: { 
+                            legend: { 
+                                display: true,
+                                position: 'bottom',
+                                labels: { color: 'rgba(255,255,255,0.6)', font: { size: 10, weight: 'bold' }, padding: 15 }
+                            } 
+                        }, 
+                        scales: { 
+                            x: { 
+                                stacked: true,
+                                grid: { color: 'rgba(255,255,255,0.05)' },
+                                ticks: { color: 'rgba(255,255,255,0.4)', font: { size: 10 } }
+                            }, 
+                            y: { 
+                                stacked: true,
+                                grid: { display: false },
+                                ticks: { color: 'rgba(255,255,255,0.7)', font: { size: 10, weight: 'bold' } }
+                            } 
+                        } 
+                    } 
+                });
             };
             setTimeout(renderCharts, 100);
 
