@@ -969,22 +969,34 @@ setTimeout(() => {
     tiles.forEach(tile => {
         const h3 = tile.querySelector('h3');
         if(!h3) return;
-        const title = h3.innerText.trim();
+        const title = h3.textContent.toUpperCase();
         let category = '';
         if (title.includes('STUDY NOTES') || title.includes('FORMULA SHEETS')) category = 'notes';
         if (title.includes('PYQS')) category = 'pyqs';
 
         if (category) {
-            const subjectDivs = tile.querySelectorAll('div > div > div:last-child');
-            subjectDivs.forEach(subjectDiv => {
-                if(subjectDiv.innerText === 'PHYSICS' || subjectDiv.innerText === 'CHEMISTRY' || subjectDiv.innerText === 'MATHEMATICS') {
-                    const card = subjectDiv.parentElement;
-                    const subject = subjectDiv.innerText.toLowerCase().replace('mathematics', 'maths');
-                    card.onclick = () => openViewer(category, subject);
+            const cards = tile.querySelectorAll('div[style*="cursor: pointer"]');
+            cards.forEach(card => {
+                const text = card.textContent.toUpperCase().trim();
+                let subject = '';
+                if (text.includes('PHYSICS')) subject = 'physics';
+                if (text.includes('CHEMISTRY')) subject = 'chemistry';
+                if (text.includes('MATHEMATICS')) subject = 'maths';
+                
+                if (subject) {
+                    // Add hover effect fix if needed
+                    card.style.position = "relative";
+                    card.style.zIndex = "5";
+                    
+                    card.onclick = function() {
+                        openViewer(category, subject);
+                    };
                 }
             });
         }
     });
+    
+    console.log("SFI Viewer: Click handlers successfully attached.");
 }, 500);
 </script>
 </body>
