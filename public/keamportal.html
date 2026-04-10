@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SFI RIT KEAM Helpdesk Portal - Get comprehensive support, mock tests, and admission guidance for KEAM engineering aspirants.">
     <title>SFI RIT | KEAM Helpdesk Portal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,31 +58,26 @@
         ::-webkit-scrollbar-track { background: #111; }
         ::-webkit-scrollbar-thumb { background: var(--sfi-red); border-radius: 3px; }
 
-        /* Responsive Grid for Tiles */
+        /* Responsive Grid for Tiles (Mobile First) */
         .portal-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
+            grid-template-columns: 1fr;
+            justify-items: center;
+            gap: 20px;
             padding: 40px 5%;
             max-width: 1300px;
             margin: 20px auto 40px auto;
             position: relative;
             z-index: 10;
             perspective: 1000px;
+            width: 100%;
         }
 
-        /* Responsive grid for tablets and mobile */
-        @media (max-width: 1024px) {
+        @media (min-width: 768px) {
             .portal-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .portal-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                justify-items: stretch;
+                gap: 25px;
             }
         }
 
