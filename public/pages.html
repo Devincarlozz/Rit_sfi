@@ -5,9 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SFI RIT | Our Pages</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto:wght@400;500&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800;900&family=Oswald:wght@500;700;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="/public/style.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sfi-red': '#ff3131',
+                        'sfi-dark': '#06080a',
+                    },
+                    fontFamily: {
+                        display: ['Bebas Neue', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
 
     <style>
         /* Base Theme Variables & Reset */
@@ -222,24 +242,56 @@
 
 <body>
 
-    <!-- Header identical to keamportal for theme alignment -->
-    <header
-        style="display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: rgba(0,0,0,0.9); border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 100;">
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <div style="color: var(--sfi-red); font-size: 2.5rem; font-weight: 700; line-height: 1;"
-                class="oswald-font">SFI</div>
-            <div style="border-left: 1px solid #444; padding-left: 15px;">
-                <div style="font-size: 0.8rem; color: white; letter-spacing: 1px;">STUDENT'S FEDERATION OF INDIA</div>
-                <div style="font-size: 0.7rem; color: var(--text-gray);">RAJIV GANDHI INSTITUTE OF TECHNOLOGY</div>
+    <nav class="fixed top-0 left-0 w-full z-50">
+        <div class="glass-panel border-x-0 border-t-0 rounded-none px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="/index.html" class="flex items-center gap-4 group">
+                    <div class="relative flex flex-col pt-2">
+                        <div class="absolute -top-1 right-0 text-sfi-red filter drop-shadow-[0_0_12px_rgba(255,49,49,1)]">
+                            <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                        </div>
+                        <span class="text-4xl font-display font-black text-sfi-red tracking-tight leading-none filter drop-shadow-[0_0_25px_rgba(255,49,49,0.9)] brightness-125">SFI</span>
+                    </div>
+                    <div class="hidden sm:flex flex-col border-l border-white/50 pl-4 py-1">
+                        <span class="text-[10px] font-bold tracking-widest leading-normal uppercase text-white filter drop-shadow-[0_0_10px_rgba(255,255,255,0.6)] brightness-150">Student's Federation of India</span>
+                        <span class="text-[8px] font-black text-white leading-tight mt-1 uppercase brightness-110">RAJIV GANDHI INSTITUTE OF TECHNOLOGY<br><span class="text-sfi-red brightness-150 drop-shadow-[0_0_5px_rgba(255,49,49,0.5)]">KOTTAYAM</span></span>
+                    </div>
+                </a>
+                <div class="flex items-center gap-6">
+                    <div class="hidden lg:flex items-center gap-8">
+                        <a href="/index.html" class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">HOME</a>
+                        <a href="/index.html#notifications" class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">KEAM NOTIFICATIONS</a>
+                        <a href="/public/pages.html" class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">OUR PAGES</a>
+                        <a href="/index.html#helpdesk" class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">CONTACT US</a>
+                        <a href="/public/keamportal.html" class="bg-sfi-red text-white px-6 py-2.5 rounded-lg text-[10px] font-black tracking-widest flex items-center gap-2 hover:scale-105 transition-all">KEAM PORTAL</a>
+                    </div>
+                    <button id="menu-toggle" class="lg:hidden p-2 text-white/70 hover:text-white transition-colors relative z-50">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="oswald-font" style="color: white; font-size: 1.2rem; letter-spacing: 2px;">
-            <a href="index.html" style="color: white; text-decoration: none;">HOME</a> | OUR <span style="color: var(--sfi-red);">PAGES</span>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-[#06080a] z-[100] translate-x-full transition-transform duration-500 flex-col">
+        <div class="relative h-full flex flex-col p-8">
+            <div class="flex justify-end mb-12">
+                <button id="close-menu" class="p-2 text-white/50 hover:text-white transition-colors">
+                    <i data-lucide="x" class="w-10 h-10"></i>
+                </button>
+            </div>
+            <div class="flex flex-col gap-8 items-center text-center mt-12">
+                <a href="/index.html" class="mobile-nav-link text-5xl font-display font-bold tracking-[0.2em] hover:text-sfi-red">HOME</a>
+                <a href="/public/pages.html" class="mobile-nav-link text-5xl font-display font-bold tracking-[0.2em] hover:text-sfi-red">OUR PAGES</a>
+                <a href="/index.html#helpdesk" class="mobile-nav-link text-5xl font-display font-bold tracking-[0.2em] hover:text-sfi-red">CONTACT US</a>
+                <a href="/public/keamportal.html" class="mobile-nav-link text-5xl font-display font-bold tracking-[0.2em] text-sfi-red">KEAM PORTAL</a>
+            </div>
         </div>
-    </header>
+    </div>
 
     <section
-        style="position: relative; padding: 100px 5% 160px 5%; background: linear-gradient(to right, rgba(10,0,0,0.95) 10%, rgba(200,0,0,0.15)), url('assets/pages_hero_bg.jpg'); background-size: cover; background-position: center top;">
+        style="position: relative; padding: 120px 5% 160px 5%; background: linear-gradient(to right, rgba(10,0,0,0.95) 10%, rgba(200,0,0,0.15)), url('assets/pages_hero_bg.jpg'); background-size: cover; background-position: center top;">
         <div style="max-width: 800px;">
             <h2 class="hero-subtitle oswald-font" style="color: var(--sfi-red); font-size: 2rem; margin: 0 0 10px 0;">
                 CONNECT. ENGAGE. LEAD.</h2>
@@ -346,28 +398,41 @@
     </footer>
 
     <script>
-        // --- 3D Mouse Movement Script identical to keamportal ---
+        lucide.createIcons();
+        
+        // Unified Mobile Menu Logic
+        const menuToggle = document.getElementById('menu-toggle');
+        const closeMenu = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+        function toggleMenu(show) {
+            if (show) {
+                mobileMenu.classList.remove('translate-x-full');
+                mobileMenu.classList.add('active');
+            } else {
+                mobileMenu.classList.add('translate-x-full');
+                mobileMenu.classList.remove('active');
+            }
+        }
+
+        if(menuToggle) menuToggle.addEventListener('click', () => toggleMenu(true));
+        if(closeMenu) closeMenu.addEventListener('click', () => toggleMenu(false));
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => toggleMenu(false));
+        });
+
+        // 3D Mouse Movement (existing)
         if (window.matchMedia("(min-width: 769px)").matches) {
             const tiles = document.querySelectorAll('.helpdesk-tile');
-
             tiles.forEach(tile => {
                 tile.addEventListener('mousemove', (e) => {
                     const rect = tile.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-
-                    const rotateX = ((y - centerY) / centerY) * -6;
-                    const rotateY = ((x - centerX) / centerX) * 6;
-
-                    tile.style.transition = 'none';
+                    const rotateX = ((e.clientY - rect.top - rect.height / 2) / (rect.height / 2)) * -6;
+                    const rotateY = ((e.clientX - rect.left - rect.width / 2) / (rect.width / 2)) * 6;
                     tile.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
                 });
-
                 tile.addEventListener('mouseleave', () => {
-                    tile.style.transition = 'transform 0.5s ease-out';
                     tile.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
                 });
             });
