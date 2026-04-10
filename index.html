@@ -14,7 +14,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800;900&family=Oswald:wght@500;700;900&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800;900&family=Oswald:wght@500;700;900&display=swap"
         rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -225,7 +226,7 @@
             filter: blur(10px);
             will-change: transform, opacity, filter;
         }
- 
+
         .reveal.active {
             opacity: 1;
             transform: translateY(0) scale(1);
@@ -233,11 +234,25 @@
         }
 
         /* Staggered Entrance Delays */
-        .stagger-1 { transition-delay: 0.1s; }
-        .stagger-2 { transition-delay: 0.2s; }
-        .stagger-3 { transition-delay: 0.3s; }
-        .stagger-4 { transition-delay: 0.4s; }
-        .stagger-5 { transition-delay: 0.5s; }
+        .stagger-1 {
+            transition-delay: 0.1s;
+        }
+
+        .stagger-2 {
+            transition-delay: 0.2s;
+        }
+
+        .stagger-3 {
+            transition-delay: 0.3s;
+        }
+
+        .stagger-4 {
+            transition-delay: 0.4s;
+        }
+
+        .stagger-5 {
+            transition-delay: 0.5s;
+        }
 
         ::-webkit-scrollbar {
             width: 8px;
@@ -284,6 +299,7 @@
             filter: brightness(1.4) drop-shadow(0 0 25px rgba(255, 49, 49, 0.7));
             letter-spacing: -0.03em;
         }
+
         .mobile-nav-link {
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             transform: translateY(20px);
@@ -295,14 +311,26 @@
             opacity: 1;
         }
 
-        #mobile-menu.active .mobile-nav-link:nth-child(1) { transition-delay: 0.1s; }
-        #mobile-nav-link.active .mobile-nav-link:nth-child(2) { transition-delay: 0.2s; }
-        #mobile-nav-link.active .mobile-nav-link:nth-child(3) { transition-delay: 0.3s; }
-        #mobile-nav-link.active .mobile-nav-link:nth-child(4) { transition-delay: 0.4s; }
+        #mobile-menu.active .mobile-nav-link:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        #mobile-nav-link.active .mobile-nav-link:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        #mobile-nav-link.active .mobile-nav-link:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+
+        #mobile-nav-link.active .mobile-nav-link:nth-child(4) {
+            transition-delay: 0.4s;
+        }
 
         .no-scroll {
             overflow: hidden;
         }
+
         .hero-image-text .hero-hero-title {
             letter-spacing: -0.03em;
         }
@@ -337,15 +365,15 @@
                 <a href="index.html" class="flex items-center gap-4 group">
                     <div class="relative flex flex-col pt-2">
                         <div
-                            class="absolute -top-1 right-0 text-sfi-red filter drop-shadow-[0_0_12px_rgba(255,49,49,1)]">
+                            class="absolute -top-1 right-0 text-sfi-red filter drop-shadow-[0_0_8px_rgba(255,49,49,0.5)]">
                             <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
                         </div>
                         <span
-                            class="text-4xl font-display font-black text-sfi-red tracking-tight leading-none filter drop-shadow-[0_0_25px_rgba(255,49,49,0.9)] brightness-125">SFI</span>
+                            class="text-4xl font-display font-black text-sfi-red tracking-tight leading-none filter drop-shadow-[0_0_15px_rgba(255,49,49,0.4)]">SFI</span>
                     </div>
                     <div class="hidden sm:flex flex-col border-l border-white/50 pl-4 py-1">
                         <span
-                            class="text-[10px] font-bold tracking-widest leading-normal uppercase text-white filter drop-shadow-[0_0_10px_rgba(255,255,255,0.6)] brightness-150">Student's
+                            class="text-[10px] font-bold tracking-widest leading-normal uppercase text-white filter drop-shadow-[0_0_5px_rgba(255,255,255,0.3)]">Student's
                             Federation of India</span>
                         <span class="text-[8px] font-black text-white leading-tight mt-1 uppercase brightness-110">RAJIV
                             GANDHI INSTITUTE OF TECHNOLOGY<br><span
@@ -357,15 +385,20 @@
                         <a href="#"
                             class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">HOME</a>
                         <a href="#notifications"
-                            class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">KEAM NOTIFICATIONS</a>
+                            class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">KEAM
+                            NOTIFICATIONS</a>
                         <a href="pages.html"
-                            class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">OUR PAGES</a>
+                            class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">OUR
+                            PAGES</a>
                         <a href="#helpdesk"
-                            class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">CONTACT US</a>
+                            class="text-[10px] font-bold tracking-[0.2em] hover:text-sfi-red transition-colors">CONTACT
+                            US</a>
                         <a href="keamportal.html"
-                            class="bg-sfi-red text-white px-6 py-2.5 rounded-lg text-[10px] font-black tracking-widest flex items-center gap-2 hover:scale-105 transition-all">KEAM PORTAL</a>
+                            class="bg-sfi-red text-white px-6 py-2.5 rounded-lg text-[10px] font-black tracking-widest flex items-center gap-2 hover:scale-105 transition-all">KEAM
+                            PORTAL</a>
                     </div>
-                    <button id="menu-toggle" class="lg:hidden p-2 text-white/70 hover:text-white transition-colors relative z-50">
+                    <button id="menu-toggle"
+                        class="lg:hidden p-2 text-white/70 hover:text-white transition-colors relative z-50">
                         <i data-lucide="menu" class="w-6 h-6"></i>
                     </button>
                 </div>
@@ -380,13 +413,15 @@
                     <div class="hero-image-text">
                         <span class="hero-hero-title">
                             <span class="relative inline-block pt-3">
-                                <div class="absolute top-0 right-0 text-sfi-red filter drop-shadow-[0_0_15px_rgba(255,49,49,1)]">
+                                <div
+                                    class="absolute top-0 right-0 text-sfi-red filter drop-shadow-[0_0_15px_rgba(255,49,49,1)]">
                                     <i data-lucide="star" class="w-4 h-4 fill-current"></i>
                                 </div>
                                 <span class="hero-sfi">SFI</span>
                             </span> RIT UNIT
                         </span>
-                        <p class="hero-description">A student-led unit empowering RIT through education, campus action and organised community leadership.</p>
+                        <p class="hero-description">A student-led unit empowering RIT through education, campus action
+                            and organised community leadership.</p>
                     </div>
                 </div>
                 <div class="hero-copy">
@@ -398,14 +433,19 @@
                 </div>
             </div>
             <div class="reveal active w-full max-w-lg mx-auto lg:max-w-none">
-                <div class="glass-panel p-10 md:p-14 rounded-[2.5rem] relative overflow-hidden group highlight-glow transition-all duration-500 hover:scale-[1.02]">
+                <div
+                    class="glass-panel p-10 md:p-14 rounded-[2.5rem] relative overflow-hidden group highlight-glow transition-all duration-500 hover:scale-[1.02]">
                     <div class="absolute -top-24 -right-24 w-80 h-80 bg-sfi-red/20 rounded-full blur-[100px]"></div>
                     <div class="relative z-10">
-                        <div class="inline-flex items-center gap-2 bg-sfi-red/10 px-4 py-1.5 rounded-full border border-sfi-red/20 mb-6">
+                        <div
+                            class="inline-flex items-center gap-2 bg-sfi-red/10 px-4 py-1.5 rounded-full border border-sfi-red/20 mb-6">
                             <span class="w-2 h-2 bg-sfi-red rounded-full animate-pulse"></span>
-                            <span class="text-[10px] font-black tracking-[0.3em] text-sfi-red uppercase">OFFICIAL HELP DESK</span>
+                            <span class="text-[10px] font-black tracking-[0.3em] text-sfi-red uppercase">OFFICIAL HELP
+                                DESK</span>
                         </div>
-                        <h2 class="text-4xl md:text-5xl font-display font-bold mb-6 tracking-[0.2em] leading-tight text-sfi-red drop-shadow-[0_0_20px_rgba(255,49,49,0.5)]">KEAM HELP DESK 2026</h2>
+                        <h2
+                            class="text-4xl md:text-5xl font-display font-bold mb-6 tracking-[0.2em] leading-tight text-sfi-red drop-shadow-[0_0_20px_rgba(255,49,49,0.5)]">
+                            KEAM HELP DESK 2026</h2>
                         <p class="text-white/50 text-sm mb-8 leading-relaxed">Access high-intensity power mocks,
                             real-time result analysis, and direct mentorship for applicants.</p>
                         <a href="keamportal.html"
@@ -461,7 +501,8 @@
                             <span class="text-[10px] font-bold text-sfi-red tracking-widest uppercase block mb-1">New
                                 Update</span>
                             <p class="text-sm text-white/80 font-semibold mb-1 leading-snug">KEAM 2026 Admit Cards</p>
-                            <p class="text-xs text-white/50 leading-relaxed">Admit cards for KEAM 2026 will be available for download
+                            <p class="text-xs text-white/50 leading-relaxed">Admit cards for KEAM 2026 will be available
+                                for download
                                 from the official portal soon.</p>
                         </div>
                         <div class="pl-4 border-l-2 border-white/20 relative">
@@ -490,7 +531,8 @@
                 <div class="glass-panel p-8 rounded-3xl reveal hover:border-sfi-red/50 transition-colors">
                     <i data-lucide="book" class="text-sfi-red w-10 h-10 mb-6"></i>
                     <h3 class="font-black text-xs tracking-widest uppercase mb-4">Quality Education</h3>
-                    <p class="text-xs text-white/40 leading-relaxed">Accessible, affordable, and inclusive education for all.</p>
+                    <p class="text-xs text-white/40 leading-relaxed">Accessible, affordable, and inclusive education for
+                        all.</p>
                 </div>
                 <div class="glass-panel p-8 rounded-3xl reveal hover:border-sfi-red/50 transition-colors">
                     <i data-lucide="shield" class="text-sfi-red w-10 h-10 mb-6"></i>
@@ -527,7 +569,8 @@
     </footer>
 
     <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 z-[100] translate-x-full transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)]">
+    <div id="mobile-menu"
+        class="fixed inset-0 z-[100] translate-x-full transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)]">
         <div class="absolute inset-0 bg-black/95 backdrop-blur-3xl"></div>
         <div class="relative h-full flex flex-col p-8">
             <div class="flex justify-end mb-12">
@@ -536,11 +579,20 @@
                 </button>
             </div>
             <div class="flex flex-col gap-10 items-center text-center mt-12">
-                <a href="#" class="mobile-nav-link text-5xl font-display font-bold tracking-[0.2em] hover:text-sfi-red">HOME</a>
-                <a href="#notifications" class="mobile-nav-link text-4xl font-display font-bold tracking-[0.2em] hover:text-sfi-red">KEAM NOTIFICATIONS</a>
-                <a href="pages.html" class="mobile-nav-link text-5xl font-display font-bold tracking-[0.2em] hover:text-sfi-red">OUR PAGES</a>
-                <a href="#helpdesk" class="mobile-nav-link text-5xl font-display font-bold tracking-[0.2em] hover:text-sfi-red">CONTACT US</a>
-                <a href="keamportal.html" class="mobile-nav-link text-5xl font-display font-bold tracking-[0.2em] text-sfi-red">KEAM PORTAL</a>
+                <a href="#"
+                    class="mobile-nav-link text-5xl font-display font-bold tracking-[0.2em] hover:text-sfi-red">HOME</a>
+                <a href="#notifications"
+                    class="mobile-nav-link text-4xl font-display font-bold tracking-[0.2em] hover:text-sfi-red">KEAM
+                    NOTIFICATIONS</a>
+                <a href="pages.html"
+                    class="mobile-nav-link text-5xl font-display font-bold tracking-[0.2em] hover:text-sfi-red">OUR
+                    PAGES</a>
+                <a href="#helpdesk"
+                    class="mobile-nav-link text-5xl font-display font-bold tracking-[0.2em] hover:text-sfi-red">CONTACT
+                    US</a>
+                <a href="keamportal.html"
+                    class="mobile-nav-link text-5xl font-display font-bold tracking-[0.2em] text-sfi-red">KEAM
+                    PORTAL</a>
             </div>
             <div class="mt-auto pb-16 text-center animate-pulse">
                 <span class="text-6xl font-display font-black text-sfi-red tracking-tighter">SFI</span>
@@ -551,7 +603,7 @@
 
     <script>
         lucide.createIcons();
-        
+
         // Reveal Animation Utility
         function reveal() {
             const reveals = document.querySelectorAll('.reveal');

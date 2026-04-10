@@ -75,8 +75,8 @@
 /* Typography Highlights */
 .text-sfi-red {
   color: var(--sfi-red);
-  text-shadow: 0 0 15px rgba(255, 49, 49, 0.4);
-  filter: brightness(1.2);
+  text-shadow: 0 0 4px rgba(255, 49, 49, 0.2);
+  filter: brightness(1.1);
 }
 
 .font-display {
