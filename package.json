@@ -6,12 +6,12 @@
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build",
-    "preview": "vite preview",
+    "preview": "npm run build && wrangler dev",
     "deploy": "npm run build && wrangler deploy"
   },
-  "dependencies": {
-  },
   "devDependencies": {
-    "vite": "^6.2.0"
+    "@cloudflare/vite-plugin": "^1.31.2",
+    "vite": "^6.2.0",
+    "wrangler": "^4.81.1"
   }
 }
