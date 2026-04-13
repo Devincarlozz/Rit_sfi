@@ -28,7 +28,8 @@ export async function fetchAIExplanation(q, onComplete) {
 
     // Safety check for keys
     if (!AI_CONFIG.GEMINI_KEY && !AI_CONFIG.GROQ_KEY && !AI_CONFIG.OR_KEY) {
-        q.ai_explanation = "AI Error: API Keys are not configured. Please check your Environment Variables.";
+        console.error("AI Triple-Stack Error: No API keys configured in environment.");
+        q.ai_explanation = "AI Error: API Keys are not configured in your hosting dashboard (e.g., Cloudflare Settings > Environment Variables). Please add VITE_GROQ_KEY to enable explanations.";
         return finish();
     }
 
