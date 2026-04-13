@@ -10,6 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800;900&family=Oswald:wght@500;700;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/src/notifications.js"></script>
+    <script src="/src/materials_engine.js"></script>
     <link rel="stylesheet" href="/style.css">
     
     <script>
@@ -74,8 +77,8 @@
             grid-template-columns: 1fr;
             justify-items: center;
             gap: 20px;
-            padding: 40px 5%;
-            max-width: 1300px;
+            padding: 40px 4%;
+            max-width: 1400px;
             margin: 20px auto 40px auto;
             position: relative;
             z-index: 10;
@@ -85,9 +88,16 @@
 
         @media (min-width: 768px) {
             .portal-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                grid-template-columns: repeat(2, 1fr);
                 justify-items: stretch;
                 gap: 25px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .portal-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
             }
         }
 
@@ -95,12 +105,13 @@
         .helpdesk-tile {
             background-color: var(--card-bg);
             border: 1px solid #222;
-            padding: 30px;
+            padding: 35px;
             border-radius: 4px;
             display: flex;
             flex-direction: column;
             position: relative;
             overflow: hidden;
+            min-height: 420px;
             transform-style: preserve-3d;
             transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
             will-change: transform;
@@ -549,7 +560,7 @@
                 CEE UPDATES
             </h3>
             <div class="scroll-container" style="height: 220px; overflow: hidden; position: relative; transform: translateZ(5px);">
-                <div class="scroll-content" style="display: flex; flex-direction: column; gap: 15px;">
+                <div id="cee-updates-container" class="scroll-content" style="display: flex; flex-direction: column; gap: 15px;">
                     <div style="border-left: 2px solid var(--sfi-red); padding-left: 12px;">
                         <div style="color: var(--sfi-red); font-size: 0.8rem; font-weight: bold;">LIVE NOW!</div>
                         <p style="margin: 5px 0 0; font-size: 0.95rem; line-height: 1.4; color: white;">KEAM 2026 Exam Schedule announced. Online entrance examinations from April 17 to April 22, 2026.</p>
@@ -878,6 +889,8 @@
                 });
 
                 tile.addEventListener('mouseleave', () => {
+                    // Restore smooth transition for return
+                    tile.style.transition = 'all 0.5s ease';
                     tile.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
                     
                     // Close all accordion items in this tile
@@ -992,29 +1005,21 @@
 </div>
 
 <script>
-const DB = {
+window.DB = {
     'pyqs': {
-        'physics': [{ name: "Physics PYQs 2026", url: "1GrXQbPCMFErLoxRwVtGkUipjlqOTsQ-X" }],
-        'chemistry': [{ name: "Chemistry PYQs 2026", url: "1Ix3UuHLjNnLx9ZnIiWe4G9otVOY8Nmfs" }],
-        'maths': [{ name: "Maths PYQs 2026", url: "1HtL_Tl2NlyFuuIt8QoHDbHecgl-ugpMl" }]
+        'physics': [],
+        'chemistry': [],
+        'maths': []
     },
     'notes': {
-        'physics': [
-            { name: "Physics Mind Maps", url: "12lekbzQbwckk2GMkH8cCWQEvVafPPdd-" },
-            { name: "Work Energy Power", url: "1f_qOY3-poHrlD2qhQ8MyXRahF6Ep04Po" },
-            { name: "Units and Measurements", url: "1qVKCYHnFHjsuLs0uFGt2bOSMpUhXCSRt" },
-            { name: "Rotational Motion", url: "1ONMm7GJS6Bumu6tgFAOZRg7krfIvyCKc" },
-            { name: "Laws of Motion", url: "1Tu-BxZZRrlLYUevwbZsEaNGxJlLI-LRp" }
-        ],
-        'chemistry': [
-            { name: "Alcohols", url: "1Yem2pF1oWrt62MMzMmroDzD_rXOShh6o" },
-            { name: "Chemical Bonding", url: "1Cu5P3kH3ycZx9eJzHYIaBvZHMII1GGxu" },
-            { name: "Chemical Equilibrium", url: "1wiWhuzRpAv_7-QaSVU_XIkJNQTErYNg7" }
-        ],
-        'maths': [
-            { name: "Circles", url: "1xgYS7OwkLBZUXeZIDlGV8eKR4EIJ_8Xt" },
-            { name: "Conic Section", url: "1a_aV_oVWhTaNGYmOmYck7PIZbudpA4JQ" }
-        ]
+        'physics': [],
+        'chemistry': [],
+        'maths': []
+    },
+    'formulae': {
+        'physics': [],
+        'chemistry': [],
+        'maths': []
     }
 };
 
@@ -1121,7 +1126,8 @@ setTimeout(() => {
         if(!h3) return;
         const title = h3.textContent.toUpperCase();
         let category = '';
-        if (title.includes('STUDY NOTES') || title.includes('FORMULA SHEETS')) category = 'notes';
+        if (title.includes('STUDY NOTES')) category = 'notes';
+        if (title.includes('FORMULA SHEETS')) category = 'formulae';
         if (title.includes('PYQS')) category = 'pyqs';
 
         if (category) {
